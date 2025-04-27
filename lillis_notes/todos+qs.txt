@@ -1,0 +1,16 @@
+Q?????
+
+minilibx or mlx?
+
+who doing which parts?
+	maybe at start:
+		 one person: map parsing + validation
+		 other person: raytracing
+
+how are parts connected? structs?
+	what info does raycatsing need from map? 
+
+------------------------------------------------
+TODOs
+
+get basic setup working -> main branch

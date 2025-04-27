@@ -1,0 +1,33 @@
+CUB3D
+
+4 total parts:
+	1 map initialization + window creation
+	2 casting the rays
+	3 rendering walls
+	4 player movement
+
+
+
+1 map initialization + window creation (=foundation for rest of project)
+	init mlx library, create window
+	parse + validate map file
+	malloc mem to store map info
+
+
+2 casting the rays
+	creates illusion of depth
+
+		raycasting steps:
+		1 calculate ray direction
+		2 calc delta distance
+		3 calc step and side distance
+		4 differential analysis
+		5 calc wall height
+
+
+3 rendering walls
+	rendering scene (while using  map layout, player position, raycasting result, textures,... )
+	(idea: start untextured for testing, when working add textures)
+
+4 player movement (= re rendering of scene?)
+	handles movement + rotation within game world
