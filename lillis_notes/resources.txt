@@ -21,4 +21,4 @@ raycasting + image rendering
 https://reactive.so/post/42-a-comprehensive-guide-to-cub3d/
 
 amazing yt playlist:
-
+https://youtube.com/playlist?list=PLCWsH9Tj9oWyDM4W43VMj5yo2PdyYMGst&si=SjX_9CCk0XBzuySo

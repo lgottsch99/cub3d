@@ -15,7 +15,7 @@ CUB3D
 
 
 2 casting the rays
-	creates illusion of depth
+	creates illusion of depth: from 2d to 3d
 
 		raycasting steps:
 		1 calculate ray direction

@@ -6,7 +6,7 @@
 /*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 16:17:07 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/04/29 20:19:49 by Watanudon        ###   ########.fr       */
+/*   Updated: 2025/04/29 20:56:42 by Watanudon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "../lib/mlx_linux/mlx.h" //minilibx for graphics rendering
 # include "../lib/full_libft/full_libft.h"
 # include <math.h>
-# include <X11/keysym.h> //defines some keycodes for hooks, only needed on linux?
+//# include <X11/keysym.h> //defines some keycodes for hooks, only needed on linux?
 
 //for event macros like KeyPress 
 //https://codebrowser.dev/kde/include/X11/X.h.html
