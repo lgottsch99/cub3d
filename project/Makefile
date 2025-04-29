@@ -6,7 +6,7 @@
 #    By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 16:00:38 by lgottsch          #+#    #+#              #
-#    Updated: 2025/04/29 21:10:37 by Watanudon        ###   ########.fr        #
+#    Updated: 2025/04/29 21:12:55 by Watanudon        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,8 @@ clean:
 	rm -f $(OBJ)
 	@cd $(LIBFTDIR) && make clean
 	@cd $(MLXDIR) && make clean
+	@cd $(MLXMACDIR) && make clean
+
 
 fclean: clean
 	rm -f $(NAME)
