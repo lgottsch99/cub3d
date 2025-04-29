@@ -5,21 +5,37 @@ minilibx or mlx?
 who doing which parts?
 	maybe at start:
 		 one person: map parsing + validation
-		 other person: raytracing
+		 other person: raytracing + rendering walls 
+	and then left:
+			textures, floor, ceiling 
+			player movement
+
+
+
 
 
 how are parts connected? structs?
-	what info does raytracing need from map? 
 
-	->keep program struct with everything malloced for easy freeing
-	inside after map parsing:
-	info (2d array) map
-	info player position etc
+
+
+
+structs pitch :
+
+main struct: (storing everything important, easy freeing in case of error)
+	mlx
+	window
+	map: 2D array (char **)
+	player ptr
 	...
+
+player:
+	FOV (field of view)
+	position
+	direction
+
 
 ------------------------------------------------
 TODOs
 
-get basic setup working -> main branch
 
 
