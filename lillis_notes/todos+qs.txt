@@ -7,10 +7,19 @@ who doing which parts?
 		 one person: map parsing + validation
 		 other person: raytracing
 
+
 how are parts connected? structs?
-	what info does raycatsing need from map? 
+	what info does raytracing need from map? 
+
+	->keep program struct with everything malloced for easy freeing
+	inside after map parsing:
+	info (2d array) map
+	info player position etc
+	...
 
 ------------------------------------------------
 TODOs
 
 get basic setup working -> main branch
+
+

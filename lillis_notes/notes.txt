@@ -31,3 +31,74 @@ CUB3D
 
 4 player movement (= re rendering of scene?)
 	handles movement + rotation within game world
+
+
+
+-----------------------------------------------------------------
+ChatGPT suggestion on how to split work:
+
+Early Stage (Setup Phase):
+	
+	Person A:
+	Map initialization + parsing
+	Write code to parse and validate the map file.
+	Malloc memory to store map info (2D array, player start position, etc.).
+	(This work will unblock everything else, because you need the map loaded.)
+
+	Person B:
+	Window and MLX setup
+	Initialize the MLX library.
+	Create the window and basic render loop.
+	Handle key input setup (even if basic at first).
+
+Middle Stage (Parallel Work):
+Once basic window + map parsing works:
+
+	Person A:
+	Raycasting logic
+	Focus on the core math:
+		Ray direction calculation.
+		Delta distance, step/side distance.
+		DDA (Digital Differential Analysis) to find wall hits.
+		Wall height calculation.
+
+	Person B:
+	Basic rendering based on raycasting
+	Start with plain colored walls (no textures at first).
+	Use the raycasting results to draw vertical lines per ray.
+	Handle ceiling/floor colors.
+	Later: extend to add texturing.
+
+Later Stage (Finishing Touches):
+
+	Both working together:
+	Player movement (both rotation and movement).
+
+	Person A: Movement physics, collision detection.
+	Person B: Update raycasting/rendering for changing player position.
+
+	Textures (optional upgrade once basic version works):
+	Person A: Load textures and map them properly.
+	Person B: Modify rendering code to sample from textures instead of flat color.
+
+
+
+Quick Summary:
+
+Person		Early Work					Middle Work	Later Work
+A			Map parsing + memory		Raycasting math	Movement + Textures
+B			Window + event loop			Basic rendering	Movement + Textures
+
+
+
+Bonus Tips:
+Define strict "interfaces" early. For example:
+	How map data is accessed.
+	What inputs the raycaster expects.
+	What outputs the raycaster gives the renderer.
+
+Mock things early. Example: Before raycasting is ready, just draw a static vertical line to test rendering.
+
+Use Git so you can both work at the same time (maybe use feature branches).
+
+

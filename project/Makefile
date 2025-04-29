@@ -6,11 +6,11 @@
 #    By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 16:00:38 by lgottsch          #+#    #+#              #
-#    Updated: 2025/04/27 16:37:04 by lgottsch         ###   ########.fr        #
+#    Updated: 2025/04/27 16:44:55 by lgottsch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-#TO DO 
+#TO DO TEST
 #default make => linux
 #make rule for mac
 #.a or .dylib files need lib- prefix for linker at compilation
