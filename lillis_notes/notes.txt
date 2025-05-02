@@ -6,7 +6,7 @@ CUB3D
 	3 rendering walls
 	4 player movement
 
-
+------
 
 1 map initialization + window creation (=foundation for rest of project)
 	init mlx library, create window
@@ -15,7 +15,7 @@ CUB3D
 
 
 2 casting the rays
-	creates illusion of depth: from 2d to 3d
+	creates illusion of depth
 
 		raycasting steps:
 		1 calculate ray direction
@@ -56,18 +56,18 @@ Once basic window + map parsing works:
 
 	Person A:
 	Raycasting logic
-	Focus on the core math:
-		Ray direction calculation.
-		Delta distance, step/side distance.
-		DDA (Digital Differential Analysis) to find wall hits.
-		Wall height calculation.
+		Focus on the core math:
+			Ray direction calculation.
+			Delta distance, step/side distance.
+			DDA (Digital Differential Analysis) to find wall hits.
+			Wall height calculation.
 
 	Person B:
 	Basic rendering based on raycasting
-	Start with plain colored walls (no textures at first).
-	Use the raycasting results to draw vertical lines per ray.
-	Handle ceiling/floor colors.
-	Later: extend to add texturing.
+		Start with plain colored walls (no textures at first).
+		Use the raycasting results to draw vertical lines per ray.
+		Handle ceiling/floor colors.
+		Later: extend to add texturing.
 
 Later Stage (Finishing Touches):
 
