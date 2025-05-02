@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 16:17:07 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/04/29 20:56:42 by Watanudon        ###   ########.fr       */
+/*   Updated: 2025/05/02 11:50:20 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,38 @@
 //https://codebrowser.dev/kde/include/X11/X.h.html
 //#include <X.h> //needed on mac?
 
+#include <stdio.h> //printf, perror
+#include <stdlib.h> //malloc, free
+#include <sys/types.h> //open
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h> //read, write, exit
+#include <string.h> //strerror
+#include <sys/time.h> //gettimeofday
+
+
 // MACROS ----------------------------------
 
 // STRUCTS ----------------------------------
 
+typedef struct s_player
+{
+	//field of view
+	//position
+	//direction
+	//...
+} t_player;
+
+
+typedef struct s_game
+{
+	//mlx pointer
+	//mlx window
+	char **map;
+	t_player *player; //ptr to player struct
+	//...
+
+} t_game;
 
 
 

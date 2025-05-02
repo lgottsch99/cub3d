@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+         #
+#    By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 16:00:38 by lgottsch          #+#    #+#              #
-#    Updated: 2025/04/29 21:12:55 by Watanudon        ###   ########.fr        #
+#    Updated: 2025/05/02 12:26:28 by lgottsch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ MLX_FLAGS_MAC = -L$(MLXMACDIR) -lmlx -framework OpenGL -framework AppKit
 LIBFT_FLAGS_MAC = -L$(LIBFTDIR) -lfull_libft
 
 
-SRC= $(addprefix $(SRC_FOLDER), main.c )
+SRC= $(addprefix $(SRC_FOLDER), main.c new.c )
 
 OBJ = $(SRC:.c=.o)
 
