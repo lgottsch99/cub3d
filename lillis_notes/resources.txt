@@ -22,3 +22,8 @@ https://reactive.so/post/42-a-comprehensive-guide-to-cub3d/
 
 amazing yt playlist:
 https://youtube.com/playlist?list=PLCWsH9Tj9oWyDM4W43VMj5yo2PdyYMGst&si=SjX_9CCk0XBzuySo
+
+Notes
+https://hackmd.io/@nszl/H1LXByIE2?utm_source=chatgpt.com#introduction
+
+https://github.com/madebypixel02/cub3d/tree/main

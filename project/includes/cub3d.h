@@ -18,6 +18,7 @@
 # include "../lib/mlx_linux/mlx.h" //minilibx for graphics rendering
 # include "../lib/full_libft/full_libft.h"
 # include <math.h>
+#include "maps.h"
 //# include <X11/keysym.h> //defines some keycodes for hooks, only needed on linux?
 
 //for event macros like KeyPress 
