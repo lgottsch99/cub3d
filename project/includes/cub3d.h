@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 16:17:07 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/02 14:10:48 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/03 18:53:16 by Watanudon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,19 @@
 #define W_HEIGHT 720 
 #define W_WIDTH 1280
 
+//player spawning orientation of FOV //TODO check if ok
+# define N_X -1
+# define N_Y 0
+
+# define S_X +1
+# define S_Y 0
+
+# define E_X 0
+# define E_Y +1
+
+# define W_X 0
+# define W_Y -1
+
 // STRUCTS ----------------------------------
 
 typedef struct s_player
@@ -49,7 +62,7 @@ typedef struct s_player
 	int pos_x;
 	int pos_y;
 	
-	//direction
+	//direction (= vector (or camera): x and y coordinate)
 	//...
 } t_player;
 
@@ -85,7 +98,8 @@ typedef struct s_game
 	void	*mlx; //mlx pointer
 	void	*window; //mlx window
 	t_img	*image; //img to show on window
-	char	**map;
+	char	**map; //INT would be better?
+	//int **map;
 	t_player *player; //ptr to player struct
 	//...
 	t_world	*world; //struct with parsed info 
@@ -98,6 +112,15 @@ typedef struct s_game
 
 //raycasting.c
 void	raycast(t_game *game);
+
+//minimap
+void	minimap(t_game *game);
+
+//utils
+int	create_color(int t, int r, int g, int b);
+void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
+int get_map_point(int x,int y, t_game *game);
+
 
 
 #endif
