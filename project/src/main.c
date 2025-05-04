@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 11:41:25 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/02 13:37:29 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/04 13:42:35 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(void)
 	// 1 map initialization + window creation
 	
 	// 2 casting the rays
-	raycast(&game);
+	raycasting_main(&game);
 	
 	// 3 rendering walls
 	

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 14:10:00 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/03 18:53:46 by Watanudon        ###   ########.fr       */
+/*   Updated: 2025/05/04 17:58:39 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int get_map_point(int x, int y, t_game *game)
 
 	//go to str in x dir
 	content = game->map[x][y];
-	printf("map at x %i y %i: %c\n", x, y, content);
+	//printf("map at x %i y %i: %c\n", x, y, content);
 	if (content == '1')
 		return (1);
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 16:17:07 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/03 18:53:16 by Watanudon        ###   ########.fr       */
+/*   Updated: 2025/05/04 18:16:40 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,20 @@
 #define W_WIDTH 1280
 
 //player spawning orientation of FOV //TODO check if ok
-# define N_X -1
-# define N_Y 0
+# define N_X 0
+# define N_Y -1
 
-# define S_X +1
-# define S_Y 0
+# define S_X 0
+# define S_Y +1
 
-# define E_X 0
-# define E_Y +1
+# define E_X +1
+# define E_Y 0
 
-# define W_X 0
-# define W_Y -1
+# define W_X -1
+# define W_Y 0
+
+//Field of view in degrees (range up to 180)
+# define FOV 66
 
 // STRUCTS ----------------------------------
 
@@ -59,10 +62,18 @@ typedef struct s_player
 {
 	//field of view
 	//position
-	int pos_x;
-	int pos_y;
+	double pos_x;
+	double pos_y;
 	
 	//direction (= vector (or camera): x and y coordinate)
+	double dir_x;
+	double dir_y;
+
+	//plane vector (=camera, based on FOV)
+	double plane_x;
+	double plane_y;
+
+	
 	//...
 } t_player;
 
@@ -106,12 +117,25 @@ typedef struct s_game
 
 } t_game;
 
-
+typedef struct s_line
+{
+	int x;
+	int y;
+	int draw_start; //index on img y axis
+	int draw_end;
+	int tex_x; //x coordinate of texture to draw
+	int tex_y; //y coordinate of texture to draw
+} t_line;
 
 // FUNCTIONS ----------------------------------
 
 //raycasting.c
-void	raycast(t_game *game);
+void	raycasting_main(t_game *game);
+
+//raycast_utils
+float	vector_len(float x, float y);
+void	draw_wall_line(t_game *game, int x, int draw_start, int draw_end, int color);
+
 
 //minimap
 void	minimap(t_game *game);

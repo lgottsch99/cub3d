@@ -9,7 +9,7 @@ void	draw_square(int x, int y, int square_size, t_game *game)
 	int a; 
 	int current_x;
 	int current_y;
-	int color = create_color(0, 255, 0, 0);
+	int color = create_color(0, 255, 255, 0);
 
 	start_x = x * square_size;
 	start_y = y * square_size;
@@ -19,7 +19,7 @@ void	draw_square(int x, int y, int square_size, t_game *game)
 	a = 0;
 	while (a < square_size) //top line to right
 	{
-		printf("drawing square line top\n");
+		//printf("drawing square line top\n");
 		my_mlx_pixel_put(game->image, current_x, current_y, color);
 		current_y++;
 		a++;
@@ -27,7 +27,7 @@ void	draw_square(int x, int y, int square_size, t_game *game)
 	a = 0;
 	while (a < square_size) //right line down
 	{
-		printf("drawing square line left\n");
+		//printf("drawing square line left\n");
 		my_mlx_pixel_put(game->image, current_x, current_y, color);
 		current_x++;
 		a++;
@@ -35,7 +35,7 @@ void	draw_square(int x, int y, int square_size, t_game *game)
 	a = 0;
 	while (a < square_size) //bottom line to the left
 	{
-		printf("drawing bottom line \n");
+		//printf("drawing bottom line \n");
 		my_mlx_pixel_put(game->image, current_x, current_y, color);
 		current_y--;
 		a++;
@@ -43,7 +43,7 @@ void	draw_square(int x, int y, int square_size, t_game *game)
 	a = 0;
 	while (a < square_size) //bottom line to the left
 	{
-		printf("drawing left line \n");
+		//printf("drawing left line \n");
 		my_mlx_pixel_put(game->image, current_x, current_y, color);
 		current_x--;
 		a++;
@@ -78,13 +78,13 @@ void	draw_map_squares(t_game *game, int square_size)//TODO
 
 void	draw_player(t_game *game, int square_size)
 {
-	printf("srawing player\n");
+	//printf("srawing player\n");
 	int	i;
 	int a;
 	int player_size = 5; //player size in px
 	int x;
 	int y; 
-	int color = create_color(0, 0, 255, 0);
+	int color = create_color(0, 0, 255, 255);
 
 	x = game->player->pos_x * square_size;
 	y = game->player->pos_y * square_size;
@@ -96,7 +96,7 @@ void	draw_player(t_game *game, int square_size)
 		a = 0;
 		while (a < player_size)
 		{
-			my_mlx_pixel_put(game->image, x, y, color);
+			my_mlx_pixel_put(game->image, y, x, color);
 			y++;
 			a++;
 		}
