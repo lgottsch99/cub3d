@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 16:17:07 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/04 18:16:40 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/04 18:26:48 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "../lib/mlx_linux/mlx.h" //minilibx for graphics rendering
 # include "../lib/full_libft/full_libft.h"
 # include <math.h>
-//# include <X11/keysym.h> //defines some keycodes for hooks, only needed on linux?
+# include <X11/keysym.h> //defines some keycodes for hooks, only needed on linux?
 
 //for event macros like KeyPress 
 //https://codebrowser.dev/kde/include/X11/X.h.html
@@ -145,6 +145,10 @@ int	create_color(int t, int r, int g, int b);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 int get_map_point(int x,int y, t_game *game);
 
+//hooks
+void	hooks(t_game *game);
+int		destroy_esc(int keycode, t_game *game);
+int		quit_window(t_game *game);
 
 
 #endif

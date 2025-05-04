@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:10:57 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/04 18:18:15 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/04 18:27:44 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 approach:
 
 	render one image of simple scene 
-
 	add texture
+
+	figure out rendering loop
 	add movement + rotation
 
 ???:
@@ -33,9 +34,9 @@ void	init_test_player(t_game *game)
 	//if (!game->player)
 		//free
 
-	//starting position based on map coords (player in middle )
-	game->player->pos_x = 3.2;
-	game->player->pos_y = 4.2;
+	//starting position based on map coords (spawn player in middle of tile)
+	game->player->pos_x = 3.5;
+	game->player->pos_y = 4.5;
 
 	//starting orientation based on char N E S W //TODO
 	// game->player->dir_x = N_X;
@@ -366,8 +367,7 @@ void	raycasting_main(t_game *game) //for now: lillis main
 
 
 	
-	//hooks();
-
+	hooks(game); //TODO freeing
 
 	mlx_put_image_to_window(game->mlx, game->window, game->image->img, 0, 0);
 	if (game->mlx)
