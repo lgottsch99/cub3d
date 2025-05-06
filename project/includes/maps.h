@@ -13,6 +13,7 @@
 #ifndef MAPS_H
 # define MAPS_H
 # include "cub3d.h"
+# define MAX_LINES 1000
 
 // struct for  windows_mlx windows
 typedef struct s_img
@@ -46,12 +47,18 @@ typedef struct s_texture
 	char	*path;
 	int		tex_width;
 	int		tex_height;
-} t_texture;
+}			t_texture;
 
+// functions
+/* parsing map */
+void		init_game(t_game *game);
+void		check_data(char **strs, t_game *game);
+void		parse_texture(char *text_path, t_texture *texture);
+void		parse_color(char *value, t_color *color);
+int			valid_map(char *grid);
 
-
-//functions
-
-void exit_error(char *str);
+void		exit_error(char *str);
+void		free_2d_array(char **strs);
+int			str_digit(char *str);
 
 #endif

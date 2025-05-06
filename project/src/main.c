@@ -7,7 +7,7 @@
 int	main(int argc, char **argv)
 {
 	int fd;
-	//t_game game;
+	t_game game;
 	//checks the number of args.
 	if (argc != 2)
 		exit_error("Enter the argument like ./cub3d map.cub");
@@ -16,6 +16,7 @@ int	main(int argc, char **argv)
 	if(fd < 0)
 		exit_error("Could not open the file");
 	//Parse the map values 
-	//parse_map(fd, &game);
+	parse_data(fd, &game);
+	close(fd);
 	return (0);
 }

@@ -24,7 +24,7 @@ return: The array of new strings resulting from the split.
 NULL if the allocation fails.
 */
 
-static int	ft_words(char const *s, char c)
+static int	ft_words(char const *s, char *delimiter)
 {
 	int	words;
 	int	control;
@@ -35,24 +35,36 @@ static int	ft_words(char const *s, char c)
 	words = 0;
 	while (s[i])
 	{
-		if (s[i] != c && control == 0)
+		if (!ft_is_delim(s[i], delimiter) && control == 0)
 		{
 			words++;
 			control = 1;
 		}
-		else if (s[i] == c)
+		else if (ft_is_delim(s[i],delimiter))
 			control = 0;
 		i++;
 	}
 	return (words);
 }
+int ft_is_delim(char c, char *delimiters)
+{
+	while(*delimiters)
+	{
+		if(c == *delimiters)
+		{
+			return(1);
+			delimiters++;
+		}
+	}
+	return(0);
+}
 
-static int	ft_sep(char const *s, char c, int i)
+static int	ft_sep(char const *s, char *delimiter, int i)
 {
 	int	y;
 
 	y = 0;
-	while (s[i + y] != c && s[i + y])
+	while (s[i + y] && !ft_is_delim(s[i + y],delimiter))
 		y++;
 	return (y);
 }
@@ -71,29 +83,29 @@ static void	*ft_free_all(char **array, int x)
 	return (NULL);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char *delimiters)
 {
 	char	**array;
 	int		i;
 	char	*ptr;
 	int		x;
 
-	array = (char **)malloc(sizeof(char *) * (ft_words(s, c) + 1));
+	array = (char **)malloc(sizeof(char *) * (ft_words(s, delimiters) + 1));
 	if (!array)
 		return (NULL);
 	i = 0;
 	x = 0;
 	while (s[i])
 	{
-		if (s[i] == c)
+		if (ft_is_delim(s[i],delimiters))
 			i++;
-		else if (s[i] != c)
+		else if (!ft_is_delim(s[i],delimiters))
 		{
-			ptr = ft_substr(s, i, ft_sep(s, c, i));
+			ptr = ft_substr(s, i, ft_sep(s, delimiters, i));
 			if (!ptr)
 				return (ft_free_all(array, x));
 			array[x++] = ptr;
-			i = i + ft_sep(s, c, i);
+			i = i + ft_sep(s, delimiters, i);
 		}
 	}
 	array[x] = NULL;

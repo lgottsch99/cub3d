@@ -3,124 +3,105 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgottsch <lgottsch@student.42prague.com    +#+  +:+       +#+        */
+/*   By: selango <selango@student.42.fr>            #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 16:52:10 by lgottsch          #+#    #+#             */
-/*   Updated: 2024/12/07 13:45:55 by lgottsch         ###   ########.fr       */
+/*   Created: 2024-07-03 10:46:39 by selango           #+#    #+#             */
+/*   Updated: 2024-07-03 10:46:39 by selango          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../full_libft.h"
 
-/*
-returns:
-Read line: correct behavior
-NULL: there is nothing else to read, or an error
-occurred
-*/
-
-//use double pointer so u can operate on static pointer
-static char	*get_nl_and_update(char	**leftover)
+static char	*read_lines(int fd, char *buff, char *store)
 {
-	int		index;
-	char	*newline;
-	char	*updated;
+	int		bytes;
+	char	*temp;
 
-	index = getindexnl(*leftover);
-	newline = ft_substr(*leftover, 0, index + 1);
-	if (!newline)
-		return (NULL);
-	updated = ft_substr(*leftover, index + 1, ft_strlen(*leftover));
-	free(*leftover);
-	*leftover = NULL;
-	if (!updated)
-		return (NULL);
-	else
-		*leftover = updated;
-	return (newline);
+	bytes = 1;
+	while (bytes)
+	{
+		bytes = read(fd, buff, BUFFER_SIZE);
+		if (bytes == -1)
+			return (0);
+		else if (bytes == 0)
+			break ;
+		buff[bytes] = '\0';
+		if (!store)
+			store = ft_strdup("");
+		temp = store;
+		store = ft_strjoin(temp, buff);
+		if (!store)
+			return (NULL);
+		free(temp);
+		temp = NULL;
+		if (ft_strchr(buff, '\n'))
+			break ;
+	}
+	return (store);
 }
 
-static int	is_nl(char *new)
+static char	*update(char *lines)
 {
-	size_t	i;
+	int		i;
+	char	*temp;
 
 	i = 0;
-	while (i < ft_strlen(new))
-	{
-		if (new[i] == '\n')
-			return (1);
+	while (lines[i] != '\0' && lines[i] != '\n')
 		i++;
-	}
-	return (0);
-}
-
-static char	*make_new(char **leftover, char *buf)
-{
-	char	*new;
-
-	if (*leftover)
-	{
-		new = ft_strjoin(*leftover, buf);
-		free(*leftover);
-		*leftover = NULL;
-		if (!new)
-			return (NULL);
-	}
-	else
-	{
-		new = ft_substr(buf, 0, ft_strlen(buf));
-		if (!new)
-			return (NULL);
-	}
-	return (new);
-}
-
-static char	*read_until_nl(int fd, char *buf, char **leftover)
-{
-	char	*new;
-	int		bytes_read;
-
-	bytes_read = 1;
-	while (bytes_read > 0)
-	{
-		bytes_read = read(fd, buf, BUFFER_SIZE);
-		if (bytes_read < 0)
-			return (free(*leftover), *leftover = NULL, NULL);
-		if (bytes_read == 0)
-			break ;
-		buf[bytes_read] = '\0';
-		new = make_new(leftover, buf);
-		if (!new)
-			return (NULL);
-		*leftover = new;
-		new = NULL;
-		if (is_nl(*leftover))
-			break ;
-	}
-	return (*leftover);
-}
-
-char	*get_next_line(int fd)
-{
-	static char	*leftover;
-	char		*buf;
-	char		*newline;
-
-	if (BUFFER_SIZE <= 0 || fd < 0)
-		return (free(leftover), leftover = NULL, NULL);
-	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buf)
-		return (free(buf), free(leftover), leftover = NULL, NULL);
-	leftover = read_until_nl(fd, buf, &leftover);
-	free(buf);
-	buf = NULL;
-	if (!leftover)
+	if (lines[i] == '\0')
 		return (NULL);
-	newline = get_nl_and_update(&leftover);
-	if (!leftover || ft_strlen(leftover) == 0)
+	temp = ft_substr(lines, i + 1, ft_strlen(lines) - i);
+	if (!temp)
+		return (NULL);
+	if (temp[0] == '\0')
 	{
-		free (leftover);
-		leftover = NULL;
+		free(temp);
+		temp = NULL;
+		return (NULL);
 	}
-	return (newline);
+	lines[i + 1] = '\0';
+	return (temp);
 }
+
+char	*get_next_line(int fd,char **line)
+{
+	char		*buff;
+	char		*lines;
+	static char	*store;
+
+	if (fd < 0 || BUFFER_SIZE <= 0 || !line)
+		return (-1);
+	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buff)
+		return (-1);
+	lines = read_lines(fd, buff, store);
+	free(buff);
+	if (!lines)
+		return (0);
+	store = update(lines);
+	*line = lines;
+	return (1);
+}
+
+// #include <fcntl.h>
+// #include <stdio.h>
+
+// int	main(void)
+// {
+// 	int		fd;
+// 	char	*line;
+
+// 	fd = open("file.txt", O_RDONLY);
+// 	if (fd == -1)
+// 	{
+// 		perror("Error opening file");
+// 		return (1);
+// 	}
+// 	while ((line = get_next_line(fd)) != NULL)
+// 	{
+// 		printf("%s\n", line);
+// 		free(line);
+// 	}
+// 	close(fd);
+// 	return (0);
+// }
