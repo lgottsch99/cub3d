@@ -12,59 +12,106 @@
 
 #include "cub3d.h"
 
-void init_game(t_game *game)
+void entire_map(int fd, char *line,t_map *map)
 {
-    ft_memset(game,0,sizeof(t_game));
-    ft_memset(&game->ceiling, -1, sizeof(t_color));
-    ft_memset(&game->floor, -1 , sizeof(t_color));
+    store_map(fd,line,map);
+    map->map_width = map_width(map);
+    map->map_height = map_height(map);  
 }
 
-
-// This function checks whether the map has the correct data and parse them 
-void check_data(char **strs, t_game *game)
-{
-    if(strs[0] == 0)
-        return;
-    else if (!ft_strcmp(strs[0], "NO") && strs[1] != 0 && strs[2] == 0)
-        parse_texture(strs[1], &game->No_texture);
-   else if (!ft_strcmp(strs[0], "SO") && strs[1] != 0 && strs[2] == 0)
-        parse_texture(strs[1], &game->So_texture);   
-    else if (!ft_strcmp(strs[0], "WE") && strs[1] != 0 && strs[2] == 0)
-        parse_texture(strs[1], &game->We_texture);
-    else if (!ft_strcmp(strs[0], "EA") && strs[1] != 0 && strs[2] == 0)
-        parse_texture(strs[1], &game->Ea_texture);
-    else if(!ft_strcmp(strs[0], "F") && strs[1] != 0 && strs[2] == 0)
-        parse_color(strs[1],&game->floor);
-    else if(!ft_strcmp(strs[0], "C") && strs[1] != 0 && strs[2] == 0)
-        parse_color(strs[1],&game->ceiling);
-    /* to check unknown identifier*/
-    else if(strs[0][0] != '\n')
-    {
-        exit_error(strs[0]);
-        exit(EXIT_SUCCESS);
-    }  
-}
-int valid_map(char *grid)
-{
-    int map_value;
-    map_value =0;
-    while(*grid)
-    {
-        if(!ft_strchr("01NESW  \n\t\v\f\r", *grid))
-            return(0);
-        else if(*grid == '1')
-            map_value = 1;
-        grid++;
-    }
-    return(map_value);
-}
-int handle_map(int fd,char *line,t_game *game)
+/* This store map function is used to store the map in the t_game map variable // I need to free map last*/
+void store_map(int fd,char *line,t_map *map)
 {
     char **grid;
     char *single_value;
-    
+    int count ;
+
+    count =0 ;
     grid = NULL;
     single_value = line;
-    
-
+    if(!valid_map(line))
+        return;
+    grid = malloc(sizeof(char *) * MAX_LINES);
+    if(!grid)
+        return NULL;
+    while (line && count < MAX_LINES)
+    {
+       grid[count] = ft_strdup(single_value);
+       count++;
+       free(single_value);
+       if(!get_next_line(fd, &single_value))
+            break;
+    }
+    grid[count] =  NULL;
+    map->map = grid;
 }
+
+/* Todo check how width was the map , check for the height of the map*/
+/* GETTING THE MAP WIDTH FROM THE MAP*/
+size_t map_width(char **grid)
+{
+    size_t map_width;
+    size_t current_width;
+    int i;
+    int j;
+
+    map_width = 0;
+    current_width = 0;
+    i = 0;
+    j = 0;
+    while(grid[i][j])
+    {
+        if(grid[i][j] == '\t')
+            current_width += 4;
+        else    
+            current_width++;
+        j++;
+    }
+    if(map_width < current_width)
+        map_width = current_width;
+    i++;
+    return(map_width);
+}
+/* Checks the height of the map*/
+size_t map_height(char **grid)
+{
+    size_t map_height;
+
+    map_height =0;
+    while(grid[map_height])
+    {
+       map_height++;
+    }
+    return (map_height);
+}
+/* to do write the function that converts the tabs to spaces*/
+char **correct_map(char **strs,int width, int height)
+{
+    int i;
+    int j;
+    int len;
+    
+    len =0;
+    i =0;
+    while (i < height)
+    {
+        j =0;
+        len = ft_strlen(strs[i]);//check for the len of the mapline and if the length is lesser than then your are going to reallocate the memory
+        if(len < width)
+            ft_realloc_str((void **)&strs[i],len + 1, width + 1);// todo
+        while (j < width)
+        {
+            if(strs[i][j] == '\t')
+            {
+                ft_memmove(&strs[i][j + 4], &strs[i][j + 1],len - j + 2);//  memmove function todo why not using memcpy?
+                ft_strncpy(&strs[i][j],'\t', 4);
+                len +=4;
+            }
+            else if ( j >= len)
+                strs[i][j] = ' ';
+        }
+        strs[i][j] = '\0';
+    }
+    return (strs);
+}
+

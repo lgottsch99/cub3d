@@ -56,9 +56,14 @@ void		check_data(char **strs, t_game *game);
 void		parse_texture(char *text_path, t_texture *texture);
 void		parse_color(char *value, t_color *color);
 int			valid_map(char *grid);
-
+void		parse_data(int fd, t_game *game);
+void		store_map(int fd, char *line, t_map *map);
+size_t		map_width(char **grid);
+size_t		map_height(char **grid);
+void		entire_map(int fd, char *line, t_map *map);
 void		exit_error(char *str);
 void		free_2d_array(char **strs);
 int			str_digit(char *str);
+void		assign_color(int i, char **strs, t_color *color);
 
 #endif

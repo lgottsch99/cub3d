@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 #include "cub3d.h"
 
+/*function parse the file to the struct as we defined. It checks for the map first.
+if map is not valid it parses the data to the check_data function.*/
 void parse_data(int fd, t_game *game)
 {
    char *line;
@@ -29,14 +31,13 @@ void parse_data(int fd, t_game *game)
         free(strs);
     }
     else
-        handle_map(fd,line,game);// to do
+    {
+        entire_map(fd,line,&game->map);// change to full_map
+        break;
+    }
    }
    free(line);
 }
-
-
-
-
 /* function parses the texture path to the corresponding texture from the map.cub*/
 void parse_texture(char *text_path,t_texture *texture)
 {
@@ -50,13 +51,12 @@ void parse_color(char *value,t_color *color)
 {
     int i;
     char **strs;
-    /* checks if the value is set already?*/
+
     if(color->r != -1)
     {
         color->r = -1;
         return;
     }
-    /*checks if the string has 2 commas inbetween */
     if(ft_strchr_count(value,',') != 2)
         return;
     strs = ft_split(value, ',');
@@ -66,14 +66,11 @@ void parse_color(char *value,t_color *color)
     while(strs[i] != 0)
     {
         if(!str_digit(strs[i]))
-          return;
+        {
+            free_2d_array(strs);
+            return;
+        }
         i++;
     }
-    if(i == 3)
-    {
-        color->r = ft_atoi(strs[0]);
-        color->g = ft_atoi(strs[1]);
-        color->b = ft_atoi(strs[2]);
-    }
-    
+    assign_color(i,color,strs); 
 }
