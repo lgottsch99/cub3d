@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 14:11:44 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/04 16:29:27 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/06 13:22:56 by Watanudon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-/* Ft calculating length of vector
-for double : sqrt()
-for float : sgrtf()
-*/
-float	vector_len(float x, float y)
-{
-	return(sqrtf((x * x) + (y * y)));
-}
 
 
 /* function drawing vertical line (wall)

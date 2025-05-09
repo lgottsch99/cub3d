@@ -6,10 +6,10 @@ void	draw_square(int x, int y, int square_size, t_game *game)
 	//go to start point point x y is start point from there 
 	int start_x;
 	int start_y;
-	int a; 
+	int a;
 	int current_x;
 	int current_y;
-	int color = create_color(0, 255, 255, 0);
+	int color = create_color(100, 255, 255, 0);
 
 	start_x = x * square_size;
 	start_y = y * square_size;
@@ -19,36 +19,20 @@ void	draw_square(int x, int y, int square_size, t_game *game)
 	a = 0;
 	while (a < square_size) //top line to right
 	{
+		int b = 0;
+		current_y = start_y;
+		while (b < square_size)
+		{
+			my_mlx_pixel_put(game->image, current_x, current_y, color);
+			current_y++;
+			b++;
+		}
 		//printf("drawing square line top\n");
 		my_mlx_pixel_put(game->image, current_x, current_y, color);
-		current_y++;
-		a++;
-	}
-	a = 0;
-	while (a < square_size) //right line down
-	{
-		//printf("drawing square line left\n");
-		my_mlx_pixel_put(game->image, current_x, current_y, color);
+		//current_y++;
 		current_x++;
 		a++;
 	}
-	a = 0;
-	while (a < square_size) //bottom line to the left
-	{
-		//printf("drawing bottom line \n");
-		my_mlx_pixel_put(game->image, current_x, current_y, color);
-		current_y--;
-		a++;
-	}
-	a = 0;
-	while (a < square_size) //bottom line to the left
-	{
-		//printf("drawing left line \n");
-		my_mlx_pixel_put(game->image, current_x, current_y, color);
-		current_x--;
-		a++;
-	}
-
 }
 
 
@@ -105,9 +89,9 @@ void	draw_player(t_game *game, int square_size)
 	}
 }
 
-void	minimap(t_game *game)
+void	minimap(t_game *game) //maybe put some buffer around map and not start drawing at 0,0?
 {
-	int square_size = 30; //size in pixel
+	int square_size = 20; //size in pixel
 
 	//draw square for each 1 in map
 		//go thru map

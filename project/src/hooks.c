@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 18:20:44 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/04 18:27:32 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/09 19:32:51 by Watanudon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,131 @@ int	quit_window(t_game *game)//TODO
 int	destroy_esc(int keycode, t_game *game) //TODO
 {
 	(void)game;
+	(void)keycode;
 	ft_printf("esc hook\n");
-	if (keycode == XK_Escape)
+	if (keycode == 53) //XK_Escape) //esc = 53 on mac
 	{
 		//free_everything(big);
 		exit(0);
 	}
 	else
 		return 0;
+	return (0);
 }
 
-void	hooks(t_game *game)
+int change_orientation(int keycode, t_game *game) //change ->player->dir according to rotation matrix
 {
-	mlx_hook(game->window, 2, 1L << 0, destroy_esc, game); //pressing esc
-	mlx_hook(game->window, 17, 1L << 0, quit_window, game); //clicking x
+	(void)game;
+	// double	speed;
+
+	// speed = 0.2;
+	if (keycode == ARR_LEFT)
+	{
+		printf("LEFT pressed\n");
+		return (0);
+	}
+	else if (keycode == ARR_RIGHT)
+	{
+		printf("RIGHT pressed\n");
+		return (0);
+	}
+	else
+		return (0);
+}
+
+int	move(int keycode, t_game *game)//TODO validity check
+{
+	//moving needs to be along/according to direction vector TODO
+	//each keypress = speed distance 
+	double		speed;
+	t_vector	new; //new position/ orientation
+	t_vector	move;//movement vector
+	t_vector	normed;
+	t_vector	current; //position or orientation
+
+	speed = 1.0;
+	if (keycode == W_KEY) //move forward
+	{
+		printf("W pressed\n");
+		//take current position
+		current.x = game->player->pos_x;
+		current.y = game->player->pos_y;
+	
+		//get length of speed x dir (nur anteil um wie viel verscoben werden soll)
+			//orientierung normieren 
+			normed = norm_vector(game->player->dir_x, game->player->dir_y);
+			//o auf länge = speed stutzen
+			move = v_change_len(speed, normed.x, normed.y);
+			
+			//current pos + neue länge (vector addition)
+			new = v_add(current, move);
+
+			//check if new pos is out of bounds TODO
+
+			//set players new position //  IF OUT OF BOUNDS OK TODO
+			game->player->pos_x = new.x;
+			game->player->pos_y = new.y;
+			printf("current x: %f\n", current.x);
+			printf("current y: %f\n", current.y);
+			printf("new x: %f\n", new.x);
+			printf("new y: %f\n", new.y);
+
+			return (0);
+	}
+	else if (keycode == S_KEY) //move back
+	{
+		printf("S pressed\n");
+		//calc new position (+ Speed distance in opp direction of vector dir)
+		//take current position
+		current.x = game->player->pos_x;
+		current.y = game->player->pos_y;
+
+		//orientierung normieren 
+		normed = norm_vector(game->player->dir_x, game->player->dir_y);
+		//o auf länge = - 1 * speed stutzen! (-1 * speed for opposite direction)
+		move = v_change_len((-1 * speed), normed.x, normed.y); 
+		//current pos + neue länge (vector addition)
+		new = v_add(current, move);
+
+		//check if new pos is out of bounds TODO
+
+		//set players new position IF OUT OF BOUNDS OK TODO
+		game->player->pos_x = new.x;
+		game->player->pos_y = new.y;
+		printf("current x: %f\n", current.x);
+		printf("current y: %f\n", current.y);
+		printf("new x: %f\n", new.x);
+		printf("new y: %f\n", new.y);
+		
+		return (0);
+	}
+ 
+	else if (keycode == A_KEY) //move left
+	{
+		printf("A pressed\n");
+		//calc new position (+ Speed distance 90degrees to vector dir on left side)
+		return (0);
+	}
+	else if (keycode == D_KEY) //move right
+	{
+		printf("D pressed\n");
+		//calc new position (+ Speed distance 90degrees to vector dir on right side)
+		return (0);
+	}
+	else
+		return (0);
+
+}
+
+
+void	hooks(t_game *game) //all hooks together doesnt work
+{
+	//quitting window
+	// mlx_hook(game->window, ON_KEYDOWN, KeyPressMask, destroy_esc, game); //pressing esc
+	// mlx_hook(game->window, ON_DESTROY, KeyPressMask, quit_window, game); //clicking x
+	
+	// //movement
+
+	// mlx_hook(game->window, ON_KEYDOWN, KeyPressMask, change_orientation, game); //left / right arrow
+	mlx_hook(game->window, ON_KEYDOWN, KeyPressMask, move, game); //WASD
 }

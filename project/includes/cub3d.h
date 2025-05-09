@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 16:17:07 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/04 18:26:48 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/06 13:22:27 by Watanudon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "../lib/mlx_linux/mlx.h" //minilibx for graphics rendering
 # include "../lib/full_libft/full_libft.h"
 # include <math.h>
-# include <X11/keysym.h> //defines some keycodes for hooks, only needed on linux?
+//# include <X11/keysym.h> //defines some keycodes for hooks, only needed on linux?
 
 //for event macros like KeyPress 
 //https://codebrowser.dev/kde/include/X11/X.h.html
@@ -32,6 +32,9 @@
 #include <unistd.h> //read, write, exit
 #include <string.h> //strerror
 #include <sys/time.h> //gettimeofday
+
+#include "keycodes_mac.h" // only on mac
+//#include "keycodes_linux.h" // only on linux
 
 
 // MACROS ----------------------------------
@@ -56,20 +59,47 @@
 //Field of view in degrees (range up to 180)
 # define FOV 66
 
+//Events
+//event codes
+enum {
+	ON_KEYDOWN = 2,
+	ON_KEYUP = 3,
+	ON_MOUSEDOWN = 4,
+	ON_MOUSEUP = 5,
+	ON_MOUSEMOVE = 6,
+	ON_EXPOSE = 12,
+	ON_DESTROY = 17
+};
+
+//event masks
+# define KeyPressMask		(1L<<0)
+# define KeyReleaseMask		(1L<<1)
+
+
+
 // STRUCTS ----------------------------------
 
-typedef struct s_player
+typedef struct s_vector
+{
+	double x;
+	double y;
+} t_vector;
+
+typedef struct s_player //TODO change to vector structs
 {
 	//field of view
 	//position
+	//t_vector	pos;
 	double pos_x;
 	double pos_y;
 	
 	//direction (= vector (or camera): x and y coordinate)
+	//t_vector	dir;
 	double dir_x;
 	double dir_y;
 
 	//plane vector (=camera, based on FOV)
+	//t_vector	plane;
 	double plane_x;
 	double plane_y;
 
@@ -100,6 +130,9 @@ typedef struct s_world
 	char *texture_SO;
 	char *texture_WE;
 	char *texture_EA;
+	int map_width; //needed for minimap
+	int map_height;
+	//char **world;
 	
 } t_world;
 
@@ -133,17 +166,22 @@ typedef struct s_line
 void	raycasting_main(t_game *game);
 
 //raycast_utils
-float	vector_len(float x, float y);
 void	draw_wall_line(t_game *game, int x, int draw_start, int draw_end, int color);
+
+//vector math
+t_vector	norm_vector(double x, double y);
+t_vector	v_change_len(double k, double x, double y);
+t_vector	v_add(t_vector a, t_vector b);
+double		vector_len(double x, double y);
 
 
 //minimap
 void	minimap(t_game *game);
 
 //utils
-int	create_color(int t, int r, int g, int b);
+int		create_color(int t, int r, int g, int b);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
-int get_map_point(int x,int y, t_game *game);
+int		get_map_point(int x,int y, t_game *game);
 
 //hooks
 void	hooks(t_game *game);

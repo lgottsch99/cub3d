@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:10:57 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/04 18:27:44 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/09 19:43:27 by Watanudon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	init_test_map(t_game *game)
 		"111111", //row y = 0
 		"100001",
 		"100101",
-		"100001", //row y = 3 
+		"101001", //row y = 3 
 		"100N01", //player at x3 y4
 		"111111"
 	};
@@ -146,7 +146,7 @@ void	draw_floor_ceiling(t_game *game)
 
 /* Ft that clears img buffer of any colors drawn. Only needed when continously rendering imgs 
 */
-void	clear_image(t_game *game)
+void	clear_image(t_game *game) 
 {
 	printf("clearing image\n");
 	int	i;
@@ -157,10 +157,13 @@ void	clear_image(t_game *game)
 	i = 0;
 	while(i < W_HEIGHT)
 	{
+		//printf("clearing image - outer loop\n");
 		y = 0;
 		while (y < W_WIDTH)
 		{
-			my_mlx_pixel_put(game->image, y, i, color);
+			//printf("clearing image - inner loop\n");
+
+			my_mlx_pixel_put(game->image, i, y, color);
 			y++;
 		}
 		i++;
@@ -321,7 +324,7 @@ void	raycast(t_game *game)
 			draw_end = W_HEIGHT - 1;
 
 
-	//choose wall color
+	//choose wall color //TODO east/west / north/south
 		int color = 0;
 		if (side == 0)
 			color = create_color(0, 255, 0, 0);
@@ -338,6 +341,18 @@ void	raycast(t_game *game)
 	//clear buffer etc
 }
 
+int	game_loop(t_game *game)//TODO check if pos/dir changed, else no rendering/clearing
+{
+	clear_image(game); //ok but super slow TODO
+
+	raycast(game); //first frame
+	//minimap (for understanding what is going on (movement)) (draw over everything else)
+	minimap(game); //TODO dyn rezising of tiles
+	mlx_put_image_to_window(game->mlx, game->window, game->image->img, 0, 0);
+
+	return (0);
+}
+
 
 void	raycasting_main(t_game *game) //for now: lillis main
 {
@@ -346,16 +361,29 @@ void	raycasting_main(t_game *game) //for now: lillis main
 
 		//0 init basics
 		init(game);
-		//draw floor and ceiling
-		//draw_floor_ceiling(game);
 
-		//clear_image(game);
+
+	
+	//draw floor and ceiling
+	//draw_floor_ceiling(game);
 		
-		//minimap for understanding what is going on (movement)
+	raycast(game); //first frame
+	//minimap (for understanding what is going on (movement)) (draw over everything else)
+	minimap(game); //TODO dyn rezising of tiles
+	
+	hooks(game); //TODO freeing 
+	//add mlx loop hook ( -> raycast)
+	
+	mlx_loop_hook(game->mlx, game_loop, game);//keep re rendering
 
-		raycast(game);
-		minimap(game); //not sure if fully ok
-
+	
+	//mlx_put_image_to_window(game->mlx, game->window, game->image->img, 0, 0);
+	if (game->mlx)
+		mlx_loop(game->mlx); //keeping window open
+	
+	
+		
+	//game_loop(game);
 
 
 
@@ -367,9 +395,4 @@ void	raycasting_main(t_game *game) //for now: lillis main
 
 
 	
-	hooks(game); //TODO freeing
-
-	mlx_put_image_to_window(game->mlx, game->window, game->image->img, 0, 0);
-	if (game->mlx)
-		mlx_loop(game->mlx); //keeping window open
 }
