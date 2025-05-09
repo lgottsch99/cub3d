@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 11:41:25 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/04 13:42:35 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/09 20:34:20 by Watanudon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,17 @@
 
 int	main(void)
 {
+	bool	moved;
 	t_game	game; //big main struct
 	
+	moved = false;
 	printf("hello\n");
 	// 0 input validation
 
 	// 1 map initialization + window creation
 	
 	// 2 casting the rays
-	raycasting_main(&game);
+	raycasting_main(&game, &moved);
 	
 	// 3 rendering walls
 	

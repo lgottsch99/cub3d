@@ -48,7 +48,7 @@ t_vector	v_change_len(double k, double x, double y)
 	return (vector);
 }
 
-/* Addition of 2 Vectors (A + B = start at point a and go b)
+/* Addition of 2 Vectors (A + B = start at point a and + b)
 */
 t_vector	v_add(t_vector a, t_vector b)
 {

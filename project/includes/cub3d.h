@@ -6,7 +6,7 @@
 /*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 16:17:07 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/06 13:22:27 by Watanudon        ###   ########.fr       */
+/*   Updated: 2025/05/09 21:36:20 by Watanudon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 #include <unistd.h> //read, write, exit
 #include <string.h> //strerror
 #include <sys/time.h> //gettimeofday
+#include <stdbool.h>
 
 #include "keycodes_mac.h" // only on mac
 //#include "keycodes_linux.h" // only on linux
@@ -59,6 +60,10 @@
 //Field of view in degrees (range up to 180)
 # define FOV 66
 
+//buffer around walls
+//# define WALL_BUFFER 0.1
+
+
 //Events
 //event codes
 enum {
@@ -74,7 +79,6 @@ enum {
 //event masks
 # define KeyPressMask		(1L<<0)
 # define KeyReleaseMask		(1L<<1)
-
 
 
 // STRUCTS ----------------------------------
@@ -147,6 +151,7 @@ typedef struct s_game
 	t_player *player; //ptr to player struct
 	//...
 	t_world	*world; //struct with parsed info 
+	bool	*moved;
 
 } t_game;
 
@@ -163,7 +168,7 @@ typedef struct s_line
 // FUNCTIONS ----------------------------------
 
 //raycasting.c
-void	raycasting_main(t_game *game);
+void	raycasting_main(t_game *game, bool *moved); //for now: lillis main
 
 //raycast_utils
 void	draw_wall_line(t_game *game, int x, int draw_start, int draw_end, int color);

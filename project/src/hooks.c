@@ -6,7 +6,7 @@
 /*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 18:20:44 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/09 19:32:51 by Watanudon        ###   ########.fr       */
+/*   Updated: 2025/05/09 21:37:26 by Watanudon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,35 @@ int	destroy_esc(int keycode, t_game *game) //TODO
 	return (0);
 }
 
+/*
+returns 0 if move valid, 1 if not
+*/
+int	boundary_check(t_vector *new, t_game *game)
+{	
+	// //math.h trunc() returns int part only, so 2.86757 -> 2
+
+	//get int coord and check if either x +-1 = wall or y +- 1 = wall
+	if (get_map_point(trunc(new->x), trunc(new->y), game) == 1)//
+	{
+		printf("move would be going inside wall. not allowing\n");
+		return (1);
+	}
+	// else //needed?
+	// {
+	// 	//check if too close to wall
+	// 		//calc dist to any grid border
+	// 		//if dist < Wall buffer, check if next tile in that dir is a wall
+		
+
+	// }
+	
+	// check if new is too close to wall box
+	
+
+
+	return (0);	
+}
+
 int change_orientation(int keycode, t_game *game) //change ->player->dir according to rotation matrix
 {
 	(void)game;
@@ -59,6 +88,7 @@ int change_orientation(int keycode, t_game *game) //change ->player->dir accordi
 
 int	move(int keycode, t_game *game)//TODO validity check
 {
+	*game->moved = true;
 	//moving needs to be along/according to direction vector TODO
 	//each keypress = speed distance 
 	double		speed;
@@ -67,7 +97,7 @@ int	move(int keycode, t_game *game)//TODO validity check
 	t_vector	normed;
 	t_vector	current; //position or orientation
 
-	speed = 1.0;
+	speed = 0.2;
 	if (keycode == W_KEY) //move forward
 	{
 		printf("W pressed\n");
@@ -85,6 +115,13 @@ int	move(int keycode, t_game *game)//TODO validity check
 			new = v_add(current, move);
 
 			//check if new pos is out of bounds TODO
+			//check if new pos is out of bounds TODO
+			if (boundary_check(&new, game) == 1)
+			{
+				printf("Not allowing out of bound moves\n");
+				return (0);
+			}
+
 
 			//set players new position //  IF OUT OF BOUNDS OK TODO
 			game->player->pos_x = new.x;
@@ -112,6 +149,11 @@ int	move(int keycode, t_game *game)//TODO validity check
 		new = v_add(current, move);
 
 		//check if new pos is out of bounds TODO
+		if (boundary_check(&new, game) == 1)
+		{
+			printf("Not allowing out of bound moves\n");
+			return (0);
+		}
 
 		//set players new position IF OUT OF BOUNDS OK TODO
 		game->player->pos_x = new.x;

@@ -6,7 +6,7 @@
 /*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:10:57 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/09 19:43:27 by Watanudon        ###   ########.fr       */
+/*   Updated: 2025/05/09 21:33:27 by Watanudon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	init_test_world(t_game *game)
 
 }
 
-static void	init(t_game *game)
+static void	init(t_game *game, bool *moved)
 {
 	game->mlx = mlx_init(); //init mlx
 	if (!game->mlx)
@@ -105,11 +105,11 @@ static void	init(t_game *game)
 	game->window = mlx_new_window(game->mlx, W_WIDTH, W_HEIGHT, "CUB3D"); //init window
 	//if(!game->window)
 		//free
+	game->moved = moved;
 
 	init_test_map(game);
 	init_test_player(game);
 	init_test_world(game);
-
 
 }
 
@@ -343,34 +343,46 @@ void	raycast(t_game *game)
 
 int	game_loop(t_game *game)//TODO check if pos/dir changed, else no rendering/clearing
 {
-	clear_image(game); //ok but super slow TODO
+	if (*game->moved == true)
+	{
+		clear_image(game); //ok but super slow TODO
 
-	raycast(game); //first frame
-	//minimap (for understanding what is going on (movement)) (draw over everything else)
-	minimap(game); //TODO dyn rezising of tiles
-	mlx_put_image_to_window(game->mlx, game->window, game->image->img, 0, 0);
+		raycast(game); //first frame
+		//minimap (for understanding what is going on (movement)) (draw over everything else)
+		minimap(game); //TODO dyn rezising of tiles
+		mlx_put_image_to_window(game->mlx, game->window, game->image->img, 0, 0);
+		*game->moved = false;
+	}
+	// clear_image(game); //ok but super slow TODO
+
+	// raycast(game); //first frame
+	// //minimap (for understanding what is going on (movement)) (draw over everything else)
+	// minimap(game); //TODO dyn rezising of tiles
+	// mlx_put_image_to_window(game->mlx, game->window, game->image->img, 0, 0);
 
 	return (0);
 }
 
 
-void	raycasting_main(t_game *game) //for now: lillis main
+void	raycasting_main(t_game *game, bool *moved) //for now: lillis main
 {
 
 	//loop
 
 		//0 init basics
-		init(game);
+		init(game, moved);
 
 
-	
+
 	//draw floor and ceiling
 	//draw_floor_ceiling(game);
-		
+	
+	//1st img at startup:
 	raycast(game); //first frame
 	//minimap (for understanding what is going on (movement)) (draw over everything else)
 	minimap(game); //TODO dyn rezising of tiles
-	
+	mlx_put_image_to_window(game->mlx, game->window, game->image->img, 0, 0);
+
 	hooks(game); //TODO freeing 
 	//add mlx loop hook ( -> raycast)
 	
