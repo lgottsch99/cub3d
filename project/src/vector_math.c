@@ -61,3 +61,20 @@ t_vector	v_add(t_vector a, t_vector b)
 	printf("addition new y: %f\n", new_point.y);
 	return (new_point);
 }
+
+/*
+Rotates vector a for degrees number of degrees AGAINST THE CLOCK
+*/
+t_vector	v_rotate(int degrees, t_vector a)
+{
+	t_vector	new;
+	double	radiant;
+
+	//change degrees into radians
+	radiant = degrees * (M_PI / 180.0);
+	//create rotation matrix + multip. matrix with vector
+	new.x = a.x * cos(radiant) - a.y * sin(radiant);
+	new.y = a.x * sin(radiant) + a.y * cos(radiant);
+
+	return (new);
+}

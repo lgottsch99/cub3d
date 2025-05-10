@@ -6,7 +6,7 @@
 /*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 18:20:44 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/09 21:37:26 by Watanudon        ###   ########.fr       */
+/*   Updated: 2025/05/10 11:27:05 by Watanudon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,6 @@ int	quit_window(t_game *game)//TODO
 	exit (0);
 }
 
-//int is passed by internal event handler
-int	destroy_esc(int keycode, t_game *game) //TODO
-{
-	(void)game;
-	(void)keycode;
-	ft_printf("esc hook\n");
-	if (keycode == 53) //XK_Escape) //esc = 53 on mac
-	{
-		//free_everything(big);
-		exit(0);
-	}
-	else
-		return 0;
-	return (0);
-}
 
 /*
 returns 0 if move valid, 1 if not
@@ -69,17 +54,44 @@ int	boundary_check(t_vector *new, t_game *game)
 int change_orientation(int keycode, t_game *game) //change ->player->dir according to rotation matrix
 {
 	(void)game;
-	// double	speed;
+	int	speed;
 
-	// speed = 0.2;
+	t_vector	new; //new position/ orientation
+	t_vector	current; //position or orientation
+
+	speed = ROTATION_SPEED;
 	if (keycode == ARR_LEFT)
 	{
 		printf("LEFT pressed\n");
+		//get current orientation
+		current.x = game->player->dir_x;
+		current.y = game->player->dir_y;
+
+		//rotate
+		new = v_rotate(360 - speed, current);
+
+		game->player->dir_x = new.x;
+		game->player->dir_y = new.y;
+		printf("new orientation x: %f\n", new.x);
+		printf("new orientation y: %f\n", new.y);
+
 		return (0);
 	}
 	else if (keycode == ARR_RIGHT)
 	{
 		printf("RIGHT pressed\n");
+
+		current.x = game->player->dir_x;
+		current.y = game->player->dir_y;
+
+		//rotate
+		new = v_rotate(speed, current);
+
+		game->player->dir_x = new.x;
+		game->player->dir_y = new.y;
+		printf("new orientation x: %f\n", new.x);
+		printf("new orientation y: %f\n", new.y);
+
 		return (0);
 	}
 	else
@@ -98,6 +110,12 @@ int	move(int keycode, t_game *game)//TODO validity check
 	t_vector	current; //position or orientation
 
 	speed = 0.2;
+	if (keycode == ESC)
+	{
+		ft_printf("ESC pressed\n");
+		//TODO free everything
+		exit(0);
+	}
 	if (keycode == W_KEY) //move forward
 	{
 		printf("W pressed\n");
@@ -119,6 +137,7 @@ int	move(int keycode, t_game *game)//TODO validity check
 			if (boundary_check(&new, game) == 1)
 			{
 				printf("Not allowing out of bound moves\n");
+				*game->moved = false;
 				return (0);
 			}
 
@@ -152,6 +171,7 @@ int	move(int keycode, t_game *game)//TODO validity check
 		if (boundary_check(&new, game) == 1)
 		{
 			printf("Not allowing out of bound moves\n");
+			*game->moved = false;
 			return (0);
 		}
 
@@ -168,27 +188,95 @@ int	move(int keycode, t_game *game)//TODO validity check
  
 	else if (keycode == A_KEY) //move left
 	{
+		t_vector	pos;
 		printf("A pressed\n");
-		//calc new position (+ Speed distance 90degrees to vector dir on left side)
+		//get orientation
+		current.x = game->player->dir_x;
+		current.y = game->player->dir_y;
+		
+		//rotate orientation 270 degrees against clock
+		new = v_rotate(270, current);
+		//norm
+		normed = norm_vector(new.x, new.y);
+		//länge stutzen
+		move = v_change_len(speed, normed.x, normed.y);
+		//current pos + neue länge (vector addition)
+		pos.x = game->player->pos_x;
+		pos.y = game->player->pos_y;
+		new = v_add(pos, move);
+
+		//boundary check
+		//check if new pos is out of bounds TODO
+		if (boundary_check(&new, game) == 1)
+		{
+			printf("Not allowing out of bound moves\n");
+			*game->moved = false;
+			return (0);
+		}
+		
+		//assign new values
+		game->player->pos_x = new.x;
+		game->player->pos_y = new.y;
+		printf("current x: %f\n", pos.x);
+		printf("current y: %f\n", pos.y);
+		printf("new x: %f\n", new.x);
+		printf("new y: %f\n", new.y);
+
+		
 		return (0);
 	}
 	else if (keycode == D_KEY) //move right
 	{
 		printf("D pressed\n");
 		//calc new position (+ Speed distance 90degrees to vector dir on right side)
+		
+		t_vector	pos;
+		//get orientation
+		current.x = game->player->dir_x;
+		current.y = game->player->dir_y;
+		
+		//rotate orientation 90 degrees against clock
+		new = v_rotate(90, current);
+		//norm
+		normed = norm_vector(new.x, new.y);
+		//länge stutzen
+		move = v_change_len(speed, normed.x, normed.y);
+		//current pos + neue länge (vector addition)
+		pos.x = game->player->pos_x;
+		pos.y = game->player->pos_y;
+		new = v_add(pos, move);
+
+		//boundary check
+		//check if new pos is out of bounds TODO
+		if (boundary_check(&new, game) == 1)
+		{
+			printf("Not allowing out of bound moves\n");
+			*game->moved = false;
+			return (0);
+		}
+		
+		//assign new values
+		game->player->pos_x = new.x;
+		game->player->pos_y = new.y;
+		printf("current x: %f\n", pos.x);
+		printf("current y: %f\n", pos.y);
+		printf("new x: %f\n", new.x);
+		printf("new y: %f\n", new.y);
+		
 		return (0);
 	}
-	else
-		return (0);
+	if (keycode == ARR_LEFT || keycode == ARR_RIGHT)
+	{
+		change_orientation(keycode, game);
+	}
+	return (0);
 
 }
-
 
 void	hooks(t_game *game) //all hooks together doesnt work
 {
 	//quitting window
-	// mlx_hook(game->window, ON_KEYDOWN, KeyPressMask, destroy_esc, game); //pressing esc
-	// mlx_hook(game->window, ON_DESTROY, KeyPressMask, quit_window, game); //clicking x
+	mlx_hook(game->window, ON_DESTROY, KeyPressMask, quit_window, game); //clicking x
 	
 	// //movement
 

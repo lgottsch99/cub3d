@@ -6,7 +6,7 @@
 /*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 16:17:07 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/09 21:36:20 by Watanudon        ###   ########.fr       */
+/*   Updated: 2025/05/10 11:27:03 by Watanudon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@
 //buffer around walls
 //# define WALL_BUFFER 0.1
 
+//
+# define ROTATION_SPEED 5
 
 //Events
 //event codes
@@ -178,6 +180,7 @@ t_vector	norm_vector(double x, double y);
 t_vector	v_change_len(double k, double x, double y);
 t_vector	v_add(t_vector a, t_vector b);
 double		vector_len(double x, double y);
+t_vector	v_rotate(int degrees, t_vector a);
 
 
 //minimap
