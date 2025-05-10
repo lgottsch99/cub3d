@@ -6,7 +6,7 @@
 /*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:10:57 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/10 11:23:31 by Watanudon        ###   ########.fr       */
+/*   Updated: 2025/05/10 11:36:35 by Watanudon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@ void	init_test_world(t_game *game)
 	//if(!game->world)
 		//free
 
-	game->world->floor_r = 11;
-	game->world->floor_g = 173;
-	game->world->floor_b = 7;
+	game->world->floor_r = 150;
+	game->world->floor_g = 168;
+	game->world->floor_b = 150;
 
-	game->world->ceiling_r = 84;
-	game->world->ceiling_g = 117;
-	game->world->ceiling_b = 143;
+	game->world->ceiling_r = 207;
+	game->world->ceiling_g = 255;
+	game->world->ceiling_b = 252;
 
 }
 
@@ -353,13 +353,6 @@ int	game_loop(t_game *game)//TODO check if pos/dir changed, else no rendering/cl
 		mlx_put_image_to_window(game->mlx, game->window, game->image->img, 0, 0);
 		*game->moved = false;
 	}
-	// clear_image(game); //ok but super slow TODO
-
-	// raycast(game); //first frame
-	// //minimap (for understanding what is going on (movement)) (draw over everything else)
-	// minimap(game); //TODO dyn rezising of tiles
-	// mlx_put_image_to_window(game->mlx, game->window, game->image->img, 0, 0);
-
 	return (0);
 }
 
@@ -372,10 +365,6 @@ void	raycasting_main(t_game *game, bool *moved) //for now: lillis main
 		//0 init basics
 		init(game, moved);
 
-
-
-	//draw floor and ceiling
-	//draw_floor_ceiling(game);
 	
 	//1st img at startup:
 	raycast(game); //first frame
