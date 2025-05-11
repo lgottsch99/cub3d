@@ -6,7 +6,7 @@
 /*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 16:17:07 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/10 11:27:03 by Watanudon        ###   ########.fr       */
+/*   Updated: 2025/05/11 13:15:15 by Watanudon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 // LIBRARIES ----------------------------------
 
-# include "../lib/mlx_linux/mlx.h" //minilibx for graphics rendering
+//# include "../lib/mlx_linux/mlx.h" //minilibx for graphics rendering LINUX
+# include "../lib/mlx_mac/mlx.h" //minilibx for graphics rendering MAC
+
 # include "../lib/full_libft/full_libft.h"
 # include <math.h>
 //# include <X11/keysym.h> //defines some keycodes for hooks, only needed on linux?
@@ -123,6 +125,19 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
+typedef struct s_texture
+{
+	void	*img;
+	char	*relative_path;
+	int		tex_width;
+	int		tex_height;
+	
+	char	*data_addr;
+	int		bpp;
+	int		size_line;
+	int		endian;
+} t_texture;
+
 //info about colors and textures
 typedef struct s_world
 {
@@ -132,10 +147,13 @@ typedef struct s_world
 	int ceiling_r; //ceiling color red (0-255)
 	int ceiling_g; 
 	int ceiling_b;
-	char *texture_NO; //path to texture
-	char *texture_SO;
-	char *texture_WE;
-	char *texture_EA;
+	t_texture tex_NO; //path to texture
+	t_texture tex_SO;
+	t_texture tex_WE;
+	t_texture tex_EA;
+	// char *texture_SO;
+	// char *texture_WE;
+	// char *texture_EA;
 	int map_width; //needed for minimap
 	int map_height;
 	//char **world;
@@ -167,13 +185,16 @@ typedef struct s_line
 	int tex_y; //y coordinate of texture to draw
 } t_line;
 
+
+
+
 // FUNCTIONS ----------------------------------
 
 //raycasting.c
 void	raycasting_main(t_game *game, bool *moved); //for now: lillis main
 
 //raycast_utils
-void	draw_wall_line(t_game *game, int x, int draw_start, int draw_end, int color);
+void	draw_wall_line(t_game *game, int x, int draw_start, int draw_end, int color, int tex_x, t_texture *tex);
 
 //vector math
 t_vector	norm_vector(double x, double y);

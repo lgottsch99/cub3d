@@ -68,7 +68,7 @@ void	draw_player(t_game *game, int square_size)
 	int player_size = 5; //player size in px
 	int x;
 	int y; 
-	int color = create_color(0, 255, 255, 255);
+	int color = create_color(0, 0, 0, 0);
 
 	x = game->player->pos_x * square_size;
 	y = game->player->pos_y * square_size;

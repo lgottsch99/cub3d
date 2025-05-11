@@ -6,7 +6,7 @@
 #    By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 16:00:38 by lgottsch          #+#    #+#              #
-#    Updated: 2025/05/06 13:23:10 by Watanudon        ###   ########.fr        #
+#    Updated: 2025/05/11 11:06:17 by Watanudon        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ MLX_FLAGS_LX = -I/usr/X11/include -L/usr/X11/lib -lX11 -lXext -lm -g
 MLX_FLAGS_MAC = -L$(MLXMACDIR) -lmlx -framework OpenGL -framework AppKit
 LIBFT_FLAGS_MAC = -L$(LIBFTDIR) -lfull_libft
 
+MLX_INC_MAC = -I$(MLXMACDIR)
 
 SRC= $(addprefix $(SRC_FOLDER), main.c raycasting.c utils.c minimap.c raycast_utils.c hooks.c vector_math.c)
 
@@ -71,10 +72,10 @@ norm:
 
 # compilation on mac
 mac: libft mlx-mac
-	@$(CC) $(CFLAGS) $(SRC) $(LIBFTA) -o $(NAME) $(MLX_FLAGS_MAC) $(LIBFT_FLAGS)
+	@$(CC) $(CFLAGS) $(SRC) $(LIBFTA) -o $(NAME) $(MLX_FLAGS_MAC) $(MLX_INC_MAC) $(LIBFT_FLAGS)
 	@mv $(MLXMACDIR)/libmlx.dylib ./ || true
 
 mlx-mac:
 	@make -C $(MLXMACDIR)
 
-.PHONY: all clean fclean re libft mlx-linux mac norm
+.PHONY: all clean fclean re libft mlx-linux mac norm mlx-mac
