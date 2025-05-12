@@ -19,9 +19,12 @@
 # include <unistd.h> //for write
 # include <stdarg.h> //var ft
 
-# ifndef BUFFER_SIZE //for gnl
+# include <fcntl.h>
+# include <limits.h>
+# include <stdio.h>
 
-#  define BUFFER_SIZE 100
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
 # endif
 
 typedef struct s_list
@@ -48,9 +51,11 @@ size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 
+int 	ft_strchr_count(char *s, int c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
+int		ft_strcmp(char *s1, char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strdup(const char *s1);
 
@@ -67,7 +72,7 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 
-char	**ft_split(char const *s, char c);
+char	**ft_split(char const *s, char *delimiters);
 char	*ft_itoa(int n);
 
 void	ft_putchar_fd(char c, int fd);
@@ -94,8 +99,11 @@ int		pf_putchar(char c, int fd, int *count);
 int		pf_putnbr(int n, int fd, int *count);
 int		pf_putstr(char *s, int *count);
 
-//gnl
-char	*get_next_line(int fd);
-int		getindexnl(char *leftover);
+char	*get_next_line(int fd,char **line);
+size_t	ft_strlen(const char *str);
+char	*ft_strdup(const char *src);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_substr(const char *s, unsigned int start, size_t len);
+char	*ft_strchr(const char *s, int c);
 
 #endif

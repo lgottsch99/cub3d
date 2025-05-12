@@ -30,7 +30,7 @@ MLX_FLAGS_MAC = -L$(MLXMACDIR) -lmlx -framework OpenGL -framework AppKit
 LIBFT_FLAGS_MAC = -L$(LIBFTDIR) -lfull_libft
 
 
-SRC= $(addprefix $(SRC_FOLDER), main.c )
+SRC= $(addprefix $(SRC_FOLDER), main.c map_utilis.c)
 
 OBJ = $(SRC:.c=.o)
 
