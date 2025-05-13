@@ -69,13 +69,13 @@ void	init_test_world(t_game *game) //DEVELOPING ONLY
 	//if(!game->world)
 		//free
 
-	game->world->floor_r = 150;
-	game->world->floor_g = 168;
-	game->world->floor_b = 150;
+	game->world->floor_r = 168; //sandy brown
+	game->world->floor_g = 100;
+	game->world->floor_b = 5;
 
-	game->world->ceiling_r = 207;
-	game->world->ceiling_g = 255;
-	game->world->ceiling_b = 252;
+	game->world->ceiling_r = 0; //dark blue
+	game->world->ceiling_g = 5;
+	game->world->ceiling_b = 138;
 
 
 	game->world->color_ceiling = create_color(0, game->world->ceiling_r, game->world->ceiling_g, game->world->ceiling_b);
