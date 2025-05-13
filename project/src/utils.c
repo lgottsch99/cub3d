@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 14:10:00 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/04 17:58:39 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/13 13:17:03 by Watanudon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,30 @@ int get_map_point(int x, int y, t_game *game)
 		return (1);
 	else
 		return (0);
+}
+
+/* Ft that clears img buffer of any colors drawn. Only needed when continously rendering imgs 
+*/
+void	clear_image(t_game *game) 
+{
+	printf("clearing image\n");
+	int	i;
+	int y;
+	int color;
+
+	color = create_color(0, 0, 0, 0);
+	i = 0;
+	while(i < W_HEIGHT)
+	{
+		//printf("clearing image - outer loop\n");
+		y = 0;
+		while (y < W_WIDTH)
+		{
+			//printf("clearing image - inner loop\n");
+
+			my_mlx_pixel_put(game->image, i, y, color);
+			y++;
+		}
+		i++;
+	}
 }

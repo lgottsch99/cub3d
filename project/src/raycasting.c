@@ -6,7 +6,7 @@
 /*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:10:57 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/13 10:47:57 by Watanudon        ###   ########.fr       */
+/*   Updated: 2025/05/13 13:21:25 by Watanudon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ approach:
 		calc x coord of WHERE it hits the wall in coord grid -> same x coord 
 
 TODO
-	boundary check more complete
+	boundary check more complete KINDA OK
 	movement smooth?
 
 	freeing
@@ -32,164 +32,8 @@ TODO
 */
 
 #include "../includes/cub3d.h"
-# include "../lib/mlx_mac/mlx.h" //minilibx for graphics rendering
 
 
-void	init_test_player(t_game *game) //DEVELOPING ONLY
-{
-	printf("in init test player\n");
-
-	//malloc player struct
-	game->player = (t_player *)malloc(sizeof(t_player));
-	//if (!game->player)
-		//free
-
-	//starting position based on map coords (spawn player in middle of tile)
-	game->player->pos_x = 3.5;
-	game->player->pos_y = 4.5;
-
-	//starting orientation based on char N E S W //TODO
-	// game->player->dir_x = N_X;
-	// game->player->dir_y = N_Y;
-
-	// game->player->dir_x = S_X;
-	// game->player->dir_y = S_Y;
-
-	game->player->dir_x = E_X;
-	game->player->dir_y = E_Y;
-
-	// game->player->dir_x = W_X;
-	// game->player->dir_y = W_Y;
-
-}
-
-void	init_test_map(t_game *game) //DEVELOPING ONLY
-{
-	printf("in init test map\n");
-	
-	static char *test_map[] = {
-		"1111111111", //row y = 0
-		"1000000001",
-		"1001000101",
-		"1010001001", //row y = 3 
-		"100N001111", //player at x3 y4
-		"1111111111"
-	};
-
-	game->map = test_map;
-
-	// printf("char at pos 1 1: %c\n", game->map[1][1]);
-	// printf("char at pos 3 3: %c\n", game->map[3][3]);
-}
-
-void	init_test_world(t_game *game) //DEVELOPING ONLY
-{
-	game->world = (t_world *)malloc(sizeof(t_world));
-	//if(!game->world)
-		//free
-
-	game->world->floor_r = 150;
-	game->world->floor_g = 168;
-	game->world->floor_b = 150;
-
-	game->world->ceiling_r = 207;
-	game->world->ceiling_g = 255;
-	game->world->ceiling_b = 252;
-
-	//LOAD TEXTURES
-	game->world->tex_NO.relative_path = "./Sand1.png";
-		// ! mlx_png_file_to_image officially leaks mem
-	game->world->tex_NO.img = mlx_png_file_to_image(game->mlx, game->world->tex_NO.relative_path, &game->world->tex_NO.tex_width, &game->world->tex_NO.tex_height);
-	if (game->world->tex_NO.img == NULL)
-		printf("LOADING NO TEXTURE FAILED\n");
-	game->world->tex_NO.data_addr = mlx_get_data_addr(game->world->tex_NO.img, &game->world->tex_NO.bpp, &game->world->tex_NO.size_line, &game->world->tex_NO.endian);
-	if (game->world->tex_NO.data_addr == NULL)
-		printf("getting NO TEXTURE addr FAILED\n");
-	// 	free
-	// printf("texture width: %i\n", game->world->tex_NO.tex_width);
-	// printf("texture height: %i\n", game->world->tex_NO.tex_height);
-
-	game->world->tex_SO.relative_path = "./Planet1.png";
-	game->world->tex_SO.img = mlx_png_file_to_image(game->mlx, game->world->tex_SO.relative_path, &game->world->tex_SO.tex_width, &game->world->tex_SO.tex_height);
-	if (game->world->tex_SO.img == NULL)
-		printf("LOADING SO TEXTURE FAILED\n");
-	game->world->tex_SO.data_addr = mlx_get_data_addr(game->world->tex_SO.img, &game->world->tex_SO.bpp, &game->world->tex_SO.size_line, &game->world->tex_SO.endian);
-	if (game->world->tex_SO.data_addr == NULL)
-		printf("getting SO TEXTURE addr FAILED\n");
-
-
-	game->world->tex_WE.relative_path = "./Planet2.png";
-	game->world->tex_WE.img = mlx_png_file_to_image(game->mlx, game->world->tex_WE.relative_path, &game->world->tex_WE.tex_width, &game->world->tex_WE.tex_height);
-	if (game->world->tex_WE.img == NULL)
-		printf("LOADING WE TEXTURE FAILED\n");
-	game->world->tex_WE.data_addr = mlx_get_data_addr(game->world->tex_WE.img, &game->world->tex_WE.bpp, &game->world->tex_WE.size_line, &game->world->tex_WE.endian);
-	if (game->world->tex_WE.data_addr == NULL)
-		printf("getting WE TEXTURE addr FAILED\n");
-
-
-	game->world->tex_EA.relative_path = "./Wasser.png";
-	game->world->tex_EA.img = mlx_png_file_to_image(game->mlx, game->world->tex_EA.relative_path, &game->world->tex_EA.tex_width, &game->world->tex_EA.tex_height);
-	if (game->world->tex_EA.img == NULL)
-		printf("LOADING EA TEXTURE FAILED\n");
-	game->world->tex_EA.data_addr = mlx_get_data_addr(game->world->tex_EA.img, &game->world->tex_EA.bpp, &game->world->tex_EA.size_line, &game->world->tex_EA.endian);
-	if (game->world->tex_EA.data_addr == NULL)
-		printf("getting EA TEXTURE addr FAILED\n");
-
-
-}
-
-static void	init(t_game *game, bool *moved)
-{
-	game->mlx = mlx_init(); //init mlx
-	if (!game->mlx)
-		exit(1);
-	game->image = (t_img*)malloc(sizeof(t_img)); //malloc space for img
-	//if (!game->image)
-		//free
-	game->image->img = mlx_new_image(game->mlx, W_WIDTH, W_HEIGHT); //init img
-	//if (!game->image->img)
-		//free
-	game->image->addr = mlx_get_data_addr(game->image->img, &game->image->bits_per_pixel, &game->image->line_length, &game->image->endian);
-	//if (!game->image->addr)
-		//free
-	game->window = mlx_new_window(game->mlx, W_WIDTH, W_HEIGHT, "CUB3D"); //init window
-	//if(!game->window)
-		//free
-	game->moved = moved;
-
-	init_test_map(game);
-	init_test_player(game);
-	init_test_world(game);
-
-}
-
-
-
-/* Ft that clears img buffer of any colors drawn. Only needed when continously rendering imgs 
-*/
-void	clear_image(t_game *game) 
-{
-	printf("clearing image\n");
-	int	i;
-	int y;
-	int color;
-
-	color = create_color(0, 0, 0, 0);
-	i = 0;
-	while(i < W_HEIGHT)
-	{
-		//printf("clearing image - outer loop\n");
-		y = 0;
-		while (y < W_WIDTH)
-		{
-			//printf("clearing image - inner loop\n");
-
-			my_mlx_pixel_put(game->image, i, y, color);
-			y++;
-		}
-		i++;
-	}
-}
 
 
 void	raycast(t_game *game)
@@ -454,9 +298,6 @@ void	raycast(t_game *game)
 				my_mlx_pixel_put(game->image, y, i, color_floor);
 			}
 		}		
-		
-		
-		
 		i++;
 	}
 
@@ -474,17 +315,13 @@ int	game_loop(t_game *game)//TODO check if pos/dir changed, else no rendering/cl
 		mlx_put_image_to_window(game->mlx, game->window, game->image->img, 0, 0);
 		//mlx_put_image_to_window(game->mlx, game->window, game->world->tex_NO.img, 0, 0);
 
-
 		*game->moved = false;
 	}
 	return (0);
 }
 
-
 void	raycasting_main(t_game *game, bool *moved) //for now: lillis main
 {
-	//loop
-
 		//0 init basics //TODO later after parsing
 		init(game, moved);
 
@@ -500,15 +337,8 @@ void	raycasting_main(t_game *game, bool *moved) //for now: lillis main
 	
 	mlx_loop_hook(game->mlx, game_loop, game);//keep re rendering
 
-	
 	//mlx_put_image_to_window(game->mlx, game->window, game->image->img, 0, 0);
 	if (game->mlx)
 		mlx_loop(game->mlx); //keeping window open
-	
-	
-	//game_loop(game);
 
-
-
-	
 }

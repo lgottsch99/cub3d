@@ -6,7 +6,7 @@
 #    By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 16:00:38 by lgottsch          #+#    #+#              #
-#    Updated: 2025/05/11 11:06:17 by Watanudon        ###   ########.fr        #
+#    Updated: 2025/05/13 13:20:26 by Watanudon        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ LIBFT_FLAGS_MAC = -L$(LIBFTDIR) -lfull_libft
 
 MLX_INC_MAC = -I$(MLXMACDIR)
 
-SRC= $(addprefix $(SRC_FOLDER), main.c raycasting.c utils.c minimap.c raycast_utils.c hooks.c vector_math.c)
+SRC= $(addprefix $(SRC_FOLDER), main.c raycasting.c utils.c minimap.c raycast_utils.c hooks.c vector_math.c \
+	player_movement.c minimap_utils.c game_init.c)
 
 OBJ = $(SRC:.c=.o)
 

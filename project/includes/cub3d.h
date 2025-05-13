@@ -6,7 +6,7 @@
 /*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 16:17:07 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/13 10:50:52 by Watanudon        ###   ########.fr       */
+/*   Updated: 2025/05/13 13:21:12 by Watanudon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,8 +154,8 @@ typedef struct s_world
 	// char *texture_SO;
 	// char *texture_WE;
 	// char *texture_EA;
-	int map_width; //needed for minimap
-	int map_height;
+	// int map_width; //needed for minimap
+	// int map_height;
 	//char **world;
 	
 } t_world;
@@ -190,6 +190,10 @@ typedef struct s_line
 
 // FUNCTIONS ----------------------------------
 
+
+//init
+void	init(t_game *game, bool *moved);
+
 //raycasting.c
 void	raycasting_main(t_game *game, bool *moved); //for now: lillis main
 
@@ -204,14 +208,27 @@ t_vector	v_add(t_vector a, t_vector b);
 double		vector_len(double x, double y);
 t_vector	v_rotate(int degrees, t_vector a);
 
+//player movement
+int	boundary_check(t_vector *new, t_game *game); //TODO: check if any point on line next step = wall hit, not only end point (=going thru walls rn)
+int change_orientation(int keycode, t_game *game); //change ->player->dir according to rotation matrix
+void	move_w_s(int keycode, t_game *game);
+void	move_a_d(int keycode, t_game *game);
+
 
 //minimap
 void	minimap(t_game *game);
+
+//minimap utils
+int count_map(char **map, int mode);
+int	calc_square_size(int map_height, int map_width);
+
+
 
 //utils
 int		create_color(int t, int r, int g, int b);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 int		get_map_point(int x,int y, t_game *game);
+void	clear_image(t_game *game);
 
 //hooks
 void	hooks(t_game *game);
