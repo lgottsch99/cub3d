@@ -29,9 +29,23 @@ int	calc_square_size(int map_height, int map_width)
 	square_size = 18; //default size
 	while ((map_height * square_size) > (0.3 * W_HEIGHT))
 		square_size--;
+	
+	if ((map_width * square_size) > (0.4 * W_WIDTH))
+	{
+		while ((map_width * square_size) > (0.4 * W_WIDTH))
+			square_size--;
+	}
 
-	if (square_size == 0)
+	if (square_size == 0) //if map very big
+	{
 		square_size = 1;
+		if ((map_width * square_size) > W_WIDTH || (map_height * square_size) > W_HEIGHT)
+		{
+			printf("ERROR MINIMAP: game map to big to be shown on window\n");
+			return (0);
+		}
+	}
+	
 	
 	return (square_size);
 }

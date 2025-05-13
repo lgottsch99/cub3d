@@ -6,7 +6,7 @@
 /*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 16:17:07 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/13 13:21:12 by Watanudon        ###   ########.fr       */
+/*   Updated: 2025/05/13 15:41:33 by Watanudon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,9 +144,13 @@ typedef struct s_world
 	int floor_r; //floor color red (0-255)
 	int floor_g; // green
 	int floor_b; //blue
+	int	color_floor;
+
 	int ceiling_r; //ceiling color red (0-255)
 	int ceiling_g; 
 	int ceiling_b;
+	int	color_ceiling;
+	
 	t_texture tex_NO; //path to texture
 	t_texture tex_SO;
 	t_texture tex_WE;
@@ -185,7 +189,34 @@ typedef struct s_line
 	int tex_y; //y coordinate of texture to draw
 } t_line;
 
+typedef struct s_raycast
+{
+	double		plane_len;
+	t_vector	raydir;
+	double		len; //multiplier for current i location in window -> length of plane vector
+	double		wall_distance;
+	double		line_height;
+	int			draw_start;
+	int			draw_end;
+	int			side;
+	double		skip;
+	
+	//dda parts
+	int			map_x; //which box of map are we in
+	int			map_y;
+	double		sidedist_x; //len of ray from current pos to next x or y side
+	double		sidedist_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	int			step_x; //=1 or -1 depending on direction of ray thru grid
+	int			step_y;
 
+	//texture calculation
+	t_texture	*tex; //pointer to texture to draw
+	double		wall_x; //point ray hits texture vertically on map
+	int			tex_x; //corresponding x pix row in tex img
+	
+} t_raycast;
 
 
 // FUNCTIONS ----------------------------------
@@ -197,9 +228,20 @@ void	init(t_game *game, bool *moved);
 //raycasting.c
 void	raycasting_main(t_game *game, bool *moved); //for now: lillis main
 
+//dda
+void	dda(t_raycast *ray, t_game *game);
+
 //raycast_utils
-void	draw_wall_line(t_game *game, int x, int draw_start, int draw_end, int tex_x, t_texture *tex);
-int	get_tex_color(int x, int y, t_texture *tex);
+void	set_plane(t_raycast *ray, t_game *game);
+void	set_ray(t_raycast *ray, t_game *game, int i);
+void	calc_wall_dist(t_raycast *ray, t_game *game);
+void	calc_line_height(t_raycast *ray);
+
+//texture utils
+int		get_tex_color(int x, int y, t_texture *tex);
+void	assign_tex(t_raycast *ray, t_game *game);
+void	calc_texture_hit(t_raycast *ray, t_game *game);
+
 
 //vector math
 t_vector	norm_vector(double x, double y);

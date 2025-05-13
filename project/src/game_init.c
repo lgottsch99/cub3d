@@ -77,6 +77,11 @@ void	init_test_world(t_game *game) //DEVELOPING ONLY
 	game->world->ceiling_g = 255;
 	game->world->ceiling_b = 252;
 
+
+	game->world->color_ceiling = create_color(0, game->world->ceiling_r, game->world->ceiling_g, game->world->ceiling_b);
+	game->world->color_floor = create_color(0, game->world->floor_r, game->world->floor_g, game->world->floor_b);
+
+
 	//LOAD TEXTURES
 	game->world->tex_NO.relative_path = "../Textures_png/Planet3.png";
 		// ! mlx_png_file_to_image officially leaks mem

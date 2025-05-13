@@ -104,7 +104,8 @@ void	minimap(t_game *game) //maybe put some buffer around map and not start draw
 	//calc square size minimap
 	//make height not more than 1/3 of window height
 	square_size = calc_square_size(map_height, map_width);
-
+	if (square_size == 0)
+		return;
 	//draw square for each 1 in map
 		//go thru map
 	draw_map_squares(game, square_size, map_height, map_width);
