@@ -1,0 +1,73 @@
+
+
+REACH FOR THE STARS * ------------------
+
+sky: dark blue (with random white dots as stars)
+
+floor: sandy yellow (with different shades)
+
+walls:
+	different textures of planets (blue red beige green)
+	or different imgs of planets on dark blue big
+
+evtl sprites:
+	stars, comets, rocketships,  to collect
+
+goal: collect all stars
+	punishment: comets
+
+
+STUCK IN ASCII WORLD § # ? -------------------
+
+sky: light grey/greenish or white
+
+floor: dark grey 
+
+walls: 
+	different parts of ascii table (hex, oct, dec..)
+
+evtl sprites:
+	big lost random ascii chars / chars that are not within ascii like Ä Ö Ü ß 中文
+
+goal: collect chars in correct order?
+	find all chars included in in basic ascii table
+
+	punishment for chars that are not in basic ascii table
+
+
+SURFING ------------------------
+
+sky: white or bg or sun and clouds (and rainbow far away)
+
+floor: blue mix (water)
+
+walls: different size wave (flat, tiny, good, huge)
+
+	sprites:
+		surfboard, fish, shark, jellyfish
+
+goal: find your surfboard
+
+
+
+VECTOR LAND -------------------
+dont get lost / find your direction/orientation
+
+sky: same color as bg floor 
+
+floor: kabelsalat aus pfeilen
+
+walls:
+	pfeile (oben unten rechts links)
+
+sprites:
+	vector symbols? (x Kreuzprodukt, Wurzelsymbol, ?, parallel, senkrecht)
+	oder auch pfeile
+
+goal: find the right direction (certain color pfeil)
+
+
+
+
+NOODLE LAND ----------------
+
