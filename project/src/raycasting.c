@@ -6,7 +6,7 @@
 /*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:10:57 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/11 13:59:30 by Watanudon        ###   ########.fr       */
+/*   Updated: 2025/05/13 10:47:57 by Watanudon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,16 @@ approach:
 	add textures
 		load textures:
 		at init store textures in some buffer, The buffer will be an array of integers, where each integer represents the colour of a pixel
-
 	for each ray: 
 		calc x coord of WHERE it hits the wall in coord grid -> same x coord 
+
+TODO
+	boundary check more complete
+	movement smooth?
+
+	freeing
+
+	minimap dynamic
 
 
 ???:
@@ -61,12 +68,12 @@ void	init_test_map(t_game *game) //DEVELOPING ONLY
 	printf("in init test map\n");
 	
 	static char *test_map[] = {
-		"111111", //row y = 0
-		"100001",
-		"100101",
-		"101001", //row y = 3 
-		"100N01", //player at x3 y4
-		"111111"
+		"1111111111", //row y = 0
+		"1000000001",
+		"1001000101",
+		"1010001001", //row y = 3 
+		"100N001111", //player at x3 y4
+		"1111111111"
 	};
 
 	game->map = test_map;
@@ -321,15 +328,18 @@ void	raycast(t_game *game)
 		else
 			wall_distance = (map_y - game->player->pos_y + (1 - step_y) / 2) / raydir_y;
 
+		printf("WALL DIST: %f\n", wall_distance);
 	//calc height of line to draw
-		int line_height = 0;
+		double line_height = 0;
 		//int h = 7; //multiplier to make walls higher/lower,
 
 		line_height = (int)(W_HEIGHT / wall_distance);
+		printf("LINE HEIGHT: %f\n", line_height);
+
 		if (line_height < 5)
 			line_height = 5;
 		
-		//calc highest and lowest pixel 
+		//calc highest and lowest pixel to draw in RENDERED IMG
 		int draw_start;
 		draw_start = (W_HEIGHT - line_height) / 2;
 		if (draw_start < 0)
@@ -349,85 +359,107 @@ void	raycast(t_game *game)
 		Draw each pixel on that vertical line with the corresponding pixel from the texture.
 		*/
 
-	//choose wall color //TODO east/west / north/south texturen assignen
+		//assign wall texture
 		t_texture *tex;
 
-		int color = 0;
 		tex = NULL;
 		if (side == 0)//x grid line
 		{
 			if (raydir_x > 0) //WEST
-			{
 				tex = &game->world->tex_WE;
-				color = create_color(0, 255, 0, 0);
-			}
 			else //EAST
-			{
 				tex = &game->world->tex_EA;
-				color = create_color(0, 0, 255, 0);
-			}
-
 		}
 		else
 		{
 			if (raydir_y > 0) //NORTH
-			{
 				tex = &game->world->tex_NO;
-				color = create_color(0, 0, 0, 255);
-			}
 			else //SOUTH
-			{
 				tex = &game->world->tex_SO;
-				color = create_color(0, 255, 0, 255);
-			}
-
 		}
 
 		//wallhit location berechnen (img x achse um richtige vertikale linie ini texture auszuwählen)
-		double wall_x;
+		double	wall_x;
 		int 	tex_x = 0; //x spalte in textur, dependig on width
-
-		//wall_x here total distance on axis
-		// if (side == 0) //vertical hit on x
-		// 	wall_x = game->player->pos_y + wall_distance * raydir_y;
-		// else
-		// 	wall_x = game->player->pos_x + wall_distance * raydir_x;
-
-		// //only need 0.x distance (each 1 distance 0 new tex img)
-		// wall_x = wall_x - floor(wall_x); //floor returns each full int -> only value 0.x left over
-		if (side == 0)  // Vertikale Wand (x-Achse)
+		
+		if (side == 0)
 			wall_x = game->player->pos_y + wall_distance * raydir_y;
-		else             // Horizontale Wand (y-Achse)
+		else
 			wall_x = game->player->pos_x + wall_distance * raydir_x;
-
-		// Nur der Dezimalteil von wall_x interessiert uns für Texturen
-		wall_x -= floor(wall_x);
-
 		
+		wall_x -= floor(wall_x); //only after 0. is needed
 		
-		if (tex != NULL)
-		{
-			tex_x = (int) (wall_x * (double)tex->tex_width);
-			
+		tex_x = (int)(wall_x * tex->tex_width);
+		if (side == 0 && raydir_x > 0)
+			tex_x = tex->tex_width - tex_x - 1;
+		if (side == 1 && raydir_y < 0)
+			tex_x = tex->tex_width - tex_x - 1;
 
 
-			// // Flip texture horizontally for correct orientation
-			// if (side == 0 && raydir_x > 0)
-			// tex_x = tex->tex_width - tex_x - 1;
-			// if (side == 1 && raydir_y < 0)
-			// tex_x = tex->tex_width - tex_x - 1;
-
-		}
-		
-	
 	//draw line
-		draw_wall_line(game, i, draw_start, draw_end, color, tex_x, tex); //i is vertical axis of image
+		//draw_wall_line(game, i, draw_start, draw_end, tex_x, tex); //i is vertical axis of image
+		double step;
+		int color_ceiling;
+		int color_floor;
+		int color_tex;
+		double tex_pos;
+		int tex_y;
+		printf("starting drawing\n");
 
+		if (tex_x < 0 || tex_x >= tex->tex_width) //debug
+		{
+			printf("Invalid tex_x: %d (tex_width: %d)\n", tex_x, tex->tex_width);
+			tex_x = tex->tex_width / 2;  // or clamp it to something safe
+		}
+
+
+		color_ceiling = create_color(0, game->world->ceiling_r, game->world->ceiling_g, game->world->ceiling_b);
+		color_floor = create_color(0, game->world->floor_r, game->world->floor_g, game->world->floor_b);
+
+		step = (double)tex->tex_height / (double)line_height;
+		printf("after step\n");
+
+		// When wall line is taller than screen height
+		double tex_offset = 0;
+		if (line_height > W_HEIGHT)
+		{
+			// Calculate how much of the top of the texture to skip
+			tex_offset = (line_height - W_HEIGHT) / 2.0 * step;
+		}
+		printf("after tex offset\n");
+		
+		// Starting texture coordinate
+		tex_pos = tex_offset;
+		
+		// Now draw each screen pixel
+		for (int y = 0; y < W_HEIGHT; y++)
+		{
+			if (y < draw_start)
+			{
+		
+				my_mlx_pixel_put(game->image, y, i, color_ceiling);
+			}
+			else if (y >= draw_start && y <= draw_end)
+			{
+				tex_y = (int)tex_pos;
+				if (tex_y < 0) tex_y = 0;
+				if (tex_y >= tex->tex_height) tex_y = tex->tex_height - 1;
+		
+				color_tex = get_tex_color(tex_x, tex_y, tex);
+				my_mlx_pixel_put(game->image, y, i, color_tex);
+				tex_pos += step;
+			}
+			else
+			{
+				my_mlx_pixel_put(game->image, y, i, color_floor);
+			}
+		}		
+		
+		
+		
 		i++;
 	}
 
-	//get time
-	//clear buffer etc
 }
 
 int	game_loop(t_game *game)//TODO check if pos/dir changed, else no rendering/clearing

@@ -6,7 +6,7 @@
 /*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 18:20:44 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/10 11:27:05 by Watanudon        ###   ########.fr       */
+/*   Updated: 2025/05/13 11:30:34 by Watanudon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,28 +25,41 @@ int	quit_window(t_game *game)//TODO
 /*
 returns 0 if move valid, 1 if not
 */
-int	boundary_check(t_vector *new, t_game *game)
+int	boundary_check(t_vector *new, t_game *game) //TODO: check if any point on line next step = wall hit, not only end point (=going thru walls rn)
 {	
+	double	m;//steigung
+	double	b; //y achsenabschnitt
+	double	random_x;
+	double	random_y;
+	double step;
+
 	// //math.h trunc() returns int part only, so 2.86757 -> 2
 
 	//get int coord and check if either x +-1 = wall or y +- 1 = wall
-	if (get_map_point(trunc(new->x), trunc(new->y), game) == 1)//
+	if (get_map_point(trunc(new->y), trunc(new->x), game) == 1)//
 	{
 		printf("move would be going inside wall. not allowing\n");
 		return (1);
 	}
-	// else //needed?
-	// {
-	// 	//check if too close to wall
-	// 		//calc dist to any grid border
-	// 		//if dist < Wall buffer, check if next tile in that dir is a wall
-		
+	// check each box the distance from player to end position passes, if any is 1 dont move
+		//get steigung der geraden (neuer punktk = y = mx + b)
+	//traverse in 0.1? abständen or even smaller
 
-	// }
-	
-	// check if new is too close to wall box
-	
-
+	step = 0.0000001;
+	random_x = game->player->pos_x; //x point to traverse
+	m = (new->y - game->player->pos_y) / (new->x - game->player->pos_x);
+	while (random_x <= new->x)
+	{
+		random_x += step;
+		b = game->player->pos_y - m * game->player->pos_x;
+		random_y = m * random_x + b;
+		if (get_map_point(trunc(random_y), trunc(random_x), game) == 1)
+		{
+			printf("move would be going through wall. not allowing\n");
+			return (1);
+		}
+	}
+	//check if new point = wall
 
 	return (0);	
 }
@@ -109,7 +122,7 @@ int	move(int keycode, t_game *game)//TODO validity check
 	t_vector	normed;
 	t_vector	current; //position or orientation
 
-	speed = 0.2;
+	speed = MOVE_SPEED;
 	if (keycode == ESC)
 	{
 		ft_printf("ESC pressed\n");

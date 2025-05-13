@@ -6,7 +6,7 @@
 /*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 16:17:07 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/11 13:15:15 by Watanudon        ###   ########.fr       */
+/*   Updated: 2025/05/13 10:50:52 by Watanudon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@
 
 //
 # define ROTATION_SPEED 5
-
+# define MOVE_SPEED 0.3
 //Events
 //event codes
 enum {
@@ -194,7 +194,8 @@ typedef struct s_line
 void	raycasting_main(t_game *game, bool *moved); //for now: lillis main
 
 //raycast_utils
-void	draw_wall_line(t_game *game, int x, int draw_start, int draw_end, int color, int tex_x, t_texture *tex);
+void	draw_wall_line(t_game *game, int x, int draw_start, int draw_end, int tex_x, t_texture *tex);
+int	get_tex_color(int x, int y, t_texture *tex);
 
 //vector math
 t_vector	norm_vector(double x, double y);

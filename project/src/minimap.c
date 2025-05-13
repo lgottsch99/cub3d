@@ -36,12 +36,12 @@ void	draw_square(int x, int y, int square_size, t_game *game)
 }
 
 
-void	draw_map_squares(t_game *game, int square_size)//TODO
+void	draw_map_squares(t_game *game, int square_size)//TODO match map in file von richtungen her
 {
 	int x;
 	int y;
 
-	int map_width = 6; //TODO make dynamic later 
+	int map_width = 10; //TODO make dynamic later 
 	int map_height = 6;
 
 	x = 0;
