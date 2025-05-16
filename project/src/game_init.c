@@ -1,4 +1,14 @@
-//HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   game_init.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/16 18:52:11 by lgottsch          #+#    #+#             */
+/*   Updated: 2025/05/16 18:52:14 by lgottsch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
@@ -81,11 +91,12 @@ void	init_test_world(t_game *game) //DEVELOPING ONLY
 	game->world->color_ceiling = create_color(0, game->world->ceiling_r, game->world->ceiling_g, game->world->ceiling_b);
 	game->world->color_floor = create_color(0, game->world->floor_r, game->world->floor_g, game->world->floor_b);
 
-
 	//LOAD TEXTURES
-	game->world->tex_NO.relative_path = "../Textures_png/Planet3.png";
+	//game->world->tex_NO.relative_path = "../Textures_png/Planet3.png";
 		// ! mlx_png_file_to_image officially leaks mem
-	game->world->tex_NO.img = mlx_png_file_to_image(game->mlx, game->world->tex_NO.relative_path, &game->world->tex_NO.tex_width, &game->world->tex_NO.tex_height);
+	//game->world->tex_NO.img = mlx_png_file_to_image(game->mlx, game->world->tex_NO.relative_path, &game->world->tex_NO.tex_width, &game->world->tex_NO.tex_height);
+	game->world->tex_NO.relative_path = "../Textures_xpm/Planet1.xpm";
+	game->world->tex_NO.img = mlx_xpm_file_to_image(game->mlx, game->world->tex_NO.relative_path, &game->world->tex_NO.tex_width, &game->world->tex_NO.tex_height);
 	if (game->world->tex_NO.img == NULL)
 		printf("LOADING NO TEXTURE FAILED\n");
 	game->world->tex_NO.data_addr = mlx_get_data_addr(game->world->tex_NO.img, &game->world->tex_NO.bpp, &game->world->tex_NO.size_line, &game->world->tex_NO.endian);
@@ -95,8 +106,8 @@ void	init_test_world(t_game *game) //DEVELOPING ONLY
 	// printf("texture width: %i\n", game->world->tex_NO.tex_width);
 	// printf("texture height: %i\n", game->world->tex_NO.tex_height);
 
-	game->world->tex_SO.relative_path = "../Textures_png/Planet1.png";
-	game->world->tex_SO.img = mlx_png_file_to_image(game->mlx, game->world->tex_SO.relative_path, &game->world->tex_SO.tex_width, &game->world->tex_SO.tex_height);
+	game->world->tex_SO.relative_path = "../Textures_xpm/Planet2.xpm";
+	game->world->tex_SO.img = mlx_xpm_file_to_image(game->mlx, game->world->tex_SO.relative_path, &game->world->tex_SO.tex_width, &game->world->tex_SO.tex_height);
 	if (game->world->tex_SO.img == NULL)
 		printf("LOADING SO TEXTURE FAILED\n");
 	game->world->tex_SO.data_addr = mlx_get_data_addr(game->world->tex_SO.img, &game->world->tex_SO.bpp, &game->world->tex_SO.size_line, &game->world->tex_SO.endian);
@@ -104,8 +115,8 @@ void	init_test_world(t_game *game) //DEVELOPING ONLY
 		printf("getting SO TEXTURE addr FAILED\n");
 
 
-	game->world->tex_WE.relative_path = "../Textures_png/Planet2.png";
-	game->world->tex_WE.img = mlx_png_file_to_image(game->mlx, game->world->tex_WE.relative_path, &game->world->tex_WE.tex_width, &game->world->tex_WE.tex_height);
+	game->world->tex_WE.relative_path = "../Textures_xpm/Planet3.xpm";
+	game->world->tex_WE.img = mlx_xpm_file_to_image(game->mlx, game->world->tex_WE.relative_path, &game->world->tex_WE.tex_width, &game->world->tex_WE.tex_height);
 	if (game->world->tex_WE.img == NULL)
 		printf("LOADING WE TEXTURE FAILED\n");
 	game->world->tex_WE.data_addr = mlx_get_data_addr(game->world->tex_WE.img, &game->world->tex_WE.bpp, &game->world->tex_WE.size_line, &game->world->tex_WE.endian);
@@ -113,8 +124,8 @@ void	init_test_world(t_game *game) //DEVELOPING ONLY
 		printf("getting WE TEXTURE addr FAILED\n");
 
 
-	game->world->tex_EA.relative_path = "../Textures_png/Stone1.png";
-	game->world->tex_EA.img = mlx_png_file_to_image(game->mlx, game->world->tex_EA.relative_path, &game->world->tex_EA.tex_width, &game->world->tex_EA.tex_height);
+	game->world->tex_EA.relative_path = "../Textures_xpm/Planet4.xpm";
+	game->world->tex_EA.img = mlx_xpm_file_to_image(game->mlx, game->world->tex_EA.relative_path, &game->world->tex_EA.tex_width, &game->world->tex_EA.tex_height);
 	if (game->world->tex_EA.img == NULL)
 		printf("LOADING EA TEXTURE FAILED\n");
 	game->world->tex_EA.data_addr = mlx_get_data_addr(game->world->tex_EA.img, &game->world->tex_EA.bpp, &game->world->tex_EA.size_line, &game->world->tex_EA.endian);

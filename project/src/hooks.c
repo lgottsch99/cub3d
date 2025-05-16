@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 18:20:44 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/13 12:44:43 by Watanudon        ###   ########.fr       */
+/*   Updated: 2025/05/16 18:52:35 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int	move(int keycode, t_game *game)//TODO validity check
 		return (0);
 	}
 	else if (keycode == ARR_LEFT || keycode == ARR_RIGHT)
-	{
 		change_orientation(keycode, game);
-	}
+	else
+		*game->moved = false;
 	return (0);
 }
 
@@ -56,5 +56,5 @@ void	hooks(t_game *game)
 	mlx_hook(game->window, ON_DESTROY, KeyPressMask, quit_window, game); //clicking x
 	
 	//movement
-	mlx_hook(game->window, ON_KEYDOWN, KeyPressMask, move, game); //WASD
+	mlx_hook(game->window, ON_KEYDOWN, KeyPressMask, move, game); //WASD, left right, esc
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/16 18:52:47 by lgottsch          #+#    #+#             */
+/*   Updated: 2025/05/16 18:52:48 by lgottsch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "../includes/cub3d.h"
 
@@ -40,9 +52,12 @@ void	draw_map_squares(t_game *game, int square_size, int map_height, int map_wid
 {
 	int x;
 	int y;
-	int	square_color;
+	int	square_color_wall;
+	int	square_color_floor;
 
-	square_color =  create_color(0, 255, 255, 0);
+
+	square_color_wall = create_color(0, 255, 255, 0);
+	square_color_floor = create_color(0, 237, 237, 200);
 
 	x = 0;
 	while (x < map_height)
@@ -52,7 +67,9 @@ void	draw_map_squares(t_game *game, int square_size, int map_height, int map_wid
 		{
 			//get point in map
 			if (get_map_point(x, y, game) == 1)			
-				draw_square(x, y, square_size, game, square_color);
+				draw_square(x, y, square_size, game, square_color_wall);
+			else if (get_map_point(x, y, game) == 0)
+				draw_square(x, y, square_size, game, square_color_floor);
 			y++;
 		}
 		x++;
@@ -80,7 +97,8 @@ void	draw_player(t_game *game, int square_size)
 		a = 0;
 		while (a < player_size)
 		{
-			my_mlx_pixel_put(game->image, y, x, color);
+			//HEADER
+my_mlx_pixel_put(game->image, y, x, color);
 			y++;
 			a++;
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 16:17:07 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/16 10:22:03 by Watanudon        ###   ########.fr       */
+/*   Updated: 2025/05/16 19:06:57 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@
 #include <sys/time.h> //gettimeofday
 #include <stdbool.h>
 
-#include "keycodes_mac.h" // only on mac
-//#include "keycodes_linux.h" // only on linux
+//#include "keycodes_mac.h" // only on mac
+#include "keycodes_linux.h" // only on linux
 
 
 // MACROS ----------------------------------
@@ -66,8 +66,8 @@
 //# define WALL_BUFFER 0.1
 
 //
-# define ROTATION_SPEED 5
-# define MOVE_SPEED 0.3
+# define ROTATION_SPEED 4
+# define MOVE_SPEED 0.2
 //Events
 //event codes
 enum {

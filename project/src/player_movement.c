@@ -1,4 +1,15 @@
-//HAEDER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player_movement.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/16 18:52:53 by lgottsch          #+#    #+#             */
+/*   Updated: 2025/05/16 19:02:37 by lgottsch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "../includes/cub3d.h"
 
@@ -7,11 +18,11 @@ returns 0 if move valid, 1 if not
 */
 int	boundary_check(t_vector *new, t_game *game) //TODO: check if any point on line next step = wall hit, not only end point (=going thru walls rn)
 {	
-	// double	m;//steigung
-	// double	b; //y achsenabschnitt
-	// double	random_x;
-	// double	random_y;
-	// double step;
+	double	m;//steigung
+	double	b; //y achsenabschnitt
+	double	random_x;
+	double	random_y;
+	double step;
 
 	//get int coord and check if either x +-1 = wall or y +- 1 = wall
 	if (get_map_point(trunc(new->y), trunc(new->x), game) == 1)//
@@ -23,21 +34,21 @@ int	boundary_check(t_vector *new, t_game *game) //TODO: check if any point on li
 		//get steigung der geraden (neuer punktk = y = mx + b)
 	//traverse in 0.1? abständen or even smaller
 
-	// step = 0.0000001;
-	// random_x = game->player->pos_x; //x point to traverse
-	// m = (new->y - game->player->pos_y) / (new->x - game->player->pos_x);
-	// while (random_x <= new->x)
-	// {
-	// 	random_x += step;
-	// 	b = game->player->pos_y - m * game->player->pos_x;
-	// 	random_y = m * random_x + b;
-	// 	//check if new point = wall
-	// 	if (get_map_point(trunc(random_y), trunc(random_x), game) == 1)
-	// 	{
-	// 		printf("move would be going through wall. not allowing\n");
-	// 		return (1);
-	// 	}
-	// }
+	step = 0.0000001;
+	random_x = game->player->pos_x; //x point to traverse
+	m = (new->y - game->player->pos_y) / (new->x - game->player->pos_x);
+	while (random_x <= new->x)
+	{
+		random_x += step;
+		b = game->player->pos_y - m * game->player->pos_x;
+		random_y = m * random_x + b;
+		//check if new point = wall
+		if (get_map_point(trunc(random_y), trunc(random_x), game) == 1)
+		{
+			printf("move would be going through wall. not allowing\n");
+			return (1);
+		}
+	}
 	//maybe even add logic that if both +1 coords = wall dont allow in certain dir?
 
 	return (0);	

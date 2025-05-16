@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+         #
+#    By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 16:00:38 by lgottsch          #+#    #+#              #
-#    Updated: 2025/05/16 10:09:51 by Watanudon        ###   ########.fr        #
+#    Updated: 2025/05/16 18:32:10 by lgottsch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ LIBFT_FLAGS_MAC = -L$(LIBFTDIR) -lfull_libft
 MLX_INC_MAC = -I$(MLXMACDIR)
 
 SRC= $(addprefix $(SRC_FOLDER), main.c raycasting.c utils.c minimap.c raycast_utils.c hooks.c vector_math.c \
-	player_movement.c minimap_utils.c game_init.c dda.c texture_utils.c freeing.c)
+	player_movement.c minimap_utils.c game_init.c dda.c texture_utils.c)
 
 OBJ = $(SRC:.c=.o)
 
@@ -40,7 +40,7 @@ OBJ = $(SRC:.c=.o)
 LIBFTA= $(LIBFTDIR)/libfull_libft.a
 MLXA= $(MLXDIR)/libmlx_Linux.a
 
-# rules	
+# rules
 
 $(NAME): libft mlx-linux
 	@ $(CC) $(CFLAGS) $(SRC) $(LIBFTA) $(MLXA) -o $(NAME) $(MLX_FLAGS_LX)
