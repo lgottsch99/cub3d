@@ -12,11 +12,7 @@ who doing which parts?
 
 
 
-
-
 how are parts connected? structs?
-
-
 
 
 structs pitch :
@@ -37,5 +33,8 @@ player:
 ------------------------------------------------
 TODOs
 
+talk about data structures: map as char** ok? or int** easier?
+
+assign parsing results to structs
 
 

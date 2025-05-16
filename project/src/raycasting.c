@@ -6,7 +6,7 @@
 /*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:10:57 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/13 16:00:07 by Watanudon        ###   ########.fr       */
+/*   Updated: 2025/05/16 10:09:02 by Watanudon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ approach:
 TODO LILLI
 	boundary check more complete KINDA OK
 	movement smoother?
+	framerate + speed dynamic? like always 10 steps / sec?
 
 	freeing 
 

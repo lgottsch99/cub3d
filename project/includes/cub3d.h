@@ -6,7 +6,7 @@
 /*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 16:17:07 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/13 15:41:33 by Watanudon        ###   ########.fr       */
+/*   Updated: 2025/05/16 10:22:03 by Watanudon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ typedef struct s_world
 	int ceiling_g; 
 	int ceiling_b;
 	int	color_ceiling;
-	
+
 	t_texture tex_NO; //path to texture
 	t_texture tex_SO;
 	t_texture tex_WE;
