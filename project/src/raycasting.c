@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:10:57 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/16 18:57:43 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/16 19:20:40 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ approach:
 		
 
 TODO LILLI
-	boundary check more complete KINDA OK
+	boundary check more complete (chnage logic)
+	
 	movement smoother? OK ON LINUX
 	framerate + speed dynamic? like always 10 steps / sec? OK ON LINUX
 	
@@ -40,13 +41,6 @@ TODO LILLI
 ???:
 	
 */
-
-// actual raycasting
-// 	get player pos and dir vector -> camera plane vector
-// 	calc camera plane end points ->player pos to endpoints = outer most edges of fov/img
-// 	divide distance into W_Width, for each pixel:
-// 		calc vector from player to next wall hit
-// 		calc vector distance , get height (and direction etc) of wall line to draw
 
 #include "../includes/cub3d.h"
 

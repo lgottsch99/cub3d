@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:52:53 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/16 19:02:37 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/16 19:20:16 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ int	boundary_check(t_vector *new, t_game *game) //TODO: check if any point on li
 	//traverse in 0.1? abständen or even smaller
 
 	step = 0.0000001;
+
 	random_x = game->player->pos_x; //x point to traverse
 	m = (new->y - game->player->pos_y) / (new->x - game->player->pos_x);
-	while (random_x <= new->x)
+	while (random_x <= new->x) //do same for y
 	{
 		random_x += step;
 		b = game->player->pos_y - m * game->player->pos_x;
@@ -50,7 +51,23 @@ int	boundary_check(t_vector *new, t_game *game) //TODO: check if any point on li
 		}
 	}
 	//maybe even add logic that if both +1 coords = wall dont allow in certain dir?
+	random_y = game->player->pos_y; //x point to traverse
+	m = (new->x - game->player->pos_x) / (new->y - game->player->pos_y);
+	while (random_x <= new->x) //do same for y
+	{
+		random_y += step;
+		b = game->player->pos_x - m * game->player->pos_y;
+		random_x = m * random_y + b;
+		//check if new point = wall
+		if (get_map_point(trunc(random_y), trunc(random_x), game) == 1)
+		{
+			printf("move would be going through wall. not allowing\n");
+			return (1);
+		}
+	}
 
+
+	//TODO change logic to check if gerade to go -> crossing grid lines that are walls
 	return (0);	
 }
 
