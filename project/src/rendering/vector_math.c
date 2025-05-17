@@ -6,12 +6,12 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:53:13 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/17 14:39:38 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/17 15:12:08 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 /* Ft calculating length of vector
 for double : sqrt()

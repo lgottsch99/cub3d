@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Watanudon <Watanudon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 14:11:44 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/13 15:34:43 by Watanudon        ###   ########.fr       */
+/*   Updated: 2025/05/17 15:11:27 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 
 void	set_plane(t_raycast *ray, t_game *game)

@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:10:57 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/16 19:20:40 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/17 15:11:56 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,9 @@ approach:
 		
 
 TODO LILLI
-	boundary check more complete (chnage logic)
-	
 	movement smoother? OK ON LINUX
 	framerate + speed dynamic? like always 10 steps / sec? OK ON LINUX
 	
-
 	freeing 
 
 	bonus compilation
@@ -42,7 +39,7 @@ TODO LILLI
 	
 */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 void	draw_loop(t_raycast *ray, t_game *game, double tex_pos, int i)
 {

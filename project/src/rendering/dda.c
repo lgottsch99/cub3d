@@ -6,11 +6,11 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:51:55 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/16 18:51:59 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/17 15:10:55 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 void	dda_loop(t_raycast *ray, t_game *game)
 {

@@ -6,11 +6,11 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:53:03 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/16 18:53:05 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/17 15:12:00 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 
 /* getting color value at pixel x,y in texture

@@ -6,11 +6,11 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 18:20:44 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/16 18:52:35 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/17 15:11:06 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 int	quit_window(t_game *game)//TODO
 {

@@ -6,7 +6,7 @@
 #    By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 16:00:38 by lgottsch          #+#    #+#              #
-#    Updated: 2025/05/17 15:08:02 by lgottsch         ###   ########.fr        #
+#    Updated: 2025/05/17 15:12:54 by lgottsch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ NAME = cub3D
 LIBFTDIR= ./lib/full_libft
 MLXDIR= ./lib/mlx_linux
 MLXMACDIR= ./lib/mlx_mac
-SRC_FOLDER = ./src/
+SRC_FOLDER = ./src/rendering/
 
 CC = cc 
 CFLAGS = -Wall -Wextra -Werror

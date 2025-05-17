@@ -6,12 +6,12 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:52:47 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/16 18:52:48 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/17 15:11:17 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 void	draw_square(int x, int y, int square_size, t_game *game, int color)
 {

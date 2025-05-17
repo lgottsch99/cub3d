@@ -6,12 +6,12 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 15:06:39 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/17 15:07:50 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/17 15:10:49 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 static void	calc_steps(t_vector *new, t_game *game, t_boundary *b)
 {

@@ -6,12 +6,12 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:52:26 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/16 18:52:34 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/17 15:11:13 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 
 int count_map(char **map, int mode)

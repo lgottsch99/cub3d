@@ -6,12 +6,12 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:52:53 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/17 15:09:58 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/17 15:11:23 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 
 int change_orientation(int keycode, t_game *game) //change ->player->dir according to rotation matrix

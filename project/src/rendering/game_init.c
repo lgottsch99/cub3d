@@ -6,11 +6,11 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:52:11 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/16 18:52:14 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/17 15:11:02 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 
 void	init_test_player(t_game *game) //DEVELOPING ONLY
