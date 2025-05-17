@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:53:13 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/16 18:53:16 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/17 14:39:38 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_vector	norm_vector(double x, double y)
 	normed.x = x / v_len;
 	normed.y = y / v_len;
 	
-	printf("normed vetor check, len: %f\n", vector_len(normed.x, normed.y));
+	//printf("normed vetor check, len: %f\n", vector_len(normed.x, normed.y));
 	return (normed);
 }
 
@@ -53,7 +53,7 @@ t_vector	v_change_len(double k, double x, double y)
 	//change len 
 	vector.x = k * vector.x;
 	vector.y = k * vector.y;
-	printf("resized vector check, len: %f\n", vector_len(vector.x, vector.y));
+	//printf("resized vector check, len: %f\n", vector_len(vector.x, vector.y));
 
 	return (vector);
 }
@@ -67,8 +67,8 @@ t_vector	v_add(t_vector a, t_vector b)
 	new_point.x = a.x + b.x;
 	new_point.y = a.y + b.y;
 
-	printf("addition new x: %f\n", new_point.x);
-	printf("addition new y: %f\n", new_point.y);
+	// printf("addition new x: %f\n", new_point.x);
+	// printf("addition new y: %f\n", new_point.y);
 	return (new_point);
 }
 

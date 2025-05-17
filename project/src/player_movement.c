@@ -6,17 +6,101 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:52:53 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/16 19:20:16 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/17 14:43:23 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../includes/cub3d.h"
 
+int	boundary_check(t_vector *new, t_game *game) //TODO: check if any point on line next step = wall hit, not only end point (=going thru walls rn)
+{
+	double dx;
+	double dy;
+	double distance;
+	double step;
+	int		amount_steps;
+	double	x_step;
+	double	y_step;
+
+	//get int coord and check if either x +-1 = wall or y +- 1 = wall
+	// if (get_map_point(trunc(new->y), trunc(new->x), game) == 1)//
+	// {
+	// 	printf("move would be going inside wall. not allowing\n");
+	// 	return (1);
+	// }
+
+	step = 0.0000001;
+	//delta x and y
+	dx = new->x - game->player->pos_x;
+	dy = new->y - game->player->pos_y;
+	//len of movement vector
+	distance = vector_len(dx, dy);
+	//points on vector to check
+	amount_steps = (int) (distance / step);
+	if (amount_steps < 1)
+		amount_steps = 1;
+
+	//dist on x and y axis to check
+	x_step = dx / amount_steps;
+	y_step = dy / amount_steps;
+
+
+
+	//check_each_point()
+	int	i;
+	int max_x;
+	int min_x;
+	int  max_y;
+	int	min_y;
+	
+	double	x;
+	double	y;
+	double player_radius;
+
+	player_radius = 0.1; //acts as buffer around player to not collide with walls
+
+
+	x = game->player->pos_x;
+	y = game->player->pos_y;
+
+	i = 0;
+	while (i <= amount_steps)
+	{
+		//get box coords using radius
+		// map_x = (int)trunc(x);
+		// map_y = (int)trunc(y);
+		min_x = (int)trunc(x - player_radius);
+		max_x = (int)trunc(x + player_radius);
+		min_y = (int)trunc(y - player_radius);
+		max_y = (int)trunc(y + player_radius);
+
+		for (int ty = min_y; ty <= max_y; ty++) // For each row in player radius box
+        {
+            for (int tx = min_x; tx <= max_x; tx++) // For each column in that  box
+            {
+                if (get_map_point(ty, tx, game) == 1) // Check if that tile is a wall (1)
+                {
+                    printf("Move would go inside wall at tile (%d,%d). Not allowing.\n", tx, ty);
+                    return 1;
+                }
+            }
+        }
+
+		x += x_step;
+		y += y_step;
+		
+		i++;
+	}
+	return (0);
+}
+
+
+
 /*
 returns 0 if move valid, 1 if not
 */
-int	boundary_check(t_vector *new, t_game *game) //TODO: check if any point on line next step = wall hit, not only end point (=going thru walls rn)
+int	old_boundary_check(t_vector *new, t_game *game) //TODO: check if any point on line next step = wall hit, not only end point (=going thru walls rn)
 {	
 	double	m;//steigung
 	double	b; //y achsenabschnitt
@@ -51,20 +135,20 @@ int	boundary_check(t_vector *new, t_game *game) //TODO: check if any point on li
 		}
 	}
 	//maybe even add logic that if both +1 coords = wall dont allow in certain dir?
-	random_y = game->player->pos_y; //x point to traverse
-	m = (new->x - game->player->pos_x) / (new->y - game->player->pos_y);
-	while (random_x <= new->x) //do same for y
-	{
-		random_y += step;
-		b = game->player->pos_x - m * game->player->pos_y;
-		random_x = m * random_y + b;
-		//check if new point = wall
-		if (get_map_point(trunc(random_y), trunc(random_x), game) == 1)
-		{
-			printf("move would be going through wall. not allowing\n");
-			return (1);
-		}
-	}
+	// random_y = game->player->pos_y; //x point to traverse
+	// m = (new->x - game->player->pos_x) / (new->y - game->player->pos_y);
+	// while (random_x <= new->x) //do same for y
+	// {
+	// 	random_y += step;
+	// 	b = game->player->pos_x - m * game->player->pos_y;
+	// 	random_x = m * random_y + b;
+	// 	//check if new point = wall
+	// 	if (get_map_point(trunc(random_y), trunc(random_x), game) == 1)
+	// 	{
+	// 		printf("move would be going through wall. not allowing\n");
+	// 		return (1);
+	// 	}
+	// }
 
 
 	//TODO change logic to check if gerade to go -> crossing grid lines that are walls
