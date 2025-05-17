@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 16:17:07 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/17 15:07:15 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/17 16:42:46 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,32 @@ enum {
 
 // STRUCTS ----------------------------------
 
+/* Connection btw parsing + rendering
+INFO NEEDED FOR RENDERING:
+
+	player start pos x
+	player start pos y
+
+	player direction: N S E or W 
+
+	floor color (r g b or final value)
+	ceiling color (r g b or final value)
+
+	Texture paths
+		NO
+		SO
+		EA
+		WE
+	
+	char **map
+	map height
+	map width
+
+*/
+
+
+
+
 typedef struct s_vector
 {
 	double x;
@@ -96,24 +122,18 @@ typedef struct s_vector
 
 typedef struct s_player //TODO change to vector structs
 {
-	//field of view
 	//position
-	//t_vector	pos;
 	double pos_x;
 	double pos_y;
 	
 	//direction (= vector (or camera): x and y coordinate)
-	//t_vector	dir;
 	double dir_x;
 	double dir_y;
 
 	//plane vector (=camera, based on FOV)
-	//t_vector	plane;
 	double plane_x;
 	double plane_y;
 
-	
-	//...
 } t_player;
 
 //image mlx
@@ -128,12 +148,13 @@ typedef struct s_img
 
 typedef struct s_texture
 {
-	void	*img;
-	char	*relative_path;
-	int		tex_width;
-	int		tex_height;
-	
-	char	*data_addr;
+	void	*img; //image pointer to loaded texture
+	char	*relative_path; //path to texture file
+	int		tex_width; 
+	int		tex_height; 
+
+	//TEX IMG INFO
+	char	*data_addr; 
 	int		bpp;
 	int		size_line;
 	int		endian;
@@ -156,12 +177,6 @@ typedef struct s_world
 	t_texture tex_SO;
 	t_texture tex_WE;
 	t_texture tex_EA;
-	// char *texture_SO;
-	// char *texture_WE;
-	// char *texture_EA;
-	// int map_width; //needed for minimap
-	// int map_height;
-	//char **world;
 	
 } t_world;
 
@@ -170,13 +185,13 @@ typedef struct s_game
 {
 	void	*mlx; //mlx pointer
 	void	*window; //mlx window
-	t_img	*image; //img to show on window
+	t_img	*image; //ptr to final img struct to show on window
 	char	**map; //INT would be better?
-	//int **map;
+
 	t_player *player; //ptr to player struct
-	//...
+
 	t_world	*world; //struct with parsed info 
-	bool	*moved;
+	bool	*moved; //ptr to movement indicator bool in main
 
 } t_game;
 
