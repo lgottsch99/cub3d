@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 16:17:07 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/16 19:06:57 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/17 15:07:15 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@
 
 //
 # define ROTATION_SPEED 4
-# define MOVE_SPEED 0.2
+# define MOVE_SPEED 0.3
+# define PLAYER_RADIUS 0.1
 //Events
 //event codes
 enum {
@@ -218,6 +219,25 @@ typedef struct s_raycast
 	
 } t_raycast;
 
+typedef struct s_boundary
+{
+	double player_radius;
+	
+	double	step;
+	int		amount_steps;
+	double	x_step;
+	double	y_step;
+
+	int		max_x;
+	int		min_x;
+	int 	max_y;
+	int		min_y;
+
+	double	x;
+	double	y;
+
+} t_boundary;
+
 
 // FUNCTIONS ----------------------------------
 
@@ -255,6 +275,9 @@ int	boundary_check(t_vector *new, t_game *game); //TODO: check if any point on l
 int change_orientation(int keycode, t_game *game); //change ->player->dir according to rotation matrix
 void	move_w_s(int keycode, t_game *game);
 void	move_a_d(int keycode, t_game *game);
+
+//boundary
+int	boundary_check(t_vector *new, t_game *game); //TODO: check if any point on line next step = wall hit, not only end point (=going thru walls rn)
 
 
 //minimap
