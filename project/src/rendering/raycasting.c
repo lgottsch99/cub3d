@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:10:57 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/06/12 19:25:00 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/12 19:49:25 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,27 +117,17 @@ int	game_loop(t_game *game)//TODO check if pos/dir changed, else no rendering/cl
 	return (0);
 }
 
-void	raycasting_main(t_game *game, bool *moved) //for now: lillis main
+void	raycasting_main(t_game *game, bool *moved)
 {
-	//TODO parse player spawn coords
-
-	//0 init basics //TODO later after parsing
 	init(game, moved);
-
 
 	//1st img at startup:
 	raycast(game); //first frame
-	//minimap (for understanding what is going on (movement)) (draw over everything else)
-	minimap(game); //TODO dyn rezising of tiles
+	minimap(game);
 	mlx_put_image_to_window(game->mlx, game->window, game->image->img, 0, 0);
 
 	hooks(game); //TODO freeing 
-	//add mlx loop hook ( -> raycast)
-	
 	mlx_loop_hook(game->mlx, game_loop, game);//keep re rendering
-
-	//mlx_put_image_to_window(game->mlx, game->window, game->image->img, 0, 0);
 	if (game->mlx)
 		mlx_loop(game->mlx); //keeping window open
-
 }

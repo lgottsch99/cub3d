@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:52:11 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/06/12 18:38:34 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/12 19:53:28 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,31 +135,46 @@ void	init_world(t_game *game)
 
 }
 
+
+void	init_mlx(t_game *game)
+{
+	game->mlx = mlx_init();
+	if (!game->mlx)
+		free_everything(game, 1);
+	game->image = (t_img_r*)malloc(sizeof(t_img_r));
+	if (!game->image)
+		free_everything(game, 1);
+	game->image->img = mlx_new_image(game->mlx, W_WIDTH, W_HEIGHT); //init img
+	if (!game->image->img)
+		free_everything(game, 1);
+	game->image->addr = mlx_get_data_addr(game->image->img, &game->image->bits_per_pixel, &game->image->line_length, &game->image->endian);
+	if (!game->image->addr)
+		free_everything(game, 1);
+	game->window = mlx_new_window(game->mlx, W_WIDTH, W_HEIGHT, "CUB3D"); //init window
+	if(!game->window)
+		free_everything(game, 1);
+}
+
 void	init(t_game *game, bool *moved)
 {
-	game->mlx = mlx_init(); //init mlx
-	if (!game->mlx)
-	{
-		free_game(game);
-		exit(1);
-	}
-	game->image = (t_img_r*)malloc(sizeof(t_img_r)); //malloc space for img
-	//if (!game->image)
-		//free
-	game->image->img = mlx_new_image(game->mlx, W_WIDTH, W_HEIGHT); //init img
-	//if (!game->image->img)
-		//free
-	game->image->addr = mlx_get_data_addr(game->image->img, &game->image->bits_per_pixel, &game->image->line_length, &game->image->endian);
-	//if (!game->image->addr)
-		//free
-	game->window = mlx_new_window(game->mlx, W_WIDTH, W_HEIGHT, "CUB3D"); //init window
-	//if(!game->window)
-		//free
+	init_mlx(game);
+	// game->mlx = mlx_init();
+	// if (!game->mlx)
+	// 	free_everything(game, 1);
+	// game->image = (t_img_r*)malloc(sizeof(t_img_r));
+	// if (!game->image)
+	// 	free_everything(game, 1);
+	// game->image->img = mlx_new_image(game->mlx, W_WIDTH, W_HEIGHT); //init img
+	// if (!game->image->img)
+	// 	free_everything(game, 1);
+	// game->image->addr = mlx_get_data_addr(game->image->img, &game->image->bits_per_pixel, &game->image->line_length, &game->image->endian);
+	// if (!game->image->addr)
+	// 	free_everything(game, 1);
+	// game->window = mlx_new_window(game->mlx, W_WIDTH, W_HEIGHT, "CUB3D"); //init window
+	// if(!game->window)
+	// 	free_everything(game, 1);
 	game->moved = moved;
-
-	// init_test_map(game);
 	game->map_r = game->map.map;
 	init_player(game);
 	init_world(game);
-
 }

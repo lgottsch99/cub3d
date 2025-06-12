@@ -30,7 +30,7 @@ typedef struct s_img
 // maps structure which has a grid view , width, and height
 typedef struct s_map
 {
-	char	**map; //ok
+	char	**map;
 	int		map_width;
 	int		map_height;
 }			t_map;
@@ -43,14 +43,27 @@ typedef struct s_color
 	int		b;
 	int full_color; // it converts the r,g,b into a one color
 }			t_color;
-
 // texture on the walls struct
 typedef struct s_texture
 {
-	char	*path; //ok
+	char	*path;
 	int		tex_width;
 	int		tex_height;
 }			t_texture;
+
+typedef struct s_pos
+{
+	int i;
+	int j;
+}	t_pos;
+
+typedef struct s_mapcheck
+{
+	int i;
+	int j;
+	char c;
+	t_pos p;
+} t_mapcheck;
 
 // functions
 /* parsing map */
@@ -91,8 +104,10 @@ void		validate_game_data(t_game *game);
 void   		validate_color(t_color *color,char *side_name);
 int			create_new_color(int a,int r, int g, int b);
 int			is_valid_char(char c);
+int			map_enclosed_helper(char **map, t_pos p, int height,int width);
 int 		is_map_enclosed(char **map,int height, int width);
 int			single_player(char **map);
+void		assign_map(char **map, int correct_width, char **new_map, int i);
 char		**normalize_map(char ** map,int height, int *out_width);
 int			is_rectangular(char **map, int height, int expected_width);
 void		free_map_to_validate(char **grid,char **map);
