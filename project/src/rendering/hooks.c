@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 18:20:44 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/17 15:11:06 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/12 19:28:22 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 int	quit_window(t_game *game)//TODO
 {
-	(void)game;
 	ft_printf("x window\n");
-	//free_everything TODO
-
-	exit (0);
+	free_everything(game, 1);
+	return (0);
 }
 
 int	move(int keycode, t_game *game)//TODO validity check
@@ -30,8 +28,7 @@ int	move(int keycode, t_game *game)//TODO validity check
 	if (keycode == ESC)
 	{
 		ft_printf("ESC pressed\n");
-		//TODO free everything
-		exit(0);
+		free_everything(game, 1);
 	}
 	else if (keycode == W_KEY || keycode == S_KEY) //new
 	{

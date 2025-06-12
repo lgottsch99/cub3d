@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 14:10:00 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/06/12 16:33:01 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/12 17:14:09 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ int get_map_point(int x, int y, t_game *game)
 	//printf("map at x %i y %i: %c\n", x, y, content);
 	if (content == '1')
 		return (1);
-	else
+	else if (content == '0' || content == 'N' || content == 'S' || content == 'W')
 		return (0);
+	else 
+		return (-1);
 }
 
 /* Ft that clears img buffer of any colors drawn. Only needed when continously rendering imgs 

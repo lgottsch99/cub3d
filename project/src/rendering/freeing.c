@@ -6,39 +6,49 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:52:01 by lgottsch          #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2025/06/12 19:42:44 by lgottsch         ###   ########.fr       */
+=======
+/*   Updated: 2025/06/12 19:29:31 by lgottsch         ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
 
-void	free_img(t_img_r *image)
+void	free_img(t_img_r *image) //ok
 {
+	printf("in free img\n");
+	
 	if (image->img)
 		free(image->img);
-	if (image->addr)
-		free(image->addr);
-
 }
 
-void	free_texture(t_texture_r *tex, t_game *game)
+void	free_texture(t_texture_r *tex, t_game *game) //ok
 {
-	if (tex->relative_path)
-		free(tex->relative_path);
-	if (tex->img) //?? 
+	if (tex->img)
 	{
-		ft_printf("freeing tex image\n");
+		printf("freeing texture img\n");
 		mlx_destroy_image(game->mlx, tex->img);
-		free(tex->img);
+		tex->img = NULL;
+	}
+	if (tex->relative_path)
+	{
+		printf("freeing texture rel path\n");
+		tex->relative_path = NULL;
 	}
 	if (tex->data_addr)
-		free(tex->data_addr);
-	
+	{
+		printf("freeing texture data addr\n");
+		tex->data_addr = NULL;
+	}
+	tex = NULL;
 }
 
 void	free_world(t_world *world, t_game *game)
 {
+<<<<<<< Updated upstream
 	if (world.tex_NO)
 	free_texture(&world.tex_NO, game);
 	free_texture(&world.tex_SO, game);
@@ -46,38 +56,57 @@ void	free_world(t_world *world, t_game *game)
 		free_texture(&world.tex_WE, game);
 	if (world.tex_EA)
 		free_texture(&world.tex_EA, game);
+=======
+	free_texture(&world->tex_NO, game);
+	free_texture(&world->tex_SO, game);
+	free_texture(&world->tex_WE, game);
+	free_texture(&world->tex_EA, game);		
+>>>>>>> Stashed changes
 }
 
-void	free_everything(t_game *game)
+
+void	free_everything(t_game *game, int int_exit)
 {
+	free_game(game);
 	if (game->image && game->mlx && game->image->img)
 	{
-		ft_printf("freeing image\n");
+		printf("free image\n");
 		mlx_destroy_image(game->mlx, game->image->img);
-		free(game->image);
+		game->image->img = NULL;
+		free_img(game->image);
 	}
 	if (game->window && game->mlx)
 	{
 		ft_printf("freeing window\n");
 		mlx_destroy_window(game->mlx, game->window);
+		game->window = NULL;
 	}
-
-
-	// if (game->image) //needed after top part?
-	// 	free_img(game->image);
-
-	if (game->map)
-
-	if (game->player) //set to null only 
+	if (game->image)
+		free(game->image);
+	if (game->map_r)
+	{
+		printf("freeing map\n");
+		game->map_r = NULL;
+	}
+	if (game->player)
+	{
+		printf("freeing player\n");
+		free(game->player);
 		game->player = NULL;
-
-	if (game->world) //free textures
+	}
+	if (game->world)
+	{
+		printf("freeing world\n");
 		free_world(game->world, game);
+		free(game->world);
+		game->world = NULL;
+	}
 	if (game->mlx)
 	{
 		ft_printf("freeing mlx\n");
-		//mlx_destroy_display(game->mlx);
+		mlx_destroy_display(game->mlx);
 		free(game->mlx);
 	}
-
+	if (int_exit == 1)
+		exit(0);
 }

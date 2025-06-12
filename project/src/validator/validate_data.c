@@ -18,7 +18,7 @@ void	validate_texture(char *path, char *name)
 	int fd;
 	if (!path)
 	{
-		printf("Path Do not exit %s", path);
+		printf("Path Do not exist %s", path);
 		// exit(EXIT_FAILURE);
 	}
 	else if (!valid_extension(path, ".xpm"))

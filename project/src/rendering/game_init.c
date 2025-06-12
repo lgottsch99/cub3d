@@ -6,25 +6,67 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:52:11 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/06/12 16:31:18 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/12 18:38:34 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-
-void	init_test_player(t_game *game) //DEVELOPING ONLY
+void	assign_player_dir(t_game *game, int x, int y)
 {
-	printf("in init test player\n");
+	if (game->map_r[y][x] == 'N')
+	{
+		game->player->dir_x = N_X;
+		game->player->dir_y = N_Y;
+	}
+	else if (game->map_r[y][x] == 'S')
+	{
+		game->player->dir_x = S_X;
+		game->player->dir_y = S_Y;
+	}
+	else if (game->map_r[y][x] == 'E')
+	{
+		game->player->dir_x = E_X;
+		game->player->dir_y = E_Y;
+	}
+	else if (game->map_r[y][x] == 'W')
+	{
+		game->player->dir_x = W_X;
+		game->player->dir_y = W_Y;
+	}
+}
 
+void	init_player(t_game *game) //TODO parse player pos
+{
 	//malloc player struct
 	game->player = (t_player *)malloc(sizeof(t_player));
-	//if (!game->player)
+	// if (!game->player)
 		//free
 
+	int y;
+	int x;
+	
+	y = 0;
+	while (y < game->map.map_height)
+	{
+		x = 0;
+		while (x < game->map.map_width)
+		{
+			if (game->map_r[y][x] == 'N' || game->map_r[y][x] == 'S' || game->map_r[y][x] == 'W' || game->map_r[y][x] == 'E')
+			{
+				game->player->pos_x = (double) x + 0.5;
+				game->player->pos_y = (double) y + 0.5;
+				assign_player_dir(game, x, y);
+				break;
+			}
+			x++;
+		}
+		y++;
+	}
+
 	//starting position based on map coords (spawn player in middle of tile)
-	game->player->pos_x = 3.5;
-	game->player->pos_y = 4.5;
+	// game->player->pos_x = 3.5;
+	// game->player->pos_y = 4.5;
 
 	//starting orientation based on char N E S W //TODO
 	// game->player->dir_x = N_X;
@@ -33,69 +75,27 @@ void	init_test_player(t_game *game) //DEVELOPING ONLY
 	// game->player->dir_x = S_X;
 	// game->player->dir_y = S_Y;
 
-	game->player->dir_x = E_X;
-	game->player->dir_y = E_Y;
+	// game->player->dir_x = E_X;
+	// game->player->dir_y = E_Y;
 
 	// game->player->dir_x = W_X;
 	// game->player->dir_y = W_Y;
 
 }
 
-void	init_test_map(t_game *game) //DEVELOPING ONLY
-{
-	printf("in init test map\n");
-	
-	static char *test_map[] = {
-		"1111111111", //row y = 0
-		"1000000001",
-		"1001000101",
-		"1010001001", //row y = 3 
-		"100N001111", //player at x3 y4
-		"1000000001",
-		"1000000001",
-		"1000000001",
-		"1000000001",
-		"1000000001",
-		"1000000001",
-		"1000000001",
-		"1000000001",
-		"1000000001",
-		"1000000001",
-		"1000000001",
-		"1000000001",
-		"1000000001",
-		"1111111111"
-	};
 
-	game->map_r= test_map;
 
-	// printf("char at pos 1 1: %c\n", game->map[1][1]);
-	// printf("char at pos 3 3: %c\n", game->map[3][3]);
-}
-
-void	init_test_world(t_game *game) //DEVELOPING ONLY
+void	init_world(t_game *game)
 {
 	game->world = (t_world *)malloc(sizeof(t_world));
 	//if(!game->world)
 		//free
 
-	game->world->floor_r = 168; //sandy brown
-	game->world->floor_g = 100;
-	game->world->floor_b = 5;
+	game->world->color_ceiling = game->ceiling.full_color; //create_color(0, game->world->ceiling_r, game->world->ceiling_g, game->world->ceiling_b);
+	game->world->color_floor = game->floor.full_color;//create_color(0, game->world->floor_r, game->world->floor_g, game->world->floor_b);
 
-	game->world->ceiling_r = 0; //dark blue
-	game->world->ceiling_g = 5;
-	game->world->ceiling_b = 138;
-
-
-	game->world->color_ceiling = create_color(0, game->world->ceiling_r, game->world->ceiling_g, game->world->ceiling_b);
-	game->world->color_floor = create_color(0, game->world->floor_r, game->world->floor_g, game->world->floor_b);
-
-	//LOAD TEXTURES
-	//game->world->tex_NO.relative_path = "../Textures_png/Planet3.png";
-		// ! mlx_png_file_to_image officially leaks mem
-	//game->world->tex_NO.img = mlx_png_file_to_image(game->mlx, game->world->tex_NO.relative_path, &game->world->tex_NO.tex_width, &game->world->tex_NO.tex_height);
-	game->world->tex_NO.relative_path = "../Textures_xpm/Planet1.xpm";
+	//LOAD TEXTURES	
+	game->world->tex_NO.relative_path = game->No_texture.path; //"../Textures_xpm/Planet1.xpm";
 	game->world->tex_NO.img = mlx_xpm_file_to_image(game->mlx, game->world->tex_NO.relative_path, &game->world->tex_NO.tex_width, &game->world->tex_NO.tex_height);
 	if (game->world->tex_NO.img == NULL)
 		printf("LOADING NO TEXTURE FAILED\n");
@@ -106,7 +106,7 @@ void	init_test_world(t_game *game) //DEVELOPING ONLY
 	// printf("texture width: %i\n", game->world->tex_NO.tex_width);
 	// printf("texture height: %i\n", game->world->tex_NO.tex_height);
 
-	game->world->tex_SO.relative_path = "../Textures_xpm/Planet2.xpm";
+	game->world->tex_SO.relative_path = game->So_texture.path; // "../Textures_xpm/Planet2.xpm";
 	game->world->tex_SO.img = mlx_xpm_file_to_image(game->mlx, game->world->tex_SO.relative_path, &game->world->tex_SO.tex_width, &game->world->tex_SO.tex_height);
 	if (game->world->tex_SO.img == NULL)
 		printf("LOADING SO TEXTURE FAILED\n");
@@ -115,7 +115,7 @@ void	init_test_world(t_game *game) //DEVELOPING ONLY
 		printf("getting SO TEXTURE addr FAILED\n");
 
 
-	game->world->tex_WE.relative_path = "../Textures_xpm/Planet3.xpm";
+	game->world->tex_WE.relative_path = game->We_texture.path;//"../Textures_xpm/Planet3.xpm";
 	game->world->tex_WE.img = mlx_xpm_file_to_image(game->mlx, game->world->tex_WE.relative_path, &game->world->tex_WE.tex_width, &game->world->tex_WE.tex_height);
 	if (game->world->tex_WE.img == NULL)
 		printf("LOADING WE TEXTURE FAILED\n");
@@ -124,7 +124,7 @@ void	init_test_world(t_game *game) //DEVELOPING ONLY
 		printf("getting WE TEXTURE addr FAILED\n");
 
 
-	game->world->tex_EA.relative_path = "../Textures_xpm/Planet4.xpm";
+	game->world->tex_EA.relative_path = game->Ea_texture.path; //"../Textures_xpm/Planet4.xpm";
 	game->world->tex_EA.img = mlx_xpm_file_to_image(game->mlx, game->world->tex_EA.relative_path, &game->world->tex_EA.tex_width, &game->world->tex_EA.tex_height);
 	if (game->world->tex_EA.img == NULL)
 		printf("LOADING EA TEXTURE FAILED\n");
@@ -139,7 +139,10 @@ void	init(t_game *game, bool *moved)
 {
 	game->mlx = mlx_init(); //init mlx
 	if (!game->mlx)
+	{
+		free_game(game);
 		exit(1);
+	}
 	game->image = (t_img_r*)malloc(sizeof(t_img_r)); //malloc space for img
 	//if (!game->image)
 		//free
@@ -154,8 +157,9 @@ void	init(t_game *game, bool *moved)
 		//free
 	game->moved = moved;
 
-	init_test_map(game);
-	init_test_player(game);
-	init_test_world(game);
+	// init_test_map(game);
+	game->map_r = game->map.map;
+	init_player(game);
+	init_world(game);
 
 }

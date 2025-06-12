@@ -19,6 +19,10 @@
 void	exit_error(char *str)
 {
 	printf("Error:%s\n", str);
+	//TODO free
+
+
+	
 	exit(EXIT_FAILURE);
 }
 

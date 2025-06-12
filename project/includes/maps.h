@@ -30,7 +30,7 @@ typedef struct s_img
 // maps structure which has a grid view , width, and height
 typedef struct s_map
 {
-	char	**map;
+	char	**map; //ok
 	int		map_width;
 	int		map_height;
 }			t_map;
@@ -43,10 +43,11 @@ typedef struct s_color
 	int		b;
 	int full_color; // it converts the r,g,b into a one color
 }			t_color;
+
 // texture on the walls struct
 typedef struct s_texture
 {
-	char	*path;
+	char	*path; //ok
 	int		tex_width;
 	int		tex_height;
 }			t_texture;

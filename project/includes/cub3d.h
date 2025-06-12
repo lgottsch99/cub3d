@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 16:17:07 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/06/12 16:28:43 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/12 19:27:38 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 // LIBRARIES ----------------------------------
 
-//# include "../lib/mlx_linux/mlx.h" //minilibx for graphics rendering LINUX
-# include "../lib/mlx_mac/mlx.h" //minilibx for graphics rendering MAC
+# include "../lib/mlx_linux/mlx.h" //minilibx for graphics rendering LINUX
+// # include "../lib/mlx_mac/mlx.h" //minilibx for graphics rendering MAC
 
 # include "../lib/full_libft/full_libft.h"
 # include <math.h>
-//# include <X11/keysym.h> //defines some keycodes for hooks, only needed on linux?
+// # include <X11/keysym.h> //defines some keycodes for hooks, only needed on linux?
 
 //for event macros like KeyPress 
 //https://codebrowser.dev/kde/include/X11/X.h.html
@@ -111,8 +111,6 @@ INFO NEEDED FOR RENDERING:
 */
 
 
-
-
 typedef struct s_vector
 {
 	double x;
@@ -138,7 +136,7 @@ typedef struct s_player //TODO change to vector structs
 //image mlx
 typedef struct s_img_r
 {
-	void	*img;
+	void	*img; //ok
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
@@ -147,13 +145,13 @@ typedef struct s_img_r
 
 typedef struct s_texture_r //r for rendering
 {
-	void	*img; //image pointer to loaded texture
-	char	*relative_path; //path to texture file
+	void	*img;
+	char	*relative_path;
 	int		tex_width; 
 	int		tex_height; 
 
 	//TEX IMG INFO
-	char	*data_addr; 
+	char	*data_addr;
 	int		bpp;
 	int		size_line;
 	int		endian;
@@ -183,28 +181,22 @@ typedef struct s_world
 typedef struct s_game //parsing version
 {///parsing
 	void			*mlx;
-	void			*window;
-	t_img			*image_p;
-	t_map			map;
-	t_texture		No_texture;
-	t_texture		So_texture;
-	t_texture		We_texture;
-	t_texture		Ea_texture;
-	t_color			ceiling;
-	t_color			floor;
+	void			*window; //ok
+	t_img			*image_p; //not used
+	t_map			map; 
+	t_texture		No_texture;  //ok
+	t_texture		So_texture; //ok
+	t_texture		We_texture; //ok
+	t_texture		Ea_texture; //ok
+	t_color			ceiling; //not malloced
+	t_color			floor; //not malloced
 
 	///rendering
-	// void	*mlx; //mlx pointer
-	// void	*window; //mlx window
-	t_img_r	*image; //ptr to final img struct to show on window
-
-	char	**map_r; //change to t_map
-
-	t_player *player; //ptr to player struct
-
-	t_world	*world; //maybe not needed, change
-	
-	bool	*moved; //ptr to movement indicator bool in main
+	t_img_r			*image; 
+	char			**map_r; //ok
+	t_player 		*player; //ok
+	t_world			*world; //malloced
+	bool			*moved;
 
 }					t_game;
 
@@ -327,6 +319,9 @@ void	clear_image(t_game *game);
 void	hooks(t_game *game);
 int		destroy_esc(int keycode, t_game *game);
 int		quit_window(t_game *game);
+
+//free
+void	free_everything(t_game *game, int exit);
 
 
 #endif

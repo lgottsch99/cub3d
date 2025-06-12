@@ -6,7 +6,7 @@
 #    By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 16:00:38 by lgottsch          #+#    #+#              #
-#    Updated: 2025/06/12 16:22:53 by lgottsch         ###   ########.fr        #
+#    Updated: 2025/06/12 18:09:02 by lgottsch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,8 @@ SRC= $(SRC_DIR)/main.c \
 	$(SRC_REND_FOLDER)game_init.c \
 	$(SRC_REND_FOLDER)dda.c \
 	$(SRC_REND_FOLDER)texture_utils.c \
-	$(SRC_REND_FOLDER)boundary_check.c 
+	$(SRC_REND_FOLDER)boundary_check.c \
+	$(SRC_REND_FOLDER)freeing.c
 
 OBJ = $(SRC:.c=.o)
 

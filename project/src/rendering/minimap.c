@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:52:47 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/06/12 16:32:05 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/12 17:10:45 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	draw_square(int x, int y, int square_size, t_game *game, int color)
 	int a;
 	int current_x;
 	int current_y;
-	//int color = create_color(100, 255, 255, 0);
 
 	start_x = x * square_size;
 	start_y = y * square_size;
@@ -97,8 +96,7 @@ void	draw_player(t_game *game, int square_size)
 		a = 0;
 		while (a < player_size)
 		{
-			//HEADER
-my_mlx_pixel_put(game->image, y, x, color);
+			my_mlx_pixel_put(game->image, y, x, color);
 			y++;
 			a++;
 		}

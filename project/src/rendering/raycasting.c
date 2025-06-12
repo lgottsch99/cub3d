@@ -6,38 +6,10 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:10:57 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/29 15:47:20 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/12 19:25:00 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-approach:
-	add textures
-		load textures:
-		at init store textures in some buffer, The buffer will be an array of integers, where each integer represents the colour of a pixel
-	for each ray: 
-		calc x coord of WHERE it hits the wall in coord grid -> same x coord 
-
-
-		Textures:
-		For each vertical stripe (line) you draw for a wall:
-		Determine where on the texture’s X-axis the ray hit (texture coordinate).
-		Scale the texture’s vertical pixels to the height of the wall slice on screen.
-		Draw each pixel on that vertical line with the corresponding pixel from the texture.
-		
-
-TODO LILLI
-	movement smoother? OK ON LINUX
-	framerate + speed dynamic? like always 10 steps / sec? OK ON LINUX
-	
-	freeing 
-
-	bonus compilation
-
-
-???:
-	
-*/
 
 #include "../../includes/cub3d.h"
 
@@ -149,8 +121,8 @@ void	raycasting_main(t_game *game, bool *moved) //for now: lillis main
 {
 	//TODO parse player spawn coords
 
-		//0 init basics //TODO later after parsing
-		init(game, moved);
+	//0 init basics //TODO later after parsing
+	init(game, moved);
 
 
 	//1st img at startup:
