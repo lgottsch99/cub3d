@@ -13,26 +13,30 @@
 // #include "cub3d.h"
 #include "../../includes/cub3d.h"
 
-char    *trim_whitespaces(char *str)
+char	*trim_whitespaces(char *str)
 {
-	char *trimmed_value;
+	char	*trimmed_value;
+
 	trimmed_value = ft_strtrim(str, " \n\t\r");
-	if(!trimmed_value)
-		return(NULL);
-	return(trimmed_value);
+	if (!trimmed_value)
+		return (NULL);
+	return (trimmed_value);
 }
-int validate_single_color(char **strs)
+
+int	validate_single_color(char **strs)
 {
-    int i;
-    i = 0;
+	int		i;
+	char	*trimmed;
+
+	i = 0;
 	while (strs[i] != 0)
 	{
-		char *trimmed =  trim_whitespaces(strs[i]);
-		if(!trimmed || !str_digit(trimmed))
-			return(0);
+		trimmed = trim_whitespaces(strs[i]);
+		if (!trimmed || !str_digit(trimmed))
+			return (0);
 		free(strs[i]);
 		strs[i] = trimmed;
 		i++;
 	}
-    return (1);
+	return (1);
 }

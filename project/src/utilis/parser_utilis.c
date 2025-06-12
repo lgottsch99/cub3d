@@ -1,15 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_utilis.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+
+/*   parser_utilis.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+        
 	+:+     */
-/*   By: selango <selango@student.42.fr>            #+#  +:+
+/*   By: selango <selango@student.42.fr>            #+#  +:+      
 	+#+        */
-/*                                                +#+#+#+#+#+
+/*                                                +#+#+#+#+#+  
 	+#+           */
-/*   Created: 2025-05-05 11:04:03 by selango           #+#    #+#             */
-/*   Updated: 2025-05-05 11:04:03 by selango          ###   ########.fr       */
+/*   Created: 2025-06-12 15:36:25 by selango           #+#    #+#             */
+/*   Updated: 2025-06-12 15:36:25 by selango          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	exit_error(char *str)
 
 int	str_digit(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!str)
@@ -40,9 +40,9 @@ int	str_digit(char *str)
 
 void	assign_color(int i, char **strs, t_color *color)
 {
-	int r;
-	int g;
-	int b;
+	int	r;
+	int	g;
+	int	b;
 
 	r = 0;
 	g = 0;
@@ -59,11 +59,15 @@ void	assign_color(int i, char **strs, t_color *color)
 	color->g = g;
 	color->b = b;
 }
+
 /*This function creates a mem and then allocates the string to a new string*/
+/*if the ptr is null . it allocates the mem for the ptr and then 
+return the pointer*/
+/*It checks if the new_size is lesser then it return the ptr*/
 void	*ft_realloc_str(void **strs, size_t old_size, size_t new_size)
 {
-	char *ptr;
-	/*if the ptr is null . it allocates the mem for the ptr and then return the pointer*/
+	char	*ptr;
+
 	if (!*strs)
 	{
 		*strs = ft_calloc(new_size, 1);
@@ -71,7 +75,6 @@ void	*ft_realloc_str(void **strs, size_t old_size, size_t new_size)
 			return (NULL);
 		return (*strs);
 	}
-	/*It checks if the new_size is lesser then it return the ptr*/
 	if (new_size <= old_size)
 		return (*strs);
 	ptr = ft_calloc(new_size, 1);
@@ -86,9 +89,9 @@ void	*ft_realloc_str(void **strs, size_t old_size, size_t new_size)
 
 int	store_map_utilis(int fd, char *line, char **grid)
 {
-	char *single_value;
-	int count;
-	
+	char	*single_value;
+	int		count;
+
 	single_value = line;
 	count = 0;
 	while (single_value && count < MAX_LINES)
@@ -96,17 +99,11 @@ int	store_map_utilis(int fd, char *line, char **grid)
 		grid[count] = ft_strdup(single_value);
 		if (!grid[count])
 		{
-			int i;
-			i = 0;
-			while (i < count)
-			{
-				free(grid[i]);
-				i++;
-			}
+			while (count--)
+				free(grid[count]);
 			return (-1);
 		}
-		trim_crlf(grid[count]);
-		count++;
+		trim_crlf(grid[count++]);
 		if (single_value != line)
 			free(single_value);
 		single_value = get_next_line(fd);

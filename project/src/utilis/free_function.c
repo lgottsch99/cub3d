@@ -13,47 +13,58 @@
 // #include "cub3d.h"
 #include "../../includes/cub3d.h"
 
-void free_game(t_game *game)
+void	free_game(t_game *game)
 {
-    if(game->No_texture.path)
-        free(game->No_texture.path);
-    if(game->So_texture.path)
-        free(game->So_texture.path);
-    if(game->We_texture.path)
-        free(game->We_texture.path);
-    if(game->Ea_texture.path)
-        free(game->Ea_texture.path);
-    if(game->map.map)
-        free_2d_array(game->map.map); 
+	if (game->No_texture.path)
+		free(game->No_texture.path);
+	if (game->So_texture.path)
+		free(game->So_texture.path);
+	if (game->We_texture.path)
+		free(game->We_texture.path);
+	if (game->Ea_texture.path)
+		free(game->Ea_texture.path);
+	if (game->map.map)
+		free_2d_array(game->map.map);
 }
-
 
 void	free_2d_array(char **strs)
 {
-	char **temp = strs;
+	char	**temp;
+
+	temp = strs;
 	while (*temp)
 	{
 		free(*temp);
 		temp++;
 	}
-	if(strs)
+	if (strs)
 		free(strs);
 }
 
-void free_process_line(char *trimmed,char *value,char *id,char **strs)
+void	free_process_line(char *trimmed, char *value, char *id, char **strs)
 {
-    if(trimmed)
-        free(trimmed);
-    if(value)
-        free(value);
-    if(id)
-        free(id);
-    if(strs)
-        free_2d_array(strs);
+	if (trimmed)
+		free(trimmed);
+	if (value)
+		free(value);
+	if (id)
+		free(id);
+	if (strs)
+		free_2d_array(strs);
 }
 
-void free_map_to_validate(char **grid,char **map)
+void	free_map_to_validate(char **grid, char **map)
 {
-	 if (grid != map)
-            free_2d_array(grid);
+	if (grid != map)
+		free_2d_array(grid);
+}
+
+int	map_enclosed_helper(char **map, t_pos p, int height, int width)
+{
+	if (p.i == 0 || p.j == 0 || p.i == (height - 1) || p.j >= (width - 1))
+		return (0);
+	if ((map[p.i - 1][p.j] == ' ' || map[p.i + 1][p.j] == ' ' || map[p.i][p.j
+			- 1] == ' ' || map[p.i][p.j + 1] == ' '))
+		return (0);
+	return (1);
 }
