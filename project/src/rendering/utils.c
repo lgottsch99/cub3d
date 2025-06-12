@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 14:10:00 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/29 14:35:30 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/12 16:33:01 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int get_map_point(int x, int y, t_game *game)
 	char content;
 
 	//go to str in x dir
-	content = game->map[x][y];
+	content = game->map_r[x][y];
 	//printf("map at x %i y %i: %c\n", x, y, content);
 	if (content == '1')
 		return (1);

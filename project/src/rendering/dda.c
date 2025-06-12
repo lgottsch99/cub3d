@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:51:55 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/17 15:10:55 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/12 16:31:19 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	dda_loop(t_raycast *ray, t_game *game)
 			ray->side = 1; //side on y line
 		}
 		//check if wallhit
-		if (game->map[ray->map_y][ray->map_x] == '1')
+		if (game->map_r[ray->map_y][ray->map_x] == '1')
 			hit = 1;
 	}
 

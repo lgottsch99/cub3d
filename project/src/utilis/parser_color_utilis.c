@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parser_color_utilis.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 11:41:25 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/17 15:11:09 by lgottsch         ###   ########.fr       */
+/*   Created: 2025/06/12 10:49:18 by selango           #+#    #+#             */
+/*   Updated: 2025/06/12 16:20:56 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// #include "cub3d.h"
 #include "../../includes/cub3d.h"
 
-
-int	main(void)
+char    *trim_whitespaces(char *str)
 {
-	bool	moved;
-	t_game	game; //big main struct
-	
-	moved = false;
-	printf("hello\n");
-	// 0 input validation
-
-	// 1 map initialization + window creation
-	
-	// 2 casting the rays
-	raycasting_main(&game, &moved);
-	
-	// 3 rendering walls
-	
-	// 4 player movement
-	
-	return (0);
+	char *trimmed_value;
+	trimmed_value = ft_strtrim(str, " \n\t\r");
+	if(!trimmed_value)
+		return(NULL);
+	return(trimmed_value);
+}
+int validate_single_color(char **strs)
+{
+    int i;
+    i = 0;
+	while (strs[i] != 0)
+	{
+		char *trimmed =  trim_whitespaces(strs[i]);
+		if(!trimmed || !str_digit(trimmed))
+			return(0);
+		free(strs[i]);
+		strs[i] = trimmed;
+		i++;
+	}
+    return (1);
 }

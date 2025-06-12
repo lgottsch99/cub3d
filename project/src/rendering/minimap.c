@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:52:47 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/17 15:11:17 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/12 16:32:05 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ void	minimap(t_game *game) //maybe put some buffer around map and not start draw
 	int map_height;
 
 	//get map size
-	map_width = count_map(game->map, 1); //1 for width
-	map_height = count_map(game->map, 2); //2 for height
+	map_width = count_map(game->map_r, 1); //1 for width
+	map_height = count_map(game->map_r, 2); //2 for height
 	printf("Minimap map width: %i\n", map_width);
 	printf("Minimap map hieght: %i\n", map_height);
 

@@ -2,15 +2,19 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lgottsch <lgottsch@student.42prague.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
+/*                                                    +:+ +:+        
+	+:+     */
+/*   By: lgottsch <lgottsch@student.42prague.com    +#+  +:+      
+	+#+        */
+/*                                                +#+#+#+#+#+  
+	+#+           */
 /*   Created: 2024/10/08 16:52:10 by lgottsch          #+#    #+#             */
 /*   Updated: 2024/12/07 13:45:55 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../full_libft.h"
+
 
 /*
 returns:
@@ -19,12 +23,12 @@ NULL: there is nothing else to read, or an error
 occurred
 */
 
-//use double pointer so u can operate on static pointer
-static char	*get_nl_and_update(char	**leftover)
+// use double pointer so u can operate on static pointer
+static char	*get_nl_and_update(char **leftover)
 {
-	int		index;
-	char	*newline;
-	char	*updated;
+	int index;
+	char *newline;
+	char *updated;
 
 	index = getindexnl(*leftover);
 	newline = ft_substr(*leftover, 0, index + 1);
@@ -42,7 +46,7 @@ static char	*get_nl_and_update(char	**leftover)
 
 static int	is_nl(char *new)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
 	while (i < ft_strlen(new))
@@ -56,7 +60,7 @@ static int	is_nl(char *new)
 
 static char	*make_new(char **leftover, char *buf)
 {
-	char	*new;
+	char *new;
 
 	if (*leftover)
 	{
@@ -77,8 +81,8 @@ static char	*make_new(char **leftover, char *buf)
 
 static char	*read_until_nl(int fd, char *buf, char **leftover)
 {
-	char	*new;
-	int		bytes_read;
+	char *new;
+	int bytes_read;
 
 	bytes_read = 1;
 	while (bytes_read > 0)
@@ -102,9 +106,9 @@ static char	*read_until_nl(int fd, char *buf, char **leftover)
 
 char	*get_next_line(int fd)
 {
-	static char	*leftover;
-	char		*buf;
-	char		*newline;
+	static char *leftover;
+	char *buf;
+	char *newline;
 
 	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (free(leftover), leftover = NULL, NULL);
@@ -119,7 +123,7 @@ char	*get_next_line(int fd)
 	newline = get_nl_and_update(&leftover);
 	if (!leftover || ft_strlen(leftover) == 0)
 	{
-		free (leftover);
+		free(leftover);
 		leftover = NULL;
 	}
 	return (newline);

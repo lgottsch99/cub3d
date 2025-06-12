@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:52:11 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/29 14:35:21 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/12 16:31:18 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	init_test_map(t_game *game) //DEVELOPING ONLY
 		"1111111111"
 	};
 
-	game->map = test_map;
+	game->map_r= test_map;
 
 	// printf("char at pos 1 1: %c\n", game->map[1][1]);
 	// printf("char at pos 3 3: %c\n", game->map[3][3]);

@@ -6,7 +6,7 @@
 #    By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 16:00:38 by lgottsch          #+#    #+#              #
-#    Updated: 2025/05/17 16:52:47 by lgottsch         ###   ########.fr        #
+#    Updated: 2025/06/12 16:22:53 by lgottsch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ NAME = cub3D
 LIBFTDIR= ./lib/full_libft
 MLXDIR= ./lib/mlx_linux
 MLXMACDIR= ./lib/mlx_mac
-SRC_FOLDER = ./src/rendering/
+SRC_REND_FOLDER = ./src/rendering/
+SRC_DIR = src
 
 CC = cc 
 CFLAGS = -Wall -Wextra -Werror
@@ -30,8 +31,31 @@ LIBFT_FLAGS_MAC = -L$(LIBFTDIR) -lfull_libft
 
 MLX_INC_MAC = -I$(MLXMACDIR)
 
-SRC= $(addprefix $(SRC_FOLDER), main.c raycasting.c utils.c minimap.c raycast_utils.c hooks.c vector_math.c \
-	player_movement.c minimap_utils.c game_init.c dda.c texture_utils.c boundary_check.c)
+SRC= $(SRC_DIR)/main.c \
+	$(SRC_DIR)/parser/init_map.c \
+	$(SRC_DIR)/parser/parse_data.c \
+	$(SRC_DIR)/parser/valid_data.c \
+	$(SRC_DIR)/parser/process_line.c \
+	$(SRC_DIR)/utilis/free_function.c \
+	$(SRC_DIR)/utilis/parser_color_utilis.c \
+	$(SRC_DIR)/utilis/parser_utilis.c \
+	$(SRC_DIR)/utilis/is_extension_valid.c \
+	$(SRC_DIR)/utilis/validate_utilis.c \
+	$(SRC_DIR)/utilis/validate_map_utilis.c \
+	$(SRC_DIR)/validator/validate_data.c\
+	$(SRC_DIR)/validator/map_check.c \
+	$(SRC_REND_FOLDER)raycasting.c \
+	$(SRC_REND_FOLDER)utils.c \
+	$(SRC_REND_FOLDER)minimap.c \
+	$(SRC_REND_FOLDER)raycast_utils.c \
+	$(SRC_REND_FOLDER)hooks.c \
+	$(SRC_REND_FOLDER)vector_math.c \
+	$(SRC_REND_FOLDER)player_movement.c \
+	$(SRC_REND_FOLDER)minimap_utils.c \
+	$(SRC_REND_FOLDER)game_init.c \
+	$(SRC_REND_FOLDER)dda.c \
+	$(SRC_REND_FOLDER)texture_utils.c \
+	$(SRC_REND_FOLDER)boundary_check.c 
 
 OBJ = $(SRC:.c=.o)
 

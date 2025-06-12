@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 16:17:07 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/29 14:40:47 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/12 16:28:43 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 //#include "keycodes_mac.h" // only on mac
 #include "keycodes_linux.h" // only on linux
 
-
+#include "./maps.h"
 // MACROS ----------------------------------
 
 //window 
@@ -179,13 +179,26 @@ typedef struct s_world
 	
 } t_world;
 
-//big struct holding everything for easy handling + freeing
-typedef struct s_game
-{
-	void	*mlx; //mlx pointer
-	void	*window; //mlx window
+
+typedef struct s_game //parsing version
+{///parsing
+	void			*mlx;
+	void			*window;
+	t_img			*image_p;
+	t_map			map;
+	t_texture		No_texture;
+	t_texture		So_texture;
+	t_texture		We_texture;
+	t_texture		Ea_texture;
+	t_color			ceiling;
+	t_color			floor;
+
+	///rendering
+	// void	*mlx; //mlx pointer
+	// void	*window; //mlx window
 	t_img_r	*image; //ptr to final img struct to show on window
-	char	**map; //change to t_map
+
+	char	**map_r; //change to t_map
 
 	t_player *player; //ptr to player struct
 
@@ -193,7 +206,8 @@ typedef struct s_game
 	
 	bool	*moved; //ptr to movement indicator bool in main
 
-} t_game;
+}					t_game;
+
 
 typedef struct s_line
 {
