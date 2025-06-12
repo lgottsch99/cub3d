@@ -1,12 +1,7 @@
 
 
 
-
-
-
-
-
-NO textures/test/north.xpm
+NO ../Textures_xpm/Planet1.xpm
 
 
 
@@ -15,9 +10,9 @@ NO textures/test/north.xpm
 
 
 
-SO textures/test/south.xpm
-                        WE textures/test/west.xpm
-        EA textures/test/east.xpm            
+SO ../Textures_xpm/Planet2.xpm
+                        WE ../Textures_xpm/Planet3.xpm
+        EA ../Textures_xpm/Planet4.xpm          
 
         F 20,           20,             20
 C 200,          200,200

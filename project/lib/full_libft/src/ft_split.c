@@ -24,15 +24,15 @@ return: The array of new strings resulting from the split.
 NULL if the allocation fails.
 */
 
-int ft_is_delim(char c, char *delimiters)
+int	ft_is_delim(char c, char *delimiters)
 {
-	while(*delimiters)
+	while (*delimiters)
 	{
-		if(c == *delimiters)
-			return(1);
+		if (c == *delimiters)
+			return (1);
 		delimiters++;
 	}
-	return(0);
+	return (0);
 }
 
 static int	ft_words(char const *s, char *delimiter)
@@ -51,7 +51,7 @@ static int	ft_words(char const *s, char *delimiter)
 			words++;
 			control = 1;
 		}
-		else if (ft_is_delim(s[i],delimiter))
+		else if (ft_is_delim(s[i], delimiter))
 			control = 0;
 		i++;
 	}
@@ -63,7 +63,7 @@ static int	ft_sep(char const *s, char *delimiter, int i)
 	int	y;
 
 	y = 0;
-	while (s[i + y] && !ft_is_delim(s[i + y],delimiter))
+	while (s[i + y] && !ft_is_delim(s[i + y], delimiter))
 		y++;
 	return (y);
 }
@@ -78,7 +78,7 @@ static void	*ft_free_all(char **array, int x)
 		free(array[i]);
 		i++;
 	}
-	return(NULL);
+	return (NULL);
 }
 
 char	**ft_split(char const *s, char *delimiters)
@@ -95,7 +95,7 @@ char	**ft_split(char const *s, char *delimiters)
 	x = 0;
 	while (s[i])
 	{
-		if (ft_is_delim(s[i],delimiters))
+		if (ft_is_delim(s[i], delimiters))
 			i++;
 		else
 		{

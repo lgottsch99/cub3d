@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 18:20:44 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/06/12 21:34:56 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/12 22:18:57 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ int	move(int keycode, t_game *game)
 
 void	hooks(t_game *game)
 {
-	mlx_hook(game->window, ON_DESTROY, KeyPressMask, quit_window, game);
-	mlx_hook(game->window, ON_KEYDOWN, KeyPressMask, move, game);
+	mlx_hook(game->window, ON_DESTROY, (1L << 0), quit_window, game);
+	mlx_hook(game->window, ON_KEYDOWN, (1L << 0), move, game);
 }

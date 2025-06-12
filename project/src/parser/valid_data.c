@@ -49,13 +49,13 @@ void	init_data(char **strs, t_game *game)
 	if (strs[0] == 0)
 		return ;
 	else if (!ft_strcmp(strs[0], "NO") && strs[1] != 0 && strs[2] == 0)
-		parse_texture(strs[1], &game->No_texture);
+		parse_texture(strs[1], &game->no_texture);
 	else if (!ft_strcmp(strs[0], "SO") && strs[1] != 0 && strs[2] == 0)
-		parse_texture(strs[1], &game->So_texture);
+		parse_texture(strs[1], &game->so_texture);
 	else if (!ft_strcmp(strs[0], "WE") && strs[1] != 0 && strs[2] == 0)
-		parse_texture(strs[1], &game->We_texture);
+		parse_texture(strs[1], &game->we_texture);
 	else if (!ft_strcmp(strs[0], "EA") && strs[1] != 0 && strs[2] == 0)
-		parse_texture(strs[1], &game->Ea_texture);
+		parse_texture(strs[1], &game->ea_texture);
 	else if (!ft_strcmp(strs[0], "F") && strs[1] != 0 && strs[2] == 0)
 		parse_color(strs[1], &game->floor);
 	else if (!ft_strcmp(strs[0], "C") && strs[1] != 0 && strs[2] == 0)

@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:53:03 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/06/12 20:52:40 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/12 22:16:01 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ void	assign_tex(t_raycast *ray, t_game *game)
 	if (ray->side == 0)
 	{
 		if (ray->raydir.x > 0)
-			ray->tex = &game->world->tex_WE;
+			ray->tex = &game->world->tex_we;
 		else
-			ray->tex = &game->world->tex_EA;
+			ray->tex = &game->world->tex_ea;
 	}
 	else
 	{
 		if (ray->raydir.y > 0)
-			ray->tex = &game->world->tex_NO;
+			ray->tex = &game->world->tex_no;
 		else
-			ray->tex = &game->world->tex_SO;
+			ray->tex = &game->world->tex_so;
 	}
 }
 

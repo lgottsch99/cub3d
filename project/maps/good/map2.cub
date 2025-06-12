@@ -1,7 +1,7 @@
-NO textures/Wall.png
-SO textures/Wall.png
-WE textures/Wall.png
-EA textures/wall.png
+NO ../Textures_xpm/Planet1.xpm
+SO ../Textures_xpm/Planet2.xpm
+WE ../Textures_xpm/Planet3.xpm
+EA ../Textures_xpm/Planet4.xpm
 
 F  220,100,0
 C  225,30,0

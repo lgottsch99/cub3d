@@ -1,14 +1,14 @@
 NO ../Textures_xpm/Planet1.xpm
-SO ../Textures_xpm/Planet1.xpm
-WE ../Textures_xpm/Planet1.xpm
-EA ../Textures_xpm/Planet1.xpm
+SO ../Textures_xpm/Planet2.xpm
+WE ../Textures_xpm/Planet3.xpm
+EA ../Textures_xpm/Planet4.xpm
 
 
 F 220,200,0
 C 225,30,0
 
-1111111
-1000111
+11111 
+10001
 1001111111111
 1000N00000001
 1111111111111

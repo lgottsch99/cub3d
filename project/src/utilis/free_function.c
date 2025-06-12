@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 09:52:39 by selango           #+#    #+#             */
-/*   Updated: 2025/06/12 16:34:33 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/12 22:17:19 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 
 void	free_game(t_game *game)
 {
-	if (game->No_texture.path)
-		free(game->No_texture.path);
-	if (game->So_texture.path)
-		free(game->So_texture.path);
-	if (game->We_texture.path)
-		free(game->We_texture.path);
-	if (game->Ea_texture.path)
-		free(game->Ea_texture.path);
+	if (game->no_texture.path)
+		free(game->no_texture.path);
+	if (game->so_texture.path)
+		free(game->so_texture.path);
+	if (game->we_texture.path)
+		free(game->we_texture.path);
+	if (game->ea_texture.path)
+		free(game->ea_texture.path);
 	if (game->map.map)
 		free_2d_array(game->map.map);
 }

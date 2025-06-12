@@ -86,10 +86,10 @@ void	validate_map(t_map *map)
 
 void	validate_game_data(t_game *game)
 {
-	validate_texture(game->No_texture.path, "NO texture");
-	validate_texture(game->So_texture.path, "SO texture");
-	validate_texture(game->Ea_texture.path, "EA texture");
-	validate_texture(game->We_texture.path, "WE texture");
+	validate_texture(game->no_texture.path, "NO texture");
+	validate_texture(game->so_texture.path, "SO texture");
+	validate_texture(game->ea_texture.path, "EA texture");
+	validate_texture(game->we_texture.path, "WE texture");
 	validate_color(&game->ceiling, "ceiling color");
 	validate_color(&game->floor, "floor color");
 	validate_map(&game->map);
