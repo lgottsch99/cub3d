@@ -6,22 +6,20 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:52:01 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/06/12 19:47:41 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/12 21:39:43 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-
-void	free_img(t_img_r *image) //ok
+void	free_img(t_img_r *image)
 {
 	printf("in free img\n");
-	
 	if (image->img)
 		free(image->img);
 }
 
-void	free_texture(t_texture_r *tex, t_game *game) //ok
+void	free_texture(t_texture_r *tex, t_game *game)
 {
 	if (tex->img)
 	{
@@ -47,9 +45,33 @@ void	free_world(t_world *world, t_game *game)
 	free_texture(&world->tex_NO, game);
 	free_texture(&world->tex_SO, game);
 	free_texture(&world->tex_WE, game);
-	free_texture(&world->tex_EA, game);		
+	free_texture(&world->tex_EA, game);
 }
 
+void	continue_free(t_game *game, int int_exit)
+{
+	if (game->player)
+	{
+		printf("freeing player\n");
+		free(game->player);
+		game->player = NULL;
+	}
+	if (game->world)
+	{
+		printf("freeing world\n");
+		free_world(game->world, game);
+		free(game->world);
+		game->world = NULL;
+	}
+	if (game->mlx)
+	{
+		ft_printf("freeing mlx\n");
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+	}
+	if (int_exit == 1)
+		exit(0);
+}
 
 void	free_everything(t_game *game, int int_exit)
 {
@@ -74,25 +96,5 @@ void	free_everything(t_game *game, int int_exit)
 		printf("freeing map\n");
 		game->map_r = NULL;
 	}
-	if (game->player)
-	{
-		printf("freeing player\n");
-		free(game->player);
-		game->player = NULL;
-	}
-	if (game->world)
-	{
-		printf("freeing world\n");
-		free_world(game->world, game);
-		free(game->world);
-		game->world = NULL;
-	}
-	if (game->mlx)
-	{
-		ft_printf("freeing mlx\n");
-		mlx_destroy_display(game->mlx);
-		free(game->mlx);
-	}
-	if (int_exit == 1)
-		exit(0);
+	continue_free(game, int_exit);
 }

@@ -6,21 +6,20 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:10:57 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/06/12 19:49:25 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/12 21:52:11 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../includes/cub3d.h"
 
 void	draw_loop(t_raycast *ray, t_game *game, double tex_pos, int i)
 {
-	int color_tex;
-	int tex_y;
-	int y;
-	
+	int	color_tex;
+	int	tex_y;
+	int	y;
+
 	y = 0;
-	while(y < W_HEIGHT)
+	while (y < W_HEIGHT)
 	{
 		if (y < ray->draw_start)
 			my_mlx_pixel_put(game->image, y, i, game->world->color_ceiling);
@@ -31,7 +30,6 @@ void	draw_loop(t_raycast *ray, t_game *game, double tex_pos, int i)
 				tex_y = 0;
 			if (tex_y >= ray->tex->tex_height)
 				tex_y = ray->tex->tex_height - 1;
-	
 			color_tex = get_tex_color(ray->tex_x, tex_y, ray->tex);
 			my_mlx_pixel_put(game->image, y, i, color_tex);
 			tex_pos += ray->skip;
@@ -42,76 +40,49 @@ void	draw_loop(t_raycast *ray, t_game *game, double tex_pos, int i)
 	}
 }
 
-
 void	draw_wall_line(t_raycast *ray, t_game *game, int i)
 {
-	double tex_pos;
-	double tex_offset;
+	double	tex_pos;
+	double	tex_offset;
 
 	ray->skip = (double)ray->tex->tex_height / (double)ray->line_height;
-
-	// If wall line bigger than screen height
 	tex_offset = 0;
 	if (ray->line_height > W_HEIGHT)
-	{
-		// Calculate how much of the top of the texture to skip
 		tex_offset = (ray->line_height - W_HEIGHT) / 2.0 * ray->skip;
-	}	
-	// Starting texture coordinate
 	tex_pos = tex_offset;
-
 	draw_loop(ray, game, tex_pos, i);
 }
 
+//loop to render single scene, each i is vertical pixel line
 void	raycast(t_game *game)
 {
 	t_raycast	ray;
 	int			i;
 
 	set_plane(&ray, game);
-
-//raycasting loop () to render single scene
 	i = 0;
-	while (i < W_WIDTH) //for each vertical line (= each i in width of window)
+	while (i < W_WIDTH)
 	{
-		//each ray is sum of player pos + dir =/- part of plane (camera x?multiplier of plane len)
-		//double len; //multiplier for current i location in window -> length of plane vector
 		set_ray(&ray, game, i);
-
-	//--- dda -----------
 		dda(&ray, game);
-
-	//calc distance of ray to wall
 		calc_wall_dist(&ray, game);
-		
-	//calc height of line to draw
 		calc_line_height(&ray);
-
-	//assign wall texture
 		assign_tex(&ray, game);
-
-	//wallhit location berechnen (img x achse um richtige vertikale linie ini texture auszuwählen)
 		calc_texture_hit(&ray, game);
-
-	//draw line
 		draw_wall_line(&ray, game, i);
-
 		i++;
 	}
 }
 
-int	game_loop(t_game *game)//TODO check if pos/dir changed, else no rendering/clearing
+int	game_loop(t_game *game)
 {
 	if (*game->moved == true)
 	{
-		clear_image(game); //ok but super slow TODO
-
-		raycast(game); //first frame
-		//minimap (for understanding what is going on (movement)) (draw over everything else)
-		minimap(game); //TODO dyn rezising of tiles
-		mlx_put_image_to_window(game->mlx, game->window, game->image->img, 0, 0);
-		//mlx_put_image_to_window(game->mlx, game->window, game->world->tex_NO.img, 0, 0);
-
+		clear_image(game);
+		raycast(game);
+		minimap(game); //
+		mlx_put_image_to_window(game->mlx, game->window,
+			game->image->img, 0, 0);
 		*game->moved = false;
 	}
 	return (0);
@@ -120,14 +91,11 @@ int	game_loop(t_game *game)//TODO check if pos/dir changed, else no rendering/cl
 void	raycasting_main(t_game *game, bool *moved)
 {
 	init(game, moved);
-
-	//1st img at startup:
-	raycast(game); //first frame
-	minimap(game);
+	raycast(game);
+	minimap(game); //
 	mlx_put_image_to_window(game->mlx, game->window, game->image->img, 0, 0);
-
-	hooks(game); //TODO freeing 
-	mlx_loop_hook(game->mlx, game_loop, game);//keep re rendering
+	hooks(game);
+	mlx_loop_hook(game->mlx, game_loop, game);
 	if (game->mlx)
-		mlx_loop(game->mlx); //keeping window open
+		mlx_loop(game->mlx);
 }

@@ -6,33 +6,30 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 18:20:44 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/06/12 19:28:22 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/12 21:34:56 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-int	quit_window(t_game *game)//TODO
+int	quit_window(t_game *game)
 {
 	ft_printf("x window\n");
 	free_everything(game, 1);
 	return (0);
 }
 
-int	move(int keycode, t_game *game)//TODO validity check
+int	move(int keycode, t_game *game)
 {
 	*game->moved = true;
-	//moving needs to be along/according to direction vector TODO
-	//each keypress = speed distance 
-
 	if (keycode == ESC)
 	{
 		ft_printf("ESC pressed\n");
 		free_everything(game, 1);
 	}
-	else if (keycode == W_KEY || keycode == S_KEY) //new
+	else if (keycode == W_KEY || keycode == S_KEY)
 	{
-		move_w_s(keycode, game);		
+		move_w_s(keycode, game);
 		return (0);
 	}
 	else if (keycode == A_KEY || keycode == D_KEY)
@@ -49,9 +46,6 @@ int	move(int keycode, t_game *game)//TODO validity check
 
 void	hooks(t_game *game)
 {
-	//quitting window
-	mlx_hook(game->window, ON_DESTROY, KeyPressMask, quit_window, game); //clicking x
-	
-	//movement
-	mlx_hook(game->window, ON_KEYDOWN, KeyPressMask, move, game); //WASD, left right, esc
+	mlx_hook(game->window, ON_DESTROY, KeyPressMask, quit_window, game);
+	mlx_hook(game->window, ON_KEYDOWN, KeyPressMask, move, game);
 }
