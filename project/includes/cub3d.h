@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 16:17:07 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/06/12 19:27:38 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/12 20:13:50 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -323,5 +323,10 @@ int		quit_window(t_game *game);
 //free
 void	free_everything(t_game *game, int exit);
 
+//load tex
+void load_NO(t_game *game);
+void load_SO(t_game *game);
+void load_WE(t_game *game);
+void load_EA(t_game *game);
 
 #endif
