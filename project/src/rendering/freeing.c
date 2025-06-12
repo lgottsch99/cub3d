@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:52:01 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/29 14:34:44 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/12 19:42:44 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,8 @@ void	free_texture(t_texture_r *tex, t_game *game)
 void	free_world(t_world *world, t_game *game)
 {
 	if (world.tex_NO)
-		free_texture(&world.tex_NO, game);
-	if (world.tex_SO)
-		free_texture(&world.tex_SO, game);
+	free_texture(&world.tex_NO, game);
+	free_texture(&world.tex_SO, game);
 	if (world.tex_WE)
 		free_texture(&world.tex_WE, game);
 	if (world.tex_EA)
