@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:52:11 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/17 15:11:02 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/29 14:35:21 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void	init(t_game *game, bool *moved)
 	game->mlx = mlx_init(); //init mlx
 	if (!game->mlx)
 		exit(1);
-	game->image = (t_img*)malloc(sizeof(t_img)); //malloc space for img
+	game->image = (t_img_r*)malloc(sizeof(t_img_r)); //malloc space for img
 	//if (!game->image)
 		//free
 	game->image->img = mlx_new_image(game->mlx, W_WIDTH, W_HEIGHT); //init img

@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:10:57 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/17 15:36:03 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/29 15:47:20 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,8 @@ int	game_loop(t_game *game)//TODO check if pos/dir changed, else no rendering/cl
 
 void	raycasting_main(t_game *game, bool *moved) //for now: lillis main
 {
+	//TODO parse player spawn coords
+
 		//0 init basics //TODO later after parsing
 		init(game, moved);
 

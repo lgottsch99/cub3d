@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:53:03 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/17 15:12:00 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/29 14:32:40 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 /* getting color value at pixel x,y in texture
 */
-int	get_tex_color(int x, int y, t_texture *tex)
+int	get_tex_color(int x, int y, t_texture_r *tex)
 {
 	int		color;
 	char	*pix; //pointer to pix

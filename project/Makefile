@@ -6,11 +6,10 @@
 #    By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 16:00:38 by lgottsch          #+#    #+#              #
-#    Updated: 2025/05/17 15:12:54 by lgottsch         ###   ########.fr        #
+#    Updated: 2025/05/17 16:52:47 by lgottsch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-#TO DO TEST
 #default make => linux
 #make mac = compilation macOs
 

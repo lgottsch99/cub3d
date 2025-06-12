@@ -6,14 +6,14 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:52:01 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/17 15:10:58 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/29 14:34:44 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
 
-void	free_img(t_img	*image)
+void	free_img(t_img_r *image)
 {
 	if (image->img)
 		free(image->img);
@@ -22,7 +22,7 @@ void	free_img(t_img	*image)
 
 }
 
-void	free_texture(t_texture *tex, t_game *game)
+void	free_texture(t_texture_r *tex, t_game *game)
 {
 	if (tex->relative_path)
 		free(tex->relative_path);

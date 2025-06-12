@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 14:10:00 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/17 15:12:03 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/29 14:35:30 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 Function to color single pixel at x/y in image to color
 */
-void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_img_r *data, int x, int y, int color)
 {
 	char	*dst;
 

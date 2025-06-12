@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 16:17:07 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/05/17 16:42:46 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/05/29 14:40:47 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,12 @@
 //Field of view in degrees (range up to 180)
 # define FOV 66
 
-//buffer around walls
-//# define WALL_BUFFER 0.1
-
-//
 # define ROTATION_SPEED 4
 # define MOVE_SPEED 0.3
+
+//Player 'Body'
 # define PLAYER_RADIUS 0.1
+
 //Events
 //event codes
 enum {
@@ -137,16 +136,16 @@ typedef struct s_player //TODO change to vector structs
 } t_player;
 
 //image mlx
-typedef struct s_img
+typedef struct s_img_r
 {
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}	t_img;
+}	t_img_r;
 
-typedef struct s_texture
+typedef struct s_texture_r //r for rendering
 {
 	void	*img; //image pointer to loaded texture
 	char	*relative_path; //path to texture file
@@ -158,7 +157,7 @@ typedef struct s_texture
 	int		bpp;
 	int		size_line;
 	int		endian;
-} t_texture;
+} t_texture_r;
 
 //info about colors and textures
 typedef struct s_world
@@ -173,10 +172,10 @@ typedef struct s_world
 	int ceiling_b;
 	int	color_ceiling;
 
-	t_texture tex_NO; //path to texture
-	t_texture tex_SO;
-	t_texture tex_WE;
-	t_texture tex_EA;
+	t_texture_r tex_NO; //path to texture
+	t_texture_r tex_SO;
+	t_texture_r tex_WE;
+	t_texture_r tex_EA;
 	
 } t_world;
 
@@ -185,12 +184,13 @@ typedef struct s_game
 {
 	void	*mlx; //mlx pointer
 	void	*window; //mlx window
-	t_img	*image; //ptr to final img struct to show on window
-	char	**map; //INT would be better?
+	t_img_r	*image; //ptr to final img struct to show on window
+	char	**map; //change to t_map
 
 	t_player *player; //ptr to player struct
 
-	t_world	*world; //struct with parsed info 
+	t_world	*world; //maybe not needed, change
+	
 	bool	*moved; //ptr to movement indicator bool in main
 
 } t_game;
@@ -228,7 +228,7 @@ typedef struct s_raycast
 	int			step_y;
 
 	//texture calculation
-	t_texture	*tex; //pointer to texture to draw
+	t_texture_r	*tex; //pointer to texture to draw
 	double		wall_x; //point ray hits texture vertically on map
 	int			tex_x; //corresponding x pix row in tex img
 	
@@ -273,7 +273,7 @@ void	calc_wall_dist(t_raycast *ray, t_game *game);
 void	calc_line_height(t_raycast *ray);
 
 //texture utils
-int		get_tex_color(int x, int y, t_texture *tex);
+int		get_tex_color(int x, int y, t_texture_r *tex);
 void	assign_tex(t_raycast *ray, t_game *game);
 void	calc_texture_hit(t_raycast *ray, t_game *game);
 
@@ -303,10 +303,9 @@ int count_map(char **map, int mode);
 int	calc_square_size(int map_height, int map_width);
 
 
-
 //utils
 int		create_color(int t, int r, int g, int b);
-void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
+void	my_mlx_pixel_put(t_img_r *data, int x, int y, int color);
 int		get_map_point(int x,int y, t_game *game);
 void	clear_image(t_game *game);
 
