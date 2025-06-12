@@ -2,11 +2,11 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   validate_utilis.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+        
+/*                                                    +:+ +:+
 	+:+     */
-/*   By: selango <selango@student.42.fr>            #+#  +:+      
+/*   By: selango <selango@student.42.fr>            #+#  +:+
 	+#+        */
-/*                                                +#+#+#+#+#+  
+/*                                                +#+#+#+#+#+
 	+#+           */
 /*   Created: 2025-06-12 16:14:06 by selango           #+#    #+#             */
 /*   Updated: 2025-06-12 16:14:06 by selango          ###   ########.fr       */
@@ -16,10 +16,11 @@
 // #include "cub3d.h"
 #include "../../includes/cub3d.h"
 
+
 int	valid_extension(char *path, char *extension)
 {
-	size_t	len_path;
-	size_t	ext_len;
+	size_t len_path;
+	size_t ext_len;
 
 	len_path = ft_strlen(path);
 	ext_len = ft_strlen(extension);
@@ -43,7 +44,7 @@ int	create_new_color(int a, int r, int g, int b)
 	checks all the 4 directions if it is not a space*/
 int	is_map_enclosed(char **map, int height, int width)
 {
-	t_mapcheck	val;
+	t_mapcheck val;
 
 	val.i = 0;
 	while (val.i < height)
@@ -70,9 +71,9 @@ int	is_map_enclosed(char **map, int height, int width)
 
 int	single_player(char **map)
 {
-	int	i;
-	int	j;
-	int	count;
+	int i;
+	int j;
+	int count;
 
 	count = 0;
 	i = 0;
@@ -94,7 +95,7 @@ int	single_player(char **map)
 
 void	trim_crlf(char *line)
 {
-	char	*p;
+	char *p;
 
 	p = line;
 	while (*p)
