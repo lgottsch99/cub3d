@@ -22,63 +22,99 @@ if map is not valid it parses the data to the check_data function.
 valid_map if not valid->It process_line
 in else map there is a entire map function which changes and
 store the entire map*/
+// void	parse_data(int fd, t_game *game)
+// {
+// 	char	*line;
+
+// 	line = get_next_line(fd);
+// 	init_game(game);
+// 	while ((line))
+// 	{
+// 		if (!valid_map(line))
+// 		{
+// 			printf("Line read: %s \n", line);
+// 			process_line(line, game, &line);
+// 			free(line);
+// 		}
+// 		else
+// 		{
+// 			printf("Detected start of map.\n");
+// 			entire_map(fd, line, &game->map);
+// 			free(line);
+// 			break ;
+// 		}
+// 		// free(line);
+// 		line = get_next_line(fd);
+// 	}
+// }
 void	parse_data(int fd, t_game *game)
 {
 	char	*line;
-
-	line = get_next_line(fd);
-	init_game(game);
-	while ((line))
+line = get_next_line(fd);
+init_game(game);
+while (line)
+{
+	if (!valid_map(line))
 	{
-		if (!valid_map(line))
+		printf("Line read: %s \n", line);
+		if (process_line(line, game) == -1)
 		{
-			printf("Line read: %s \n", line);
-			process_line(line, game);
-		}
-		else
-		{
-			printf("Detected start of map.\n");
-			entire_map(fd, line, &game->map);
 			free(line);
-			break ;
+			line = NULL;
+			free_everything(game, 1); // calls exit
 		}
-		free(line);
-		line = get_next_line(fd);
 	}
+	else
+	{
+		printf("Detected start of map.\n");
+		entire_map(fd, line, &game->map);
+		free(line);
+		break;
+	}
+	free(line); // ✅ normal free
+	line = NULL;
+	line = get_next_line(fd);
 }
+}
+
 
 /* function parses the texture path to the corresponding texture 
 from the map.cub*/
-void	parse_texture(char *text_path, t_texture *texture)
+int	parse_texture(char *text_path, t_texture *texture, t_game *game)
 {
+	(void) game;
 	if (texture->path)
 		free(texture->path);
 	texture->path = ft_strdup(text_path);
 	if (!texture->path)
-		exit_error("Malloc failed in texture path");
+	{	// exit_error("Malloc failed in texture path", game);
+		return (1);
+	}
+	return (0);
 }
 
 // Forms args struct and then it assigns the values to R,G,B separately.
-void	parse_color(char *value, t_color *color)
+int	parse_color(char *value, t_color *color)
 {
 	char	**strs;
 	int		count;
 
 	count = 0;
 	if (color->r != -1)
-		return ;
+		return (1);
 	if (ft_strchr_count(value, ',') != 2)
-		return ;
+		return (1);
 	strs = ft_split(value, ",");
 	if (!strs || !validate_single_color(strs))
 	{
 		free_2d_array(strs);
-		return ;
+		return (1);
 	}
 	while (strs[count])
 		count++;
 	assign_color(count, strs, color);
 	free_2d_array(strs);
+	return (0);
 }
 
 // then it 4 spaces copies into tab spaces.

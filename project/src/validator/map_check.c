@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 12:27:18 by selango           #+#    #+#             */
-/*   Updated: 2025/06/12 19:57:44 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/13 12:03:23 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 #include "../../includes/cub3d.h"
 
-void	handle_invalid_map(t_map *map)
+void	handle_invalid_map(t_map *map, t_game *game)
 {
 	if (!map->map)
-		exit_error("Invalid or empty map");
+		exit_error("Invalid or empty map", game);
 }
 
 char	**handle_different_map(t_map *map, int expected_width, int *new_width)

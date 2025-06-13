@@ -1,5 +1,5 @@
 NO ../Textures_xpm/Planet1.xpm
-SO ../Textures_xpm/Planet2.xpm
+LOL ../Textures_xpm/Planet2.xpm
 WE ../Textures_xpm/Planet3.xpm
 EA ../Textures_xpm/Planet4.xpm
 
@@ -10,5 +10,5 @@ C 225,30,0
 11111 
 10001
 1001111111111
-1000N00000001
+1S00000000001
 1111111111111

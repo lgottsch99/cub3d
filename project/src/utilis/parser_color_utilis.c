@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 10:49:18 by selango           #+#    #+#             */
-/*   Updated: 2025/06/12 16:20:56 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/13 13:12:38 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ char	*trim_whitespaces(char *str)
 
 	trimmed_value = ft_strtrim(str, " \n\t\r");
 	if (!trimmed_value)
+	{
+		// free(str);
 		return (NULL);
+	}
 	return (trimmed_value);
 }
 

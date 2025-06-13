@@ -16,10 +16,17 @@
 // #include "../includes/cub3d.h"
 #include "../../includes/cub3d.h"
 
-void	exit_error(char *str)
+// void	exit_error(char *str)
+// {
+// 	printf("Error:%s\n", str);
+// 	exit(EXIT_FAILURE);
+// 	free_everything()
+// }
+
+void	exit_error(char *str, t_game *game)
 {
-	printf("Error:%s\n", str);
-	exit(EXIT_FAILURE);
+	printf("Error: %s\n", str);
+	free_everything(game, 1);
 }
 
 int	str_digit(char *str)

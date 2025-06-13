@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 16:17:07 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/06/12 22:14:09 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/13 11:55:36 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -301,4 +301,6 @@ void		load_so(t_game *game);
 void		load_we(t_game *game);
 void		load_ea(t_game *game);
 
+
+void		exit_error(char *str, t_game *game);
 #endif

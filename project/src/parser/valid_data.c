@@ -44,25 +44,30 @@ void	init_game(t_game *game)
 
 // This function checks whether the map has the correct data and parse them 	
 /* to check unknown identifier*/
-void	init_data(char **strs, t_game *game)
+int	init_data(char **strs, t_game *game)
 {
+	int	status;
+
+	status = 0;
 	if (strs[0] == 0)
-		return ;
+		status = 1;
 	else if (!ft_strcmp(strs[0], "NO") && strs[1] != 0 && strs[2] == 0)
-		parse_texture(strs[1], &game->no_texture);
+		status = parse_texture(strs[1], &game->no_texture, game);
 	else if (!ft_strcmp(strs[0], "SO") && strs[1] != 0 && strs[2] == 0)
-		parse_texture(strs[1], &game->so_texture);
+		status = parse_texture(strs[1], &game->so_texture, game);
 	else if (!ft_strcmp(strs[0], "WE") && strs[1] != 0 && strs[2] == 0)
-		parse_texture(strs[1], &game->we_texture);
+		status = parse_texture(strs[1], &game->we_texture, game);
 	else if (!ft_strcmp(strs[0], "EA") && strs[1] != 0 && strs[2] == 0)
-		parse_texture(strs[1], &game->ea_texture);
+		status = parse_texture(strs[1], &game->ea_texture, game);
 	else if (!ft_strcmp(strs[0], "F") && strs[1] != 0 && strs[2] == 0)
-		parse_color(strs[1], &game->floor);
+		status = parse_color(strs[1], &game->floor);
 	else if (!ft_strcmp(strs[0], "C") && strs[1] != 0 && strs[2] == 0)
-		parse_color(strs[1], &game->ceiling);
+		status = parse_color(strs[1], &game->ceiling);
 	else if (strs[0][0] != '\n')
 	{
 		printf("Invalid identifier or bad format:\n");
-		exit_error(strs[0]);
+		// exit_error(strs[0], game);
+		status = 1;
 	}
+	return (status);
 }
