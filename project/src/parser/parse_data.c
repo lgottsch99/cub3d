@@ -13,8 +13,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "cub3d.h"
 #include "../../includes/cub3d.h"
+
+
+void	error_parsing(t_game *game, char *line, int fd)
+{
+	printf("MAP FILE INVALID!!!\n");
+	free(line);
+	line = get_next_line(fd, 1);
+	line = NULL;
+	close (fd);
+	free_everything(game, 1); // calls exit
+
+}
 
 /*function parse the file to the struct as we defined.
 It checks for the map first.
@@ -22,57 +33,46 @@ if map is not valid it parses the data to the check_data function.
 valid_map if not valid->It process_line
 in else map there is a entire map function which changes and
 store the entire map*/
-// void	parse_data(int fd, t_game *game)
-// {
-// 	char	*line;
-
-// 	line = get_next_line(fd);
-// 	init_game(game);
-// 	while ((line))
-// 	{
-// 		if (!valid_map(line))
-// 		{
-// 			printf("Line read: %s \n", line);
-// 			process_line(line, game, &line);
-// 			free(line);
-// 		}
-// 		else
-// 		{
-// 			printf("Detected start of map.\n");
-// 			entire_map(fd, line, &game->map);
-// 			free(line);
-// 			break ;
-// 		}
-// 		// free(line);
-// 		line = get_next_line(fd);
-// 	}
-// }
 void	parse_data(int fd, t_game *game)
 {
 	char	*line;
+	bool	detected_map;
+
+	detected_map = false; //setting to true once reached map 
 	line = get_next_line(fd, 0);
 	init_game(game);
 	while (line)
 	{
-		if (!valid_map(line))
+		if (!valid_map(line)) //checking if line is only nswe10spaces
 		{
+			// if (detected_map == true)
+			// 	error_parsing(game, line, fd);
+
 			printf("Line read: %s \n", line);
 			if (process_line(line, game) == -1)
 			{
-				printf("MAP FILE INVALID!!!\n");
-				free(line);
-				line = get_next_line(fd, 1);
-				line = NULL;
-				close (fd);
-				free_everything(game, 1); // calls exit
+				error_parsing(game, line, fd);
+				// printf("MAP FILE INVALID!!!\n");
+				// free(line);
+				// line = get_next_line(fd, 1);
+				// line = NULL;
+				// close (fd);
+				// free_everything(game, 1); // calls exit
 			}
 		}
 		else
 		{
 			printf("Detected start of map.\n");
+			if (detected_map == true)
+				error_parsing(game, line, fd);
+
+			detected_map = true;
 			entire_map(fd, line, &game->map);
+
+			///if empty line->bool false (map has ended)
+			//if then afterwards any data ; error ->free
 			free(line);
-			break;
+			// break;
 		}
 		free(line); // ✅ normal free
 		line = NULL;
@@ -87,7 +87,10 @@ int	parse_texture(char *text_path, t_texture *texture, t_game *game)
 {
 	(void) game;
 	if (texture->path)
-		free(texture->path);
+	{
+		// free(texture->path);
+		return (1);
+	}
 	texture->path = ft_strdup(text_path);
 	if (!texture->path)
 	{	// exit_error("Malloc failed in texture path", game);

@@ -100,6 +100,22 @@ void	*ft_realloc_str(void **strs, size_t old_size, size_t new_size)
 	return (*strs);
 }
 
+
+int	is_line_empty(char *line)
+{//LILLI ADDED
+	int	i = 0;
+
+	while (line[i])
+	{
+		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n' &&
+			line[i] != '\r' && line[i] != '\v' && line[i] != '\f')
+			return (0); // Line is not empty
+		i++;
+	}
+	return (1); // Line is empty or only whitespace
+}
+
+
 int	store_map_utilis(int fd, char *line, char **grid)
 {
 	char	*single_value;
@@ -109,6 +125,17 @@ int	store_map_utilis(int fd, char *line, char **grid)
 	count = 0;
 	while (single_value && count < MAX_LINES)
 	{
+
+		///addeed-----
+		if (is_line_empty(single_value))
+		{
+			if (single_value != line)
+				free(single_value);
+			break; // ⛔ Stop if we find an empty line
+		}
+		//--------
+
+
 		grid[count] = ft_strdup(single_value);
 		if (!grid[count])
 		{
