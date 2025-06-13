@@ -71,13 +71,12 @@ void	calc_dda_first_step(t_raycast *ray, t_game *game)
 
 /* dda to get distance to wallhit
 1e30 = huge num to avoid div/0
-
+// printf("in map box x: %i y: %i\n", ray->map_x, ray->map_y);
 */
 void	dda(t_raycast *ray, t_game *game)
 {
 	ray->map_x = (int) game->player->pos_x;
 	ray->map_y = (int) game->player->pos_y;
-	// printf("in map box x: %i y: %i\n", ray->map_x, ray->map_y);
 	if (ray->raydir.x == 0)
 		ray->delta_dist_x = 1e30;
 	else

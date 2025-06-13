@@ -36,6 +36,7 @@ void	assign_player_dir(t_game *game, int x, int y)
 	}
 }
 
+// while (game->map_r[y] != NULL)
 void	init_player(t_game *game)
 {
 	int	y;
@@ -47,7 +48,6 @@ void	init_player(t_game *game)
 	ft_memset(game->player, '\0', sizeof(t_player));
 	y = 0;
 	while (y < game->map.map_height && game->map_r[y] != NULL)
-	// while (game->map_r[y] != NULL)
 	{
 		x = 0;
 		while (x < game->map.map_width && game->map_r[y][x] != '\0')

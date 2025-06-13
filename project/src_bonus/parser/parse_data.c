@@ -43,7 +43,6 @@ void	parse_data(int fd, t_game *game)
 				error_parsing(game, line, fd);
 			detected_map = true;
 			entire_map(fd, line, &game->map);
-			free(line);
 		}
 		free(line);
 		line = get_next_line(fd, 0);
@@ -108,7 +107,7 @@ void	tab_check(char *strs, int *len)
 	{
 		if (strs[i] == '\t')
 		{
-			ft_memmove(&strs[i + 4], &strs[i + 1], *len - i + 1);
+			ft_memmove(&strs[i + 4], &strs[i + 1], *len - i);
 			ft_strncpy(&strs[i], "    ", 4);
 			*len += 3;
 			i += 4;
