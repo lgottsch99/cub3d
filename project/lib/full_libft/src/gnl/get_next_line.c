@@ -99,6 +99,7 @@ static char	*read_until_nl(int fd, char *buf, char **leftover)
 	}
 	return (*leftover);
 }
+
 //if mode = 1 -> early free before EOF
 //else just pass mode = 0: normal gnl
 char	*get_next_line(int fd, int mode)
