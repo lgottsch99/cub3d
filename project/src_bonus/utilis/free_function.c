@@ -1,0 +1,70 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_function.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/12 09:52:39 by selango           #+#    #+#             */
+/*   Updated: 2025/06/12 22:17:19 by lgottsch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+// #include "cub3d.h"
+#include "../../includes/cub3d.h"
+
+void	free_game(t_game *game)
+{
+	if (game->no_texture.path)
+		free(game->no_texture.path);
+	if (game->so_texture.path)
+		free(game->so_texture.path);
+	if (game->we_texture.path)
+		free(game->we_texture.path);
+	if (game->ea_texture.path)
+		free(game->ea_texture.path);
+	if (game->map.map)
+		free_2d_array(game->map.map);
+}
+
+void	free_2d_array(char **strs)
+{
+	char	**temp;
+
+	temp = strs;
+	while (*temp)
+	{
+		free(*temp);
+		temp++;
+	}
+	if (strs)
+		free(strs);
+}
+
+void	free_process_line(char *trimmed, char *value, char *id, char **strs)
+{
+	if (trimmed)
+		free(trimmed);
+	if (value)
+		free(value);
+	if (id)
+		free(id);
+	if (strs)
+		free_2d_array(strs);
+}
+
+void	free_map_to_validate(char **grid, char **map)
+{
+	if (grid != map)
+		free_2d_array(grid);
+}
+
+int	map_enclosed_helper(char **map, t_pos p, int height, int width)
+{
+	if (p.i == 0 || p.j == 0 || p.i == (height - 1) || p.j >= (width - 1))
+		return (0);
+	if ((map[p.i - 1][p.j] == ' ' || map[p.i + 1][p.j] == ' ' || map[p.i][p.j
+			- 1] == ' ' || map[p.i][p.j + 1] == ' '))
+		return (0);
+	return (1);
+}
