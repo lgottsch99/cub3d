@@ -122,9 +122,10 @@ char	**correct_map(char **strs, int width, int height)
 	{
 		j = 0;
 		len = ft_strlen(strs[i]);
-		tab_check(strs[i], &len);
+		// tab_check(strs[i], &len);
 		if (len < width)
 			ft_realloc_str((void **)&strs[i], len + 1, width + 1);
+		tab_check(strs[i],&len);
 		while (j < width)
 		{
 			if (j >= len)
