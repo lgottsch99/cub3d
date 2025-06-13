@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 10:49:18 by selango           #+#    #+#             */
-/*   Updated: 2025/06/13 13:12:38 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/13 14:10:29 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,13 @@ int	validate_single_color(char **strs)
 	while (strs[i] != 0)
 	{
 		trimmed = trim_whitespaces(strs[i]);
-		if (!trimmed || !str_digit(trimmed))
+		if (!trimmed)
 			return (0);
+		else if (!str_digit(trimmed))
+		{
+			free(trimmed);
+			return (0);
+		}
 		free(strs[i]);
 		strs[i] = trimmed;
 		i++;

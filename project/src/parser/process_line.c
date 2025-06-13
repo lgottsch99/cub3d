@@ -50,9 +50,12 @@ Im USING 3 FOR str[0],str[1], null operator*/
 // 	free_process_line(trimmed, value, id, strs);
 // }
 
-int process_line(char *line, t_game *game)
+int	process_line(char *line, t_game *game)
 {
-	char *trimmed, *id, *value, **strs;
+	char	*trimmed;
+	char	*id;
+	char	*value;
+	char	**strs;
 
 	trimmed = trim_whitespaces(line);
 	if (!trimmed || trimmed[0] == '\0')

@@ -50,31 +50,34 @@ store the entire map*/
 void	parse_data(int fd, t_game *game)
 {
 	char	*line;
-line = get_next_line(fd);
-init_game(game);
-while (line)
-{
-	if (!valid_map(line))
+	line = get_next_line(fd, 0);
+	init_game(game);
+	while (line)
 	{
-		printf("Line read: %s \n", line);
-		if (process_line(line, game) == -1)
+		if (!valid_map(line))
 		{
-			free(line);
-			line = NULL;
-			free_everything(game, 1); // calls exit
+			printf("Line read: %s \n", line);
+			if (process_line(line, game) == -1)
+			{
+				printf("MAP FILE INVALID!!!\n");
+				free(line);
+				line = get_next_line(fd, 1);
+				line = NULL;
+				close (fd);
+				free_everything(game, 1); // calls exit
+			}
 		}
+		else
+		{
+			printf("Detected start of map.\n");
+			entire_map(fd, line, &game->map);
+			free(line);
+			break;
+		}
+		free(line); // ✅ normal free
+		line = NULL;
+		line = get_next_line(fd, 0);
 	}
-	else
-	{
-		printf("Detected start of map.\n");
-		entire_map(fd, line, &game->map);
-		free(line);
-		break;
-	}
-	free(line); // ✅ normal free
-	line = NULL;
-	line = get_next_line(fd);
-}
 }
 
 
@@ -107,11 +110,18 @@ int	parse_color(char *value, t_color *color)
 	strs = ft_split(value, ",");
 	if (!strs || !validate_single_color(strs))
 	{
+		printf("return after val single color\n");
 		free_2d_array(strs);
 		return (1);
 	}
 	while (strs[count])
 		count++;
+	if (count != 3)
+    {
+        free_2d_array(strs);
+        printf("Three colors required for parsing colors");
+        return(1);
+    }
 	assign_color(count, strs, color);
 	free_2d_array(strs);
 	return (0);

@@ -47,6 +47,12 @@ int	str_digit(char *str)
 
 void	assign_color(int i, char **strs, t_color *color)
 {
+	printf("color: %s\n", strs[0]);
+	printf("color: %s\n", strs[1]);
+	printf("color: %s\n", strs[2]);
+
+
+
 	int	r;
 	int	g;
 	int	b;
@@ -113,7 +119,7 @@ int	store_map_utilis(int fd, char *line, char **grid)
 		trim_crlf(grid[count++]);
 		if (single_value != line)
 			free(single_value);
-		single_value = get_next_line(fd);
+		single_value = get_next_line(fd, 0);
 	}
 	grid[count] = NULL;
 	return (0);

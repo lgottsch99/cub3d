@@ -99,14 +99,15 @@ static char	*read_until_nl(int fd, char *buf, char **leftover)
 	}
 	return (*leftover);
 }
-
-char	*get_next_line(int fd)
+//if mode = 1 -> early free before EOF
+//else just pass mode = 0: normal gnl
+char	*get_next_line(int fd, int mode)
 {
 	static char	*leftover;
 	char		*buf;
 	char		*newline;
 
-	if (BUFFER_SIZE <= 0 || fd < 0)
+	if (BUFFER_SIZE <= 0 || fd < 0 || mode == 1)
 		return (free(leftover), leftover = NULL, NULL);
 	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)

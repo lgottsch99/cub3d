@@ -6,11 +6,14 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:52:01 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/06/13 12:51:06 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/13 13:49:07 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+
+
 
 void	free_img(t_img_r *image)
 {

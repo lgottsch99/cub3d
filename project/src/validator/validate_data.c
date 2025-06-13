@@ -20,14 +20,14 @@ void	validate_texture(char *path, char *name, t_game *game)
 {
 	int	fd;
 
-	fd = open(path, O_RDONLY);
 	if (!path)
 	{
 		printf("Path Do not exit %s", path);
 		free_everything(game, 1);
 		// exit(EXIT_FAILURE);
 	}
-	else if (!valid_extension(path, ".xpm"))
+	fd = open(path, O_RDONLY);
+	if (!valid_extension(path, ".xpm"))
 	{
 		printf("Path do not support %s \n", name);
 		free_everything(game, 1);

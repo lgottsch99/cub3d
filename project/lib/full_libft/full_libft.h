@@ -103,7 +103,9 @@ int		pf_putnbr(int n, int fd, int *count);
 int		pf_putstr(char *s, int *count);
 
 int		getindexnl(char *leftover);
-char	*get_next_line(int fd);
+// char	*get_next_line(int fd);
+char	*get_next_line(int fd, int mode);//if mode = 1 -> early free
+
 
 char	*ft_strjoin(char const *s1, char const *s2);
 
