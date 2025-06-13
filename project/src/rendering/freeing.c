@@ -6,14 +6,11 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:52:01 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/06/13 13:49:07 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/13 16:33:10 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-
-
 
 void	free_img(t_img_r *image)
 {
@@ -77,7 +74,7 @@ void	continue_free(t_game *game, int int_exit)
 }
 
 void	free_everything(t_game *game, int int_exit)
-{	printf("IN FREE EVRYTINH\n");
+{
 	free_game(game);
 	if (game->image && game->mlx && game->image->img)
 	{

@@ -13,15 +13,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../includes/cub3d.h"
 #include "../../includes/cub3d.h"
-
-// void	exit_error(char *str)
-// {
-// 	printf("Error:%s\n", str);
-// 	exit(EXIT_FAILURE);
-// 	free_everything()
-// }
 
 void	exit_error(char *str, t_game *game)
 {
@@ -47,12 +39,6 @@ int	str_digit(char *str)
 
 void	assign_color(int i, char **strs, t_color *color)
 {
-	printf("color: %s\n", strs[0]);
-	printf("color: %s\n", strs[1]);
-	printf("color: %s\n", strs[2]);
-
-
-
 	int	r;
 	int	g;
 	int	b;
@@ -100,54 +86,30 @@ void	*ft_realloc_str(void **strs, size_t old_size, size_t new_size)
 	return (*strs);
 }
 
-
-int	is_line_empty(char *line)
-{//LILLI ADDED
-	int	i = 0;
-
-	while (line[i])
-	{
-		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n' &&
-			line[i] != '\r' && line[i] != '\v' && line[i] != '\f')
-			return (0); // Line is not empty
-		i++;
-	}
-	return (1); // Line is empty or only whitespace
-}
-
-
 int	store_map_utilis(int fd, char *line, char **grid)
 {
-	char	*single_value;
-	int		count;
+	t_store_map	m;
 
-	single_value = line;
-	count = 0;
-	while (single_value && count < MAX_LINES)
+	init_struct(&m, fd, line, grid);
+	m.single_value = line;
+	m.count = 0;
+	while (m.single_value && m.count < MAX_LINES)
 	{
-
-		///addeed-----
-		if (is_line_empty(single_value))
+		if (is_line_empty(m.single_value))
 		{
-			if (single_value != line)
-				free(single_value);
-			break; // ⛔ Stop if we find an empty line
+			if (m.single_value != m.line)
+				free(m.single_value);
+			break ;
 		}
-		//--------
-
-
-		grid[count] = ft_strdup(single_value);
-		if (!grid[count])
+		grid[m.count] = ft_strdup(m.single_value);
+		if (!grid[m.count])
 		{
-			while (count--)
-				free(grid[count]);
+			while (m.count--)
+				free(grid[m.count]);
 			return (-1);
 		}
-		trim_crlf(grid[count++]);
-		if (single_value != line)
-			free(single_value);
-		single_value = get_next_line(fd, 0);
+		store_more_map(&m);
 	}
-	grid[count] = NULL;
+	grid[m.count] = NULL;
 	return (0);
 }

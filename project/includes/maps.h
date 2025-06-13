@@ -66,6 +66,23 @@ typedef struct s_mapcheck
 	t_pos	p;
 }		t_mapcheck;
 
+typedef struct s_store_map
+{
+	char *single_value;
+	int count;
+	int fd;
+	char *line;
+	char **grid;
+} t_store_map;
+
+typedef struct s_process_line
+{
+	char	*trimmed;
+	char	*id;
+	char	*value;
+	char	**strs;
+} t_process_line;
+
 // functions
 /* parsing map */
 int			valid_cub_ext(char *path);
@@ -124,5 +141,12 @@ void		validate_map(t_map *map, t_game *game);
 void		free_game(t_game *game);
 void		free_process_line(char *trimmed, char *value,
 				char *id, char **strs);
+//helpers
+
+void	init_struct(t_store_map *m, int fd, char *line, char **grid);
+int		is_line_empty(char *line);
+void	store_more_map(t_store_map *m);
+void	print_map(t_map *map);
+void	error_parsing(t_game *game, char *line, int fd);
 
 #endif

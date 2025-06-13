@@ -1,48 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_color_utilis.c                              :+:      :+:    :+:   */
+/*   parser_helpers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/12 10:49:18 by selango           #+#    #+#             */
-/*   Updated: 2025/06/13 16:15:40 by lgottsch         ###   ########.fr       */
+/*   Created: 2025/06/13 16:30:22 by lgottsch          #+#    #+#             */
+/*   Updated: 2025/06/13 16:32:29 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-char	*trim_whitespaces(char *str)
+void	error_parsing(t_game *game, char *line, int fd)
 {
-	char	*trimmed_value;
-
-	trimmed_value = ft_strtrim(str, " \n\t\r");
-	if (!trimmed_value)
-	{
-		return (NULL);
-	}
-	return (trimmed_value);
+	printf("Error: MAP FILE INVALID!!!\n");
+	free(line);
+	line = get_next_line(fd, 1);
+	line = NULL;
+	close (fd);
+	free_everything(game, 1);
 }
 
-int	validate_single_color(char **strs)
+void	print_map(t_map *map)
 {
-	int		i;
-	char	*trimmed;
+	int	i;
+	int	len;
 
 	i = 0;
-	while (strs[i] != 0)
+	while (i < map->map_height)
 	{
-		trimmed = trim_whitespaces(strs[i]);
-		if (!trimmed)
-			return (0);
-		else if (!str_digit(trimmed))
-		{
-			free(trimmed);
-			return (0);
-		}
-		free(strs[i]);
-		strs[i] = trimmed;
+		len = ft_strlen(map->map[i]);
+		printf("Line %2d (%2d): \"%s\"\n", i, len, map->map[i]);
 		i++;
 	}
-	return (1);
 }

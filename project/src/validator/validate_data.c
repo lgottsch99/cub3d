@@ -24,26 +24,22 @@ void	validate_texture(char *path, char *name, t_game *game)
 	{
 		printf("Path Do not exit %s", path);
 		free_everything(game, 1);
-		// exit(EXIT_FAILURE);
 	}
 	fd = open(path, O_RDONLY);
 	if (!valid_extension(path, ".xpm"))
 	{
 		printf("Path do not support %s \n", name);
 		free_everything(game, 1);
-		// exit(EXIT_FAILURE);
 	}
 	else if ((!fd))
 	{
 		printf("Cannot open the file %s %s", name, path);
 		free_everything(game, 1);
-		// exit(EXIT_FAILURE);
 	}
 	else if (close(fd) == -1)
 	{
 		printf("Cannot close the file %s", path);
 		free_everything(game, 1);
-		// exit(EXIT_FAILURE);
 	}
 	printf(" %s: %s\n", name, path);
 }
@@ -58,7 +54,6 @@ void	validate_color(t_color *color, char *side_name, t_game *game)
 	{
 		printf("Invalid color value %s", side_name);
 		exit_error("", game);
-		// exit(EXIT_FAILURE);
 	}
 	color->full_color = create_new_color(255, color->r, color->g, color->b);
 	printf("✅ %s: %d,%d,%d\n", side_name, color->r, color->g, color->b);

@@ -10,78 +10,39 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "cub3d.h"
 #include "../../includes/cub3d.h"
 
 /*trimmed ---> trim the spaces in the line.
 get the first word ---> using the id
 Get the rest of the line after the identifier----> using value
 Im USING 3 FOR str[0],str[1], null operator*/
-// void	process_line(char *line, t_game *game, char **realline)
-// {
-// 	char	*trimmed;
-// 	char	*id;
-// 	char	*value;
-// 	char	**strs;
-
-// 	trimmed = trim_whitespaces(line);
-// 	if (!trimmed || trimmed[0] == '\0')
-// 		return (free(trimmed));
-// 	id = get_word(trimmed);
-// 	if (!id)
-// 		return (free(trimmed));
-// 	value = trimmed + ft_strlen(id);
-// 	while (*value && ft_isspace(*value))
-// 		value++;
-// 	value = ft_strdup(value);
-// 	if (!value)
-// 		return (free(id), free(trimmed));
-// 	strs = process_str(id, value);
-// 	if (!strs)
-// 		return (free(id), free(trimmed), free(value));
-// 	if (init_data(strs, game) == 1) //make init data return 1 in case of error, then free everything
-// 	{
-// 		printf("error after init data\n");
-// 		free_process_line(trimmed, value, id, strs);
-// 		free(*realline);
-// 		line = NULL;
-// 		free_everything(game, 1); //exit
-// 	}
-// 	free_process_line(trimmed, value, id, strs);
-// }
-
 int	process_line(char *line, t_game *game)
 {
-	char	*trimmed;
-	char	*id;
-	char	*value;
-	char	**strs;
+	t_process_line	p;
 
-	trimmed = trim_whitespaces(line);
-	if (!trimmed || trimmed[0] == '\0')
-		return (free(trimmed), 0);
-	id = get_word(trimmed);
-	if (!id)
-		return (free(trimmed), 0);
-	value = trimmed + ft_strlen(id);
-	while (*value && ft_isspace(*value))
-		value++;
-	value = ft_strdup(value);
-	if (!value)
-		return (free(id), free(trimmed), 0);
-	strs = process_str(id, value);
-	if (!strs)
-		return (free(id), free(trimmed), free(value), 0);
-	if (init_data(strs, game) == 1)
+	p.trimmed = trim_whitespaces(line);
+	if (!p.trimmed || p.trimmed[0] == '\0')
+		return (free(p.trimmed), 0);
+	p.id = get_word(p.trimmed);
+	if (!p.id)
+		return (free(p.trimmed), 0);
+	p.value = p.trimmed + ft_strlen(p.id);
+	while (*p.value && ft_isspace(*p.value))
+		p.value++;
+	p.value = ft_strdup(p.value);
+	if (!p.value)
+		return (free(p.id), free(p.trimmed), 0);
+	p.strs = process_str(p.id, p.value);
+	if (!p.strs)
+		return (free(p.id), free(p.trimmed), free(p.value), 0);
+	if (init_data(p.strs, game) == 1)
 	{
-		printf("error after init data\n");
-		free_process_line(trimmed, value, id, strs);
-		return -1;
+		free_process_line(p.trimmed, p.value, p.id, p.strs);
+		return (-1);
 	}
-	free_process_line(trimmed, value, id, strs);
-	return 0;
+	free_process_line(p.trimmed, p.value, p.id, p.strs);
+	return (0);
 }
-
 
 char	*get_word(char *line)
 {

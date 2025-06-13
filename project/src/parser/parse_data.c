@@ -15,18 +15,6 @@
 
 #include "../../includes/cub3d.h"
 
-
-void	error_parsing(t_game *game, char *line, int fd)
-{
-	printf("MAP FILE INVALID!!!\n");
-	free(line);
-	line = get_next_line(fd, 1);
-	line = NULL;
-	close (fd);
-	free_everything(game, 1); // calls exit
-
-}
-
 /*function parse the file to the struct as we defined.
 It checks for the map first.
 if map is not valid it parses the data to the check_data function.
@@ -38,48 +26,29 @@ void	parse_data(int fd, t_game *game)
 	char	*line;
 	bool	detected_map;
 
-	detected_map = false; //setting to true once reached map 
+	detected_map = false;
 	line = get_next_line(fd, 0);
 	init_game(game);
 	while (line)
 	{
-		if (!valid_map(line)) //checking if line is only nswe10spaces
+		if (!valid_map(line))
 		{
-			// if (detected_map == true)
-			// 	error_parsing(game, line, fd);
-
 			printf("Line read: %s \n", line);
 			if (process_line(line, game) == -1)
-			{
 				error_parsing(game, line, fd);
-				// printf("MAP FILE INVALID!!!\n");
-				// free(line);
-				// line = get_next_line(fd, 1);
-				// line = NULL;
-				// close (fd);
-				// free_everything(game, 1); // calls exit
-			}
 		}
 		else
 		{
-			printf("Detected start of map.\n");
 			if (detected_map == true)
 				error_parsing(game, line, fd);
-
 			detected_map = true;
 			entire_map(fd, line, &game->map);
-
-			///if empty line->bool false (map has ended)
-			//if then afterwards any data ; error ->free
 			free(line);
-			// break;
 		}
-		free(line); // ✅ normal free
-		line = NULL;
+		free(line);
 		line = get_next_line(fd, 0);
 	}
 }
-
 
 /* function parses the texture path to the corresponding texture 
 from the map.cub*/
@@ -88,12 +57,11 @@ int	parse_texture(char *text_path, t_texture *texture, t_game *game)
 	(void) game;
 	if (texture->path)
 	{
-		// free(texture->path);
 		return (1);
 	}
 	texture->path = ft_strdup(text_path);
 	if (!texture->path)
-	{	// exit_error("Malloc failed in texture path", game);
+	{
 		return (1);
 	}
 	return (0);
@@ -113,18 +81,17 @@ int	parse_color(char *value, t_color *color)
 	strs = ft_split(value, ",");
 	if (!strs || !validate_single_color(strs))
 	{
-		printf("return after val single color\n");
 		free_2d_array(strs);
 		return (1);
 	}
 	while (strs[count])
 		count++;
 	if (count != 3)
-    {
-        free_2d_array(strs);
-        printf("Three colors required for parsing colors");
-        return(1);
-    }
+	{
+		free_2d_array(strs);
+		printf("Three colors required for parsing colors");
+		return (1);
+	}
 	assign_color(count, strs, color);
 	free_2d_array(strs);
 	return (0);
@@ -148,19 +115,5 @@ void	tab_check(char *strs, int *len)
 		}
 		else
 			i++;
-	}
-}
-
-void	print_map(t_map *map)
-{
-	int	i;
-	int	len;
-
-	i = 0;
-	while (i < map->map_height)
-	{
-		len = ft_strlen(map->map[i]);
-		printf("Line %2d (%2d): \"%s\"\n", i, len, map->map[i]);
-		i++;
 	}
 }

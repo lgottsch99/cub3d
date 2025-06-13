@@ -6,7 +6,7 @@
 #    By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 16:00:38 by lgottsch          #+#    #+#              #
-#    Updated: 2025/06/12 20:06:36 by lgottsch         ###   ########.fr        #
+#    Updated: 2025/06/13 16:31:53 by lgottsch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,12 +36,14 @@ SRC= $(SRC_DIR)/main.c \
 	$(SRC_DIR)/parser/parse_data.c \
 	$(SRC_DIR)/parser/valid_data.c \
 	$(SRC_DIR)/parser/process_line.c \
+	$(SRC_DIR)/parser/parser_helpers.c \
 	$(SRC_DIR)/utilis/free_function.c \
 	$(SRC_DIR)/utilis/parser_color_utilis.c \
 	$(SRC_DIR)/utilis/parser_utilis.c \
 	$(SRC_DIR)/utilis/is_extension_valid.c \
 	$(SRC_DIR)/utilis/validate_utilis.c \
 	$(SRC_DIR)/utilis/validate_map_utilis.c \
+	$(SRC_DIR)/utilis/store_map_helpers.c \
 	$(SRC_DIR)/validator/validate_data.c\
 	$(SRC_DIR)/validator/map_check.c \
 	$(SRC_REND_FOLDER)raycasting.c \

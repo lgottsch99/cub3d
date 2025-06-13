@@ -65,7 +65,6 @@ int	init_data(char **strs, t_game *game)
 	else if (strs[0][0] != '\n')
 	{
 		printf("Invalid identifier or bad format:\n");
-		// exit_error(strs[0], game);
 		status = 1;
 	}
 	return (status);
