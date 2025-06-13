@@ -3,7 +3,6 @@ SO ../Textures_xpm/Planet2.xpm
 EA 		../Textures_xpm/Planet3.xpm
 WE ../Textures_xpm/Planet4.xpm
 
-
 F 1,200,0
 C 4,5  ,0 
 
@@ -15,10 +14,8 @@ C 4,5  ,0
 11111	11111111				1111
 101
 101
-111
-
-
-
+11
+1111111111111111111111111111111111
 
 
 

@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:52:11 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/06/12 21:37:03 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/13 17:02:55 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,11 @@ void	init_player(t_game *game)
 		free_everything(game, 1);
 	ft_memset(game->player, '\0', sizeof(t_player));
 	y = 0;
-	while (y < game->map.map_height)
+	while (y < game->map.map_height && game->map_r[y] != NULL)
+	// while (game->map_r[y] != NULL)
 	{
 		x = 0;
-		while (x < game->map.map_width)
+		while (x < game->map.map_width && game->map_r[y][x] != '\0')
 		{
 			if (game->map_r[y][x] == 'N' || game->map_r[y][x] == 'S'
 				|| game->map_r[y][x] == 'W' || game->map_r[y][x] == 'E')

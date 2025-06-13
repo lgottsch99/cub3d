@@ -39,13 +39,17 @@ void	parse_data(int fd, t_game *game)
 		}
 		else
 		{
+					printf("in map\n");
+
 			if (detected_map == true)
 				error_parsing(game, line, fd);
 			detected_map = true;
 			entire_map(fd, line, &game->map);
-			free(line);
+			// free(line);
 		}
-		free(line);
+		printf("out of if/else\n");
+		if (line)
+			free(line);
 		line = get_next_line(fd, 0);
 	}
 }

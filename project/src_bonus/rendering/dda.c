@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:51:55 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/06/12 21:46:28 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/13 16:51:27 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	dda(t_raycast *ray, t_game *game)
 {
 	ray->map_x = (int) game->player->pos_x;
 	ray->map_y = (int) game->player->pos_y;
-	printf("in map box x: %i y: %i\n", ray->map_x, ray->map_y);
+	// printf("in map box x: %i y: %i\n", ray->map_x, ray->map_y);
 	if (ray->raydir.x == 0)
 		ray->delta_dist_x = 1e30;
 	else

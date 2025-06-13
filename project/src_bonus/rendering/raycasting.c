@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:10:57 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/06/12 21:55:57 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/06/13 16:47:28 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	game_loop(t_game *game)
 	{
 		clear_image(game);
 		raycast(game);
-		minimap(game); //
+		minimap(game);
 		mlx_put_image_to_window(game->mlx, game->window,
 			game->image->img, 0, 0);
 		*game->moved = false;
@@ -92,7 +92,7 @@ void	raycasting_main(t_game *game, bool *moved)
 {
 	init(game, moved);
 	raycast(game);
-	minimap(game); //
+	minimap(game);
 	mlx_put_image_to_window(game->mlx, game->window, game->image->img, 0, 0);
 	hooks(game);
 	mlx_loop_hook(game->mlx, game_loop, game);

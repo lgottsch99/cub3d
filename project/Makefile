@@ -6,7 +6,7 @@
 #    By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/18 16:00:38 by lgottsch          #+#    #+#              #
-#    Updated: 2025/06/13 16:45:40 by lgottsch         ###   ########.fr        #
+#    Updated: 2025/06/13 16:49:20 by lgottsch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,7 +101,6 @@ LIBFTA= $(LIBFTDIR)/libfull_libft.a
 MLXA= $(MLXDIR)/libmlx_Linux.a
 
 # rules
-
 $(NAME): libft mlx-linux
 	@ $(CC) $(CFLAGS) $(SRC) $(LIBFTA) $(MLXA) -o $(NAME) $(MLX_FLAGS_LX)
 
